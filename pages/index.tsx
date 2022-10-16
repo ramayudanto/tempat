@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "../components/Head/Header";
 import PopularRestaurant from "../components/PopularRestaurant";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
@@ -36,6 +37,7 @@ export default function Home({ restoran }: any) {
   const [search, setSearch] = useState(null);
   return (
     <>
+      <Header title="Home" />
       <Topbar />
       <SearchBar />
       <PopularRestaurant restaurants={restoran} reverse={false} />

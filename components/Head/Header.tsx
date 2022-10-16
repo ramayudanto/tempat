@@ -1,9 +1,10 @@
 import Head from "next/head";
 
-export default function Header() {
+export default function Header({ title }: any) {
   return (
     <Head>
-      <title>Home | Nomato</title>
+      <title>{title} | Nomato</title>
+      <link rel="icon" href="./logo.svg" />
     </Head>
   );
 }

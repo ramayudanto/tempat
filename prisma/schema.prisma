@@ -12,6 +12,7 @@ datasource db {
 
 model Restaurant{
   id Int @id @default(autoincrement())
+  routeName String? @unique
   name String
   description String?
   locationBroad String
