@@ -27,7 +27,6 @@ export const getServerSideProps = async (context: any) => {
 };
 
 export default function Restaurant({ restaurant }: any) {
-  console.log(restaurant);
   const { name, featureImage, location } = restaurant;
   return (
     <>

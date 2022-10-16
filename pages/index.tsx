@@ -18,6 +18,7 @@ export const getServerSideProps = async () => {
           URL: true,
         },
       },
+      routeName: true,
       rating: {
         select: {
           rate: true,
