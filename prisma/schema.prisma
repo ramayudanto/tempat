@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant{
+  id Int @id @default(autoincrement())
+  name String
+  description String?
+  locationBroad String
+  location String
+  priceRange String
+  openTime DateTime
+  closeTime DateTime
+  category Category[]
+  information Information[]
+  rating Rating[]
+  featureImage Images[]
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  categoryName String
+  restaurantId Int?
+  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+}
+
+model Information{
+  id Int @id @default(autoincrement())
+  restaurantId Int?
+  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+  smoking Boolean @default(false)
+  takeOut Boolean @default(false)
+  wifi Boolean @default(false)
+  indoorSeating Boolean @default(false)
+  prayingRoom Boolean @default(false)
+}
+
+model Rating{
+  id Int @id @default(autoincrement())
+  rate Int
+  comment String?
+  user String
+  restaurantId Int?
+  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+}
+
+model Images{
+  id Int @id @default(autoincrement())
+  URL String
+  restaurantId Int?
+  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+
+}
