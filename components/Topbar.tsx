@@ -1,11 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Topbar() {
   return (
     <div className="bg-darkRed flex justify-between items-center p-6">
-      <Image src={"/logoPutih.svg"} width="20" height={"20"} alt="logo putih" />
-      <p className="text-white text-2xl font-medium italic">Nomato</p>
+      <Link href="/">
+        <a>
+          <Image src={"/logoPutih.svg"} width="20" height={"20"} alt="logo putih" />
+        </a>
+      </Link>
+      <p className="text-white text-2xl font-medium italic select-none cursor-default">Nomato</p>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-white">
         <path
           strokeLinecap="round"

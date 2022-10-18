@@ -36,7 +36,6 @@ export const getServerSideProps = async () => {
 
 export default function Home({ restoran }: any) {
   const [search, setSearch] = useState(null);
-  console.log(restoran);
   return (
     <>
       <Header title="Home" />
