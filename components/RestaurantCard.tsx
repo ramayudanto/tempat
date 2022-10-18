@@ -33,21 +33,31 @@ export default function RestaurantCard({ restaurant }: any) {
             <p>2.0 Km</p>
           </div>
         </div>
-        <div className="px-4 py-2 space-y-0.5">
-          <div className="flex justify-between items-center">
+        <div className="px-4 py-2 space-y-1">
+          <div className="flex justify-between items-center mb-1">
             <p className="font-semibold text-darkGray">{name}</p>
             <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
               <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
             </div>
           </div>
-          {category.map((item: any, i: any) => {
-            return (
-              <p className="text-darkGray text-opacity-70 text-xs" key={i}>
-                {item.categoryName}
-              </p>
-            );
-          })}
+          <div className="flex gap-x-1">
+            {category.map((item: any, i: any, row: any) => {
+              if (i + 1 === row.length) {
+                return (
+                  <p className="text-darkGray text-opacity-70 text-xs" key={i}>
+                    {item.categoryName}
+                  </p>
+                );
+              } else {
+                return (
+                  <p className="text-darkGray text-opacity-70 text-xs" key={i}>
+                    {item.categoryName},
+                  </p>
+                );
+              }
+            })}
+          </div>
           <p className="text-darkGray text-opacity-70 text-xs">{locationBroad}</p>
           <div className="flex items-center justify-between">
             <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>

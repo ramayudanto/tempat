@@ -5,9 +5,9 @@ export default function DetailedInformation({ restaurant }: any) {
   const { name, featureImage, location } = restaurant;
   return (
     <div className="mx-5 text-darkGray">
-      <p className="font-semibold">About the restaurant</p>
-      <Image src={featureImage[0].URL} width={350} height={350} alt={name} className="rounded" />
-      <div className="flex gap-x-8">
+      <p className="font-semibold mb-2">About the restaurant</p>
+      <Image layout="responsive" src={featureImage[0].URL} width={16} height={10} alt={name} className="rounded" />
+      <div className="flex gap-x-8 mt-5">
         <div className="space-y-3">
           <div className="flex gap-x-1 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-darkGray basis-[10%]">

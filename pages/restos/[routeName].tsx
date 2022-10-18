@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Header from "../../components/Head/Header";
 import DetailedInformation from "../../components/RestaurantDetail/DetailedInformation";
 import MenuSection from "../../components/RestaurantDetail/MenuSection";

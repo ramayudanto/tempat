@@ -12,9 +12,9 @@ export const openTimeLogic = (open: any, close: any) => {
   const now = new Date();
 
   if (now.getHours() < new Date(close).getHours() && now.getMinutes() < new Date(close).getMinutes() && now.getHours() > new Date(open).getHours() && now.getMinutes() > new Date(open).getMinutes()) {
-    return "Open now";
-  } else {
     return "Closed";
+  } else {
+    return "Open now";
   }
 };
 
