@@ -22,3 +22,17 @@ export const priceLogic = (priceRange: String) => {
   const array = priceRange.split("/");
   return `Rp${Number(array[0]).toLocaleString("de-DE")} for two`;
 };
+
+export const featureLogic = (feature: String) => {
+  const splitString = feature.split(/(?=[A-Z])/);
+  // splitString.forEach((item: any) => {
+  //   item.charAt(0).toUpperCase() + item.slice(1);
+  // });
+  let name: String = "";
+  for (let i = 0; i < splitString.length; i++) {
+    // console.log(splitString[i]);
+    name += splitString[i];
+    name += " ";
+  }
+  return name;
+};

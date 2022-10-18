@@ -21,21 +21,20 @@ model Restaurant{
   openTime DateTime
   closeTime DateTime
   category Category[]
-  information Information[]
+  information Information?
   rating Rating[]
   featureImage Images[]
 }
 
 model Category{
   id Int @id @default(autoincrement())
-  categoryName String
-  restaurantId Int?
-  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+  categoryName String @unique
+  restaurant Restaurant[]
 }
 
 model Information{
   id Int @id @default(autoincrement())
-  restaurantId Int?
+  restaurantId Int @unique
   restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
   smoking Boolean @default(false)
   takeOut Boolean @default(false)

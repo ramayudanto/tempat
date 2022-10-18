@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, name, priceRange, openTime, closeTime, category, rating, locationBroad, routeName } = restaurant;
+  console.log(restaurant);
 
   const bookmarkHandler = (e: any) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ export default function RestaurantCard({ restaurant }: any) {
 
   return (
     <Link href={`/restos/${routeName}`}>
-      <a className="border-[1px] rounded-xl">
+      <a className="border-[1px] rounded-xl shadow-lg">
         <div className="bg-cover w-[274px] h-[190px] relative rounded-t-xl" style={{ backgroundImage: `url(${featureImage[0]?.URL})` }}>
           {/* <Image src={featureImage[0]?.URL} alt={name} layout="fill" objectFit={"fill"} /> */}
           <button className="w-7 h-7 flex items-center justify-center bg-white rounded-full right-4 top-2 absolute z-20" onClick={bookmarkHandler}>
