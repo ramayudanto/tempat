@@ -21,6 +21,7 @@ model Restaurant{
   openTime DateTime
   closeTime DateTime
   category Category[]
+  collection Collection[]
   information Information?
   rating Rating[]
   featureImage Images[]
@@ -29,13 +30,14 @@ model Restaurant{
 model Category{
   id Int @id @default(autoincrement())
   categoryName String @unique
+  routeName String? @unique
   restaurant Restaurant[]
 }
 
 model Information{
   id Int @id @default(autoincrement())
   restaurantId Int @unique
-  restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
+  restaurant Restaurant @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
   smoking Boolean @default(false)
   takeOut Boolean @default(false)
   wifi Boolean @default(false)
@@ -57,5 +59,11 @@ model Images{
   URL String
   restaurantId Int?
   restaurant Restaurant? @relation(fields:[restaurantId], references: [id], onDelete: Cascade)
-
+}
+model Collection{
+  id Int @id @default(autoincrement())
+  collectionName String @unique
+  routeName String? @unique
+  description String?
+  restaurant Restaurant[]
 }
