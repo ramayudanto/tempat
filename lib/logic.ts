@@ -9,18 +9,27 @@ export const ratingCounter = (rating: any) => {
 export const openTimeLogic = (open: any, close: any) => {
   //   const openHours = `${new Date(open).getHours()}${new Date(open).getMinutes()}`
   //   const closeHours = `${new Date(close).getHours()}${new Date(open).getMinutes()}`
-  const now = new Date();
+  const openTime = new Date(open);
+  const closeTime = new Date(close);
+  const nowHour = new Date().getHours();
+  const nowMin = new Date().getMinutes();
+  const nowISOFormat = new Date(`1970-01-01T${String(nowHour).length === 1 ? `0${nowHour}` : nowHour}:${nowMin}:00.000Z`);
 
-  if (now.getHours() < new Date(close).getHours() && now.getMinutes() < new Date(close).getMinutes() && now.getHours() > new Date(open).getHours() && now.getMinutes() > new Date(open).getMinutes()) {
-    return "Closed";
-  } else {
+  if (nowISOFormat > openTime && nowISOFormat < closeTime) {
     return "Open now";
+  } else {
+    return "Closed";
   }
 };
 
 export const priceLogic = (priceRange: String) => {
-  const array = priceRange.split("/");
-  return `Rp${Number(array[0]).toLocaleString("de-DE")} for two`;
+  // const array = priceRange.split("/");
+  // return `Rp${Number(array[0]).toLocaleString("de-DE")} for two`;
+  return `Rp${priceRange} for two`;
+};
+
+export const truncate = (str: String, n: number) => {
+  return str?.length > n ? str.substr(0, n - 1) + ".." : str;
 };
 
 export const featureLogic = (feature: String) => {

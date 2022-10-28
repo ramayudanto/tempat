@@ -1,6 +1,7 @@
 import Header from "../../components/Head/Header";
 import DetailedInformation from "../../components/RestaurantDetail/DetailedInformation";
 import MenuSection from "../../components/RestaurantDetail/MenuSection";
+import RatingSection from "../../components/RestaurantDetail/RatingSection";
 import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeature";
 import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader";
 import TopButtons from "../../components/RestaurantDetail/TopButtons";
@@ -36,8 +37,7 @@ export const getServerSideProps = async (context: any) => {
 };
 
 export default function Restaurant({ restaurant }: any) {
-  const { name, information } = restaurant;
-  console.log(restaurant);
+  const { name, information, rating } = restaurant;
   return (
     <>
       <Header title={name} />
@@ -54,8 +54,9 @@ export default function Restaurant({ restaurant }: any) {
       <hr className="border-4 my-4" />
       <MenuSection restaurant={restaurant} />
       <hr className="border-4 my-4" />
-      <RestaurantFeature information={information} />
+      {information && <RestaurantFeature information={information} />}
       <hr className="border-4 my-4" />
+      {rating && <RatingSection rating={rating} />}
     </>
   );
 }

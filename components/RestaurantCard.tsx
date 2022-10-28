@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { openTimeLogic, priceLogic, ratingCounter } from "../lib/logic";
+import { openTimeLogic, priceLogic, ratingCounter, truncate } from "../lib/logic";
 import Link from "next/link";
 
 export default function RestaurantCard({ restaurant }: any) {
@@ -34,7 +34,7 @@ export default function RestaurantCard({ restaurant }: any) {
         </div>
         <div className="px-4 py-2 space-y-1">
           <div className="flex justify-between items-center mb-1">
-            <p className="font-semibold text-darkGray">{name}</p>
+            <p className="font-semibold text-darkGray">{truncate(name, 21)}</p>
             <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
               <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
@@ -57,7 +57,7 @@ export default function RestaurantCard({ restaurant }: any) {
               }
             })}
           </div>
-          <p className="text-darkGray text-opacity-70 text-xs">{locationBroad}</p>
+          <p className="text-darkGray text-opacity-70 text-xs">{truncate(locationBroad, 40)}</p>
           <div className="flex items-center justify-between">
             <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>
             <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p>
