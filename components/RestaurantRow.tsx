@@ -5,7 +5,7 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
   const [data, setData] = useState<any[]>(restaurants || []);
 
   const fetchData = async () => {
-    const data = await (await fetch(`http://localhost:3000/api/getRestaurant?category=${search}`)).json();
+    const data = await (await fetch(`${window.location.href}/api/getRestaurant?category=${search}`)).json();
     setData(data.restaurant);
   };
 
