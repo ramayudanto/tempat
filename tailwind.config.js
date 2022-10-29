@@ -10,6 +10,20 @@ module.exports = {
         darkGray: "#333333",
         lightGray: "#D9D9D9",
       },
+      keyframes: {
+        loading: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(50%)" },
+        },
+        fadeInToast: {
+          "0%": { opacity: 0, transform: "translateY(-70%)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        loader: "loading 1s infinite",
+        fadeToast: "fadeInToast 0.3s",
+      },
     },
   },
   plugins: [],

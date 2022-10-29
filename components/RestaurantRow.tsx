@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
+import SkeletonCardRow from "./Skeleton/SkeletonCardRow";
 
 export default function RestaurantRow({ restaurants, title, search }: any) {
   const [data, setData] = useState<any[]>(restaurants || []);
 
   const fetchData = async () => {
-    const data = await (await fetch(`${window.location.href}/api/getRestaurant?category=${search}`)).json();
+    const data = await (await fetch(`${window.location.origin}/api/getRestaurant?category=${search}`)).json();
     setData(data.restaurant);
   };
 
@@ -16,9 +17,7 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
   }, []);
 
   return data.length == 0 ? (
-    <div className="mx-5 text-darkGray">
-      <p>Loading</p>
-    </div>
+    <SkeletonCardRow />
   ) : (
     <div className="mx-5 mb-5 text-darkGray">
       <div className="flex justify-between mb-2 items-center">

@@ -3,13 +3,13 @@ import React from "react";
 import { openTimeLogic } from "../../lib/logic";
 
 export default function DetailedInformation({ restaurant }: any) {
-  const { name, featureImage, location, closeTime, openTime } = restaurant;
+  const { name, featureImage, location, closeTime, openTime, category, priceRange } = restaurant;
   return (
     <div className="mx-5 text-darkGray">
       <p className="font-semibold mb-2">About the restaurant</p>
       <Image layout="responsive" src={featureImage[0].URL} width={16} height={10} alt={name} className="rounded" />
       <div className="flex gap-x-8 mt-5">
-        <div className="space-y-3">
+        <div className="space-y-3 basis-[80%]">
           <div className="flex gap-x-1 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-darkGray basis-[10%]">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -24,20 +24,37 @@ export default function DetailedInformation({ restaurant }: any) {
                 d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <p>Rp</p>
+            <p>Rp{priceRange} for two</p>
           </div>
           <div className="flex gap-x-1 items-center">
             <div className="basis-[10%] w-[20px] h-[20px] relative">
               <Image src={"/foodIcon.svg"} layout="fill" alt="foodIcon" />
             </div>
-            <p>Serves </p>
+            <div className="flex items-center space-x-1">
+              <p>Serves</p>
+              {category.map((item: any, i: any, row: any) => {
+                if (i + 1 === row.length) {
+                  return (
+                    <p className="text-darkGray lowercase" key={i}>
+                      {item.categoryName}
+                    </p>
+                  );
+                } else {
+                  return (
+                    <p className="text-darkGray lowercase" key={i}>
+                      {item.categoryName},
+                    </p>
+                  );
+                }
+              })}
+            </div>
           </div>
           <div className="flex gap-x-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-darkGray basis-[10%]">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
             </svg>
-            <p className="text-sm basis-[90%] text-justify">{location}</p>
+            <p className="basis-[90%] text-justify">{location}</p>
           </div>
         </div>
         <div className="flex flex-col justify-evenly">

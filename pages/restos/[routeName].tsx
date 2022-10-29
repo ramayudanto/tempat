@@ -1,7 +1,8 @@
+import { useRef } from "react";
 import Header from "../../components/Head/Header";
 import DetailedInformation from "../../components/RestaurantDetail/DetailedInformation";
 import MenuSection from "../../components/RestaurantDetail/MenuSection";
-import RatingSection from "../../components/RestaurantDetail/RatingSection";
+import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
 import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeature";
 import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader";
 import TopButtons from "../../components/RestaurantDetail/TopButtons";
@@ -37,7 +38,8 @@ export const getServerSideProps = async (context: any) => {
 };
 
 export default function Restaurant({ restaurant }: any) {
-  const { name, information, rating } = restaurant;
+  const { name, information, rating, id } = restaurant;
+  const ratingDivRef = useRef<HTMLDivElement>(null);
   return (
     <>
       <Header title={name} />
@@ -45,7 +47,18 @@ export default function Restaurant({ restaurant }: any) {
         <TopButtons />
         <RestaurantHeader restaurant={restaurant} />
         <div className="flex justify-between">
-          <button className="text-white border-darkRed border-2 bg-darkRed px-12 py-3 rounded">REVIEWS</button>
+          <button
+            className="text-white border-darkRed border-2 bg-darkRed px-12 py-3 rounded"
+            onClick={() => {
+              ratingDivRef?.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "start",
+              });
+            }}
+          >
+            REVIEWS
+          </button>
           <button className="text-darkGray border-darkRed border-2 px-12 py-3 rounded">Photos</button>
         </div>
       </div>
@@ -53,10 +66,14 @@ export default function Restaurant({ restaurant }: any) {
       <DetailedInformation restaurant={restaurant} />
       <hr className="border-4 my-4" />
       <MenuSection restaurant={restaurant} />
+      {information && (
+        <>
+          <hr className="border-4 my-4" />
+          <RestaurantFeature information={information} />
+        </>
+      )}
       <hr className="border-4 my-4" />
-      {information && <RestaurantFeature information={information} />}
-      <hr className="border-4 my-4" />
-      {rating && <RatingSection rating={rating} />}
+      {rating && <RatingSection divRef={ratingDivRef} rating={rating} restaurantId={id} />}
     </>
   );
 }
