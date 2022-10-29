@@ -1,6 +1,6 @@
 import { useImperativeHandle, useState, forwardRef } from "react";
 
-const Toast = forwardRef<any>(function Inside({ message }: any, ref: any) {
+const Toast = forwardRef(function Inside({ message }: any, ref: any) {
   const [show, setShow] = useState(false);
 
   useImperativeHandle(ref, () => ({
