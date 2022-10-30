@@ -1,12 +1,12 @@
 import Image from "next/image";
-import React from "react";
+import React, { FormEvent } from "react";
 import { openTimeLogic, priceLogic, ratingCounter, truncate } from "../lib/logic";
 import Link from "next/link";
 
 export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, name, priceRange, openTime, closeTime, category, rating, locationBroad, routeName } = restaurant;
 
-  const bookmarkHandler = (e: any) => {
+  const bookmarkHandler = (e: FormEvent) => {
     e.preventDefault();
     const currentBookmark = JSON.parse(localStorage.getItem("favouritePlace") || "[]");
     if (!currentBookmark) {

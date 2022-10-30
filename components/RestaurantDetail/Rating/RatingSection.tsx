@@ -31,7 +31,7 @@ export default function RatingSection({ divRef, rating, restaurantId }: any) {
             onClick={() => {
               setIsOpen(true);
             }}
-            className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
+            className={`text-darkRed animate-fade cursor-pointer text-center border-t-2 mt-10 pt-2`}
           >
             Write a review
           </p>

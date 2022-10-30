@@ -9,30 +9,38 @@ export default function CreateRating({ cancel, restaurantId }: any) {
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
   const toastRef = useRef<any>(null);
+
   const submitRating = (e: FormEvent) => {
     e.preventDefault();
     if (!currentRate) return;
-    fetch(`${window.location.origin}/api/postReview`, {
-      body: JSON.stringify({
-        restaurantId,
-        rate: Number(currentRate),
-        user: userNameRef.current!.value,
-        comment: commentRef.current!.value,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    }).then(() => {
-      toastRef.current!.show();
+    toastRef.current!.show();
+    fetch("https://dummyjson.com/products/1").then(() => {
       setCurrentRate(null);
       commentRef.current!.value = "";
       userNameRef.current!.value = "";
-      cancel();
+      // cancel();
     });
+    // fetch(`${window.location.origin}/api/postReview`, {
+    //   body: JSON.stringify({
+    //     restaurantId,
+    //     rate: Number(currentRate),
+    //     user: userNameRef.current!.value,
+    //     comment: commentRef.current!.value,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: "POST",
+    // }).then(() => {
+    //   toastRef.current!.show();
+    //   setCurrentRate(null);
+    //   commentRef.current!.value = "";
+    //   userNameRef.current!.value = "";
+    //   cancel();
+    // });
   };
   return (
-    <div className="mt-10">
+    <div className="mt-10 animate-fade">
       <div className="flex space-x-1 mb-2">
         {stars.map((item: any, i: number) => {
           return (

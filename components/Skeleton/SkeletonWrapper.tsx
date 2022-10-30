@@ -3,7 +3,7 @@ import Shimmer from "./Shimmer";
 export default function SkeletonWrapper({ type }: any) {
   const getClass = (type: String) => {
     if (type === "card") {
-      return "w-72 h-52";
+      return "w-[274px] h-[190px]";
     }
     if (type === "header") {
       return "w-[60%] h-4";
