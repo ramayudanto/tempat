@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "../components/Head/Header";
+import Navbar from "../components/Navbar/Navbar";
 import RestaurantRow from "../components/RestaurantRow";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
@@ -55,6 +56,7 @@ export default function Home({ restoran }: any) {
       <RestaurantRow search="Coffee" title={"Coffee to brighten up your day"} />
       <RestaurantRow search="Japanese" title={"Japanese"} />
       <RestaurantRow search="Italian" title={"Italian"} />
+      <Navbar />
     </>
   );
 }

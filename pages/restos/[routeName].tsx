@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import Header from "../../components/Head/Header";
+import Navbar from "../../components/Navbar/Navbar";
 import DetailedInformation from "../../components/RestaurantDetail/DetailedInformation";
 import MenuSection from "../../components/RestaurantDetail/MenuSection";
 import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
@@ -74,6 +75,7 @@ export default function Restaurant({ restaurant }: any) {
       )}
       <hr className="border-4 my-4" />
       {rating && <RatingSection divRef={ratingDivRef} rating={rating} restaurantId={id} />}
+      <Navbar />
     </>
   );
 }

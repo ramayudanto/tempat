@@ -3,6 +3,7 @@ import CategoryCard from "../../components/CategoryPage/CategoryCard";
 import CategoryHero from "../../components/CategoryPage/CategoryHero";
 import CategoryTopBar from "../../components/CategoryPage/CategoryTopBar";
 import Header from "../../components/Head/Header";
+import Navbar from "../../components/Navbar/Navbar";
 import { prisma } from "../../lib/prisma";
 
 export const getServerSideProps = async (context: any) => {
@@ -50,6 +51,7 @@ export default function Category({ category }: any) {
           }
         })}
       </div>
+      <Navbar />
     </>
   );
 }

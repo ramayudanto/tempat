@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Topbar() {
   return (
-    <div className="bg-darkRed flex justify-between items-center p-6">
+    <div className="bg-darkRed flex justify-between items-center py-4 px-5">
       <Link href="/">
         <a>
           <Image src={"/logoPutih.svg"} width="20" height={"20"} alt="logo putih" />
