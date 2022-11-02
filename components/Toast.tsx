@@ -8,7 +8,7 @@ const Toast = forwardRef(function Inside({ message }: any, ref: any) {
       setShow(true);
       setTimeout(() => {
         setShow(false);
-      }, 3000);
+      }, 1000);
     },
   }));
 

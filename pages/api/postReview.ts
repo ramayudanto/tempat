@@ -3,14 +3,22 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../lib/prisma";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { rate, restaurantId, user, comment } = req.body;
+  const { rate, restaurantId, email, comment } = req.body;
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
   if (comment.length !== 0) {
     try {
       await prisma.rating.create({
         data: {
           rate,
           restaurantId,
-          user,
+          userId: user?.id,
           comment,
         },
       });
@@ -25,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: {
           rate,
           restaurantId,
-          user,
+          userId: user?.id,
         },
       });
       res.send("success");

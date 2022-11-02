@@ -1,19 +1,17 @@
+import Image from "next/image";
+
 export default function RatingCard({ item }: any) {
   const { rate, comment, user } = item;
   return (
     <div className="border-[1px] p-3 rounded-lg">
-      <div className="flex items-center space-x-7">
-        <div className="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-lightGray">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
+      <div className="flex items-center space-x-7 mb-2">
+        <div className="flex items-center gap-x-2 justify-center min-w-max">
+          <div className="w-10 h-10 relative rounded-full overflow-hidden self-start">
+            <Image src={user?.image} layout="fill" alt={user.name} objectFit="cover" />
+          </div>
           <div className="flex flex-col -space-y-1">
-            <p className="font-semibold text-darkGray">{user}</p>
-            <p>0 follower</p>
+            <p className="font-semibold text-darkGray">{user.name}</p>
+            <p className="text-darkGray text-opacity-70">0 follower</p>
           </div>
         </div>
         <div className="bg-green px-3 py-2 rounded flex font-semibold text-white items-center space-x-1">

@@ -8,8 +8,8 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
   const router = useRouter();
 
   const fetchData = async () => {
-    const data = await (await fetch(`${window.location.origin}/api/getRestaurant?category=${search}`)).json();
-    setData(data.restaurant);
+    const res = await (await fetch(`${window.location.origin}/api/getCategories?category=${search}`)).json();
+    setData(res);
   };
 
   useEffect(() => {
@@ -17,6 +17,8 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // return <></>;
 
   return data.length == 0 ? (
     <SkeletonCardRow />

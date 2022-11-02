@@ -5,8 +5,11 @@ import RestaurantRow from "../components/RestaurantRow";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
+import { useSession } from "next-auth/react";
 
 export const getServerSideProps = async () => {
+  const count = await prisma.restaurant.count();
+  const skip = Math.floor(Math.random() * count);
   const restoran = await prisma.restaurant.findMany({
     select: {
       name: true,
@@ -32,21 +35,14 @@ export const getServerSideProps = async () => {
       },
     },
     take: 10,
+    skip,
   });
   return { props: { restoran: JSON.parse(JSON.stringify(restoran)) } };
 };
 
 export default function Home({ restoran }: any) {
   const [search, setSearch] = useState(null);
-  // const [coffeeShop, setCoffeeShop] = useState<any[]>([]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await (await fetch("http://localhost:3000/api/getRestaurant?category=Coffee")).json();
-  //     setCoffeeShop(data.restaurant);
-  //   };
-  //   fetchData();
-  // }, []);
   return (
     <>
       <Header title="Home" />

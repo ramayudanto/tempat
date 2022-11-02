@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ReviewContext } from "../../../pages/restos/[routeName]";
 import CreateRating from "./CreateRating";
 import RatingCard from "./RatingCard";
 
-export default function RatingSection({ divRef, rating, restaurantId }: any) {
+export default function RatingSection({ divRef, restaurant }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { reviews } = useContext(ReviewContext);
   return (
     <div className="mx-5 mb-96 text-darkGray" ref={divRef}>
       <div className="flex justify-between items-center">
@@ -12,31 +14,28 @@ export default function RatingSection({ divRef, rating, restaurantId }: any) {
       </div>
       <p className="text-sm my-3">RECENT REVIEWS</p>
       <div className="flex space-x-4 overflow-x-scroll">
-        {rating.map((item: any, i: number) => {
+        {reviews.map((item: any, i: number) => {
           return <RatingCard key={i} item={item} />;
         })}
       </div>
-      {isOpen ? (
+      {isOpen && (
         <>
           <CreateRating
             cancel={() => {
               setIsOpen(false);
             }}
-            restaurantId={restaurantId}
+            restaurant={restaurant}
           />
         </>
-      ) : (
-        <>
-          <p
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            className={`text-darkRed animate-fade cursor-pointer text-center border-t-2 mt-10 pt-2`}
-          >
-            Write a review
-          </p>
-        </>
       )}
+      <p
+        onClick={() => {
+          setIsOpen(true);
+        }}
+        className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
+      >
+        Write a review
+      </p>
     </div>
   );
 }

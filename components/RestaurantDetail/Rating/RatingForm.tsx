@@ -1,13 +1,32 @@
-import React from "react";
+import React, { FormEvent, useState } from "react";
+import LoginPage from "../../login/LoginPage";
 
-export default function RatingForm({ userNameRef, commentRef, submitRating }: any) {
+export default function RatingForm({ commentRef, submitRating, session }: any) {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (session) {
+      submitRating();
+    } else {
+      setIsLoginOpen(true);
+    }
+  };
   return (
-    <form className="rounded-md flex flex-col justify-between items-start space-y-2" onSubmit={submitRating}>
-      <input type="text" placeholder="name" className="p-1 outline-none rounded-md resize-y w-[70%] border-2" required ref={userNameRef} spellCheck={false} />
-      <textarea placeholder="Enter a comment!" className="pl-1 outline-none rounded-md resize-y w-[70%] border-2" ref={commentRef} spellCheck={false} rows={2} />
-      <button className="border-[1px] bg-darkRed p-2 rounded-md text-white font-semibold" type="submit">
-        Post review
-      </button>
-    </form>
+    <>
+      <form className="rounded-md" onSubmit={onSubmit}>
+        <p className="font-semibold mb-2">Ceritain dong pengalaman kamu tadi</p>
+        <textarea placeholder="Makannya enak, pelayannya oke, tapi berisik aja musiknya" className="outline-none rounded-md w-full p-4 border-2" ref={commentRef} spellCheck={false} />
+        <button className=" bg-darkRed w-full py-3 rounded mt-5 text-white" type="submit">
+          Kirim review
+        </button>
+      </form>
+      {isLoginOpen && (
+        <LoginPage
+          closeLogin={() => {
+            setIsLoginOpen(false);
+          }}
+        />
+      )}
+    </>
   );
 }
