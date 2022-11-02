@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <div className="fixed z-20 md:hidden bg-white text-darkGray text-opacity-70 bottom-0 w-screen flex justify-around text-sm py-2 min-w-fit">
       <Home route={router.asPath} />
-      {session && <Bookmark />}
+      {session && <Bookmark route={router.asPath} />}
       <Search />
       <Maps />
       <User

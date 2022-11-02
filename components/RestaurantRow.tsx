@@ -18,8 +18,6 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // return <></>;
-
   return data.length == 0 ? (
     <SkeletonCardRow />
   ) : (

@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { truncate } from "../../../lib/logic";
 
 export default function RatingCard({ item }: any) {
   const { rate, comment, user } = item;
   return (
-    <div className="border-[1px] p-3 rounded-lg">
-      <div className="flex items-center space-x-7 mb-2">
+    <div className="border-[1px] p-3 rounded-lg self-start">
+      <div className="flex items-center space-x-7 mb-2 justify-between">
         <div className="flex items-center gap-x-2 justify-center min-w-max">
           <div className="w-10 h-10 relative rounded-full overflow-hidden self-start">
             <Image src={user?.image} layout="fill" alt={user.name} objectFit="cover" />
@@ -24,7 +25,7 @@ export default function RatingCard({ item }: any) {
           </svg>
         </div>
       </div>
-      <p className="ml-2">{comment}</p>
+      <p className="ml-2">{truncate(comment, 80)}</p>
     </div>
   );
 }

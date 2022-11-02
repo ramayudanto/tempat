@@ -1,21 +1,20 @@
-import { useContext, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import Toast from "../../Toast";
 import RatingForm from "./RatingForm";
-import { useSession } from "next-auth/react";
 import Backdrop from "../../login/Backdrop";
 import { ReviewContext } from "../../../pages/restos/[routeName]";
 
 const stars = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
-export default function CreateRating({ cancel, restaurant }: any) {
+export default function CreateRating({ cancel, restaurant, session }: any) {
   const { id: restaurantId, name, locationBroad } = restaurant;
   const [currentRate, setCurrentRate] = useState(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const toastRef = useRef<any>(null);
-  const { data: session } = useSession();
   const { setReviews } = useContext(ReviewContext);
 
-  const submitRating = () => {
+  const submitRating = (e: FormEvent) => {
+    e.preventDefault();
     if (!currentRate) return;
     toastRef.current!.show();
     // fetch("https://dummyjson.com/products/1").then(() => {

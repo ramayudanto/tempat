@@ -22,6 +22,7 @@ model Restaurant {
   rating        Rating[]
   category      Category[]
   Collection    Collection[]
+  userBookmark User[]
 }
 
 model Category {
@@ -103,6 +104,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   rating Rating[]
+  bookmark Restaurant[]
 }
 
 model VerificationToken {

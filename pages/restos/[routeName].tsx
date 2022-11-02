@@ -81,13 +81,9 @@ export default function Restaurant({ restaurant }: any) {
         </>
       )}
       <hr className="border-4 my-4" />
-      {rating && (
-        <>
-          <ReviewContext.Provider value={{ reviews, setReviews }}>
-            <RatingSection divRef={ratingDivRef} restaurant={restaurant} />
-          </ReviewContext.Provider>
-        </>
-      )}
+      <ReviewContext.Provider value={{ reviews, setReviews }}>
+        <RatingSection divRef={ratingDivRef} restaurant={restaurant} />
+      </ReviewContext.Provider>
       <Navbar />
     </>
   );

@@ -12,9 +12,5 @@ export default function SkeletonWrapper({ type }: any) {
       return "w-[10%] h-4";
     }
   };
-  return (
-    <div className={`bg-[#ddd] mx-4 rounded-lg my-2 relative ${getClass(type)}`}>
-      <Shimmer />
-    </div>
-  );
+  return <div className={`bg-[#ddd] mx-4 shrink-0 rounded-lg my-2 relative ${getClass(type)}`}>{<Shimmer />}</div>;
 }

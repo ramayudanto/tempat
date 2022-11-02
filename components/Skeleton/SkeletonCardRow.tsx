@@ -7,8 +7,8 @@ export default function SkeletonCardRow() {
         <SkeletonWrapper type={"header"} />
         <SkeletonWrapper type={"button"} />
       </div>
-      <div className="flex gap-4 overflow-x-scroll">
-        {[1, 2, 3, 4].map((item: any) => {
+      <div className="flex justify-start overflow-x-scroll">
+        {[1, 2, 3, 4, 5].map((item: any) => {
           return <SkeletonWrapper type={"card"} key={item} />;
         })}
       </div>

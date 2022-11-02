@@ -2,10 +2,14 @@ import { useContext, useState } from "react";
 import { ReviewContext } from "../../../pages/restos/[routeName]";
 import CreateRating from "./CreateRating";
 import RatingCard from "./RatingCard";
+import { useSession } from "next-auth/react";
+import LoginPage from "../../login/LoginPage";
 
 export default function RatingSection({ divRef, restaurant }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const { reviews } = useContext(ReviewContext);
+  const { data: session } = useSession();
   return (
     <div className="mx-5 mb-96 text-darkGray" ref={divRef}>
       <div className="flex justify-between items-center">
@@ -25,12 +29,20 @@ export default function RatingSection({ divRef, restaurant }: any) {
               setIsOpen(false);
             }}
             restaurant={restaurant}
+            session={session}
           />
         </>
       )}
+      {isLoginOpen && (
+        <LoginPage
+          closeLogin={() => {
+            setIsLoginOpen(false);
+          }}
+        />
+      )}
       <p
         onClick={() => {
-          setIsOpen(true);
+          session ? setIsOpen(true) : setIsLoginOpen(true);
         }}
         className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
       >
