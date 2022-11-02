@@ -41,8 +41,7 @@ export const getServerSideProps = async (context: any) => {
   return { props: { bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)), session } };
 };
 
-export default function bookmark({ bookmarks, session }: any) {
-  console.log(session);
+export default function bookmark({ bookmarks }: any) {
   return (
     <>
       <Header title="Bookmark" />
