@@ -6,8 +6,9 @@ import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
 import { useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const count = await prisma.restaurant.count();
   const skip = Math.floor(Math.random() * count);
   const restoran = await prisma.restaurant.findMany({

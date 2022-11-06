@@ -3,11 +3,10 @@ import Header from "../components/Head/Header";
 import { prisma } from "../lib/prisma";
 import { getSession } from "next-auth/react";
 import Navbar from "../components/Navbar/Navbar";
-import CategoryHero from "../components/CategoryPage/CategoryHero";
-import CategoryCard from "../components/CategoryPage/CategoryCard";
 import BookmarkCard from "../components/Bookmark/BookmarkCard";
+import { GetServerSideProps } from "next";
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
   if (!session) {
     return {
@@ -38,7 +37,7 @@ export const getServerSideProps = async (context: any) => {
       },
     },
   });
-  return { props: { bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)), session } };
+  return { props: { bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)) } };
 };
 
 export default function bookmark({ bookmarks }: any) {
@@ -46,7 +45,7 @@ export default function bookmark({ bookmarks }: any) {
     <>
       <Header title="Bookmark" />
       {/* <CategoryHero name="bookmark" /> */}
-      <div className="mx-4 mt-10 pb-20 grid grid-cols-2 gap-2">
+      <div className="mx-4 mt-10 pb-20 grid grid-cols-2 gap-2 xl:grid-cols-4">
         {bookmarks.map((bookmark: any, i: any) => {
           return <BookmarkCard key={i} restaurant={bookmark} />;
         })}

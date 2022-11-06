@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
 import { prisma } from "../../lib/prisma";
 
 function getMultipleRandom(arr: any, num: number) {
@@ -34,5 +33,4 @@ export default async function handler(req: any, res: NextApiResponse) {
   } catch (e) {
     console.log(e);
   }
-  //   console.log(array);
 }

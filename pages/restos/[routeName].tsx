@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next";
 import { createContext, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
@@ -9,7 +10,7 @@ import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader
 import TopButtons from "../../components/RestaurantDetail/TopButtons";
 import { prisma } from "../../lib/prisma";
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { routeName } = context.params;
   const restoran = await prisma.restaurant.findUnique({
     where: {
