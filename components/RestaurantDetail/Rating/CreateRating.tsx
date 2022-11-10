@@ -47,10 +47,10 @@ export default function CreateRating({ cancel, restaurant, session }: any) {
       ]);
       setTimeout(() => {
         cancel();
-        toastRef.current!.show();
+        // toastRef.current!.show();
         setCurrentRate(null);
         commentRef.current!.value = "";
-      }, 1000);
+      }, 900);
     });
   };
   return (

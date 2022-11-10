@@ -1,3 +1,4 @@
+import { unstable_getServerSession } from "next-auth";
 import { useRef } from "react";
 import CategoryCard from "../../components/CategoryPage/CategoryCard";
 import CategoryHero from "../../components/CategoryPage/CategoryHero";
@@ -5,8 +6,10 @@ import CategoryTopBar from "../../components/CategoryPage/CategoryTopBar";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import { prisma } from "../../lib/prisma";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps = async (context: any) => {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
   const { categoryName } = context.params;
   const category = await prisma.category.findUnique({
     where: {
@@ -31,12 +34,12 @@ export const getServerSideProps = async (context: any) => {
       notFound: true,
     };
   }
-  return { props: { category: JSON.parse(JSON.stringify(category)) } };
+  return { props: { user: session?.user, category: JSON.parse(JSON.stringify(category)) } };
 };
 
-export default function Category({ category }: any) {
+export default function Category({ category, user }: any) {
   const { categoryName, restaurant: restaurants } = category;
-  console.log(restaurants[0]);
+  // console.log(restaurants[0]);
   return (
     <>
       <Header title={categoryName} />
@@ -51,7 +54,7 @@ export default function Category({ category }: any) {
           }
         })}
       </div>
-      <Navbar />
+      <Navbar user={user} />
     </>
   );
 }

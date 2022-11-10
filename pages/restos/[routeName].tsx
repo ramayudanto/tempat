@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import { unstable_getServerSession } from "next-auth";
 import { createContext, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
@@ -9,8 +10,10 @@ import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeatu
 import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader";
 import TopButtons from "../../components/RestaurantDetail/TopButtons";
 import { prisma } from "../../lib/prisma";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
   const { routeName } = context.params;
   const restoran = await prisma.restaurant.findUnique({
     where: {
@@ -40,12 +43,12 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       notFound: true,
     };
   }
-  return { props: { restaurant: JSON.parse(JSON.stringify(restoran)) } };
+  return { props: { user: session?.user || null, restaurant: JSON.parse(JSON.stringify(restoran)) } };
 };
 
 export const ReviewContext = createContext(null as any);
 
-export default function Restaurant({ restaurant }: any) {
+export default function Restaurant({ restaurant, user }: any) {
   const { name, information, rating } = restaurant;
   const [reviews, setReviews] = useState<any[]>(rating);
   const ratingDivRef = useRef<HTMLDivElement>(null);
@@ -83,9 +86,9 @@ export default function Restaurant({ restaurant }: any) {
       )}
       <hr className="border-4 my-4" />
       <ReviewContext.Provider value={{ reviews, setReviews }}>
-        <RatingSection divRef={ratingDivRef} restaurant={restaurant} />
+        <RatingSection user={user} divRef={ratingDivRef} restaurant={restaurant} />
       </ReviewContext.Provider>
-      <Navbar />
+      <Navbar user={user} />
     </>
   );
 }

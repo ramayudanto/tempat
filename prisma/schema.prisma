@@ -100,7 +100,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image         String?
+  image         String @default("https://ramayudanto.com/wp-content/uploads/2022/11/Profile-picture-3.png")
   username String? @unique
   accounts      Account[]
   sessions      Session[]

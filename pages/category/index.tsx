@@ -1,3 +1,5 @@
+import { GetServerSideProps } from "next";
+import { unstable_getServerSession } from "next-auth";
 import Link from "next/link";
 import { useRef } from "react";
 import CategoryCard from "../../components/CategoryPage/CategoryCard";
@@ -7,8 +9,10 @@ import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import Topbar from "../../components/Topbar";
 import { prisma } from "../../lib/prisma";
+import { authOptions } from "../api/auth/[...nextauth]";
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions);
   const categories = await prisma.category.findMany({
     include: {
       restaurant: {
@@ -29,12 +33,12 @@ export const getServerSideProps = async () => {
       notFound: true,
     };
   }
-  return { props: { categories: JSON.parse(JSON.stringify(categories)) } };
+  return { props: { user: session?.user, categories: JSON.parse(JSON.stringify(categories)) } };
 };
 
-export default function Categories({ categories }: any) {
+export default function Categories({ categories, user }: any) {
   const { categoryName, restaurant: restaurants } = categories;
-  console.log(categories);
+  // console.log(categories);
   return (
     <>
       <Header title={"Categories"} />
@@ -57,7 +61,7 @@ export default function Categories({ categories }: any) {
           );
         })}
       </div>
-      <Navbar />
+      <Navbar user={user} />
     </>
   );
 }
