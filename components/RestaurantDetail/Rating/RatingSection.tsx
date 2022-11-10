@@ -5,12 +5,14 @@ import RatingCard from "./RatingCard";
 import { useSession } from "next-auth/react";
 import LoginPage from "../../login/LoginPage";
 import Verify from "../../verify/Verify";
+import { useRouter } from "next/router";
 
 export default function RatingSection({ user, divRef, restaurant }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVerifyOpen, setVerifyIsOpen] = useState<boolean>(false);
   const { reviews } = useContext(ReviewContext);
   const { data: session } = useSession();
+  const router = useRouter();
   return (
     <div className="mx-5 mb-96 text-darkGray" ref={divRef}>
       <div className="flex justify-between items-center">
@@ -36,10 +38,14 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
       )}
       <p
         onClick={() => {
-          if (user.name) {
-            setIsOpen(true);
+          if (!user) {
+            router.push("/login");
           } else {
-            setVerifyIsOpen(true);
+            if (user.name) {
+              setIsOpen(true);
+            } else {
+              setVerifyIsOpen(true);
+            }
           }
         }}
         className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
