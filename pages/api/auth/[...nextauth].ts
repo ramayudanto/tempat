@@ -114,7 +114,7 @@ function html(params: { newURL: any; host: any; theme: any }) {
     <td align="center" style="padding: 20px 0;">
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td align="center" style="border-radius: 5px;" bgcolor="#952525"><a href="${encodeURIComponent(newURL)}"
+          <td align="center" style="border-radius: 5px;" bgcolor="#952525"><a href="${newURL}"
               target="_blank"
               style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: white; text-decoration: none; border-radius: 5px; padding: 10px 20px; display: inline-block; font-weight: bold;">Masuk</a></td>
         </tr>
