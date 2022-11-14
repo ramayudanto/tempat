@@ -30,7 +30,9 @@ jobs:
           script: |
             cd ~/nomato
             git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm install
             cp ../nomato-env/.env .
             npm run build
-            pm2 restart nomato-frontend
+            pm2 restart nomato-v2
