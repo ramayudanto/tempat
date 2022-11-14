@@ -14,7 +14,7 @@ export default function LoginPage({ closeLogin }: any) {
   const emailSubmit = (e: FormEvent) => {
     e.preventDefault();
     const email = loginInput.current!.value;
-    signIn("email", { email, callbackUrl: window.location.origin, redirect: false });
+    signIn("email", { email, callbackUrl: process.env.NEXT_PUBLIC_API_URL, redirect: false });
     router.push("/login?success=true", undefined, { shallow: true });
   };
   if (router.query.success) {

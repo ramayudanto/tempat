@@ -22,7 +22,7 @@ export default function CreateRating({ cancel, restaurant, session }: any) {
     //   commentRef.current!.value = "";
     //   // cancel();
     // });
-    fetch(`${window.location.origin}/api/postReview`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
       body: JSON.stringify({
         restaurantId,
         rate: Number(currentRate),

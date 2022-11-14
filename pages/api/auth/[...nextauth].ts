@@ -6,6 +6,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
+import { URLSearchParams } from "url";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -25,15 +26,20 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_SERVER_USER,
       async sendVerificationRequest(params) {
         const { identifier, url, provider, theme } = params;
-        const { host } = new URL(url);
+        // console.log("url: " + url);
+        const oldurl = new URL(url);
+        const host = process.env.NEXT_PUBLIC_API_URL!;
+        const newURL = decodeURIComponent(String(oldurl)).replaceAll("http://localhost:3000", process.env.NEXT_PUBLIC_API_URL!);
+
+        console.log("newURL: " + encodeURIComponent(newURL));
         // NOTE: You are not required to use `nodemailer`, use whatever you want.
         const transport = createTransport(provider.server);
         const result = await transport.sendMail({
           to: identifier,
           from: provider.from,
           subject: `Hi, we recieved for your request! Please verify yourself to continue single sign on`,
-          text: text({ url, host }),
-          html: html({ url, host, theme }),
+          // text: text({ newURL, host }),
+          html: html({ newURL, host, theme }),
         });
         const failed = result.rejected.concat(result.pending).filter(Boolean);
         if (failed.length) {
@@ -47,8 +53,8 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_SECRET,
 };
 
-function html(params: { url: string; host: string; theme: any }) {
-  const { url, host, theme } = params;
+function html(params: { newURL: any; host: any; theme: any }) {
+  const { newURL, host, theme } = params;
 
   // const escapedHost = host.replace(/\./g, "&#8203;.");
 
@@ -108,7 +114,7 @@ function html(params: { url: string; host: string; theme: any }) {
     <td align="center" style="padding: 20px 0;">
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td align="center" style="border-radius: 5px;" bgcolor="#952525"><a href="${url}"
+          <td align="center" style="border-radius: 5px;" bgcolor="#952525"><a href="${encodeURIComponent(newURL)}"
               target="_blank"
               style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: white; text-decoration: none; border-radius: 5px; padding: 10px 20px; display: inline-block; font-weight: bold;">Masuk</a></td>
         </tr>
@@ -126,8 +132,8 @@ function html(params: { url: string; host: string; theme: any }) {
 `;
 }
 
-function text({ url, host }: { url: string; host: string }) {
-  return `Sign in to ${host}\n${url}\n\n`;
-}
+// function text({ newURL, host }: { newURL: any; host: any }) {
+//   return `Sign in to ${host}\n${newURL}\n\n`;
+// }
 
 export default NextAuth(authOptions);

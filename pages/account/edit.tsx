@@ -49,7 +49,7 @@ export default function Edit({ user }: any) {
     e.preventDefault();
     const name = nameRef.current?.value! === "" ? user.name : nameRef.current?.value!;
     const username = usernameRef.current?.value! === "" ? user.username : usernameRef.current?.value!;
-    fetch(`${window.location.origin}/api/updateUser`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/updateUser`, {
       body: JSON.stringify({ name, username, image }),
       headers: {
         "Content-Type": "application/json",

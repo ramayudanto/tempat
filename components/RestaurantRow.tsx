@@ -8,7 +8,7 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
   const router = useRouter();
 
   const fetchData = async () => {
-    const res = await (await fetch(`${window.location.origin}/api/getCategories?category=${search}`)).json();
+    const res = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getCategories?category=${search}`)).json();
     setData(res);
   };
 
