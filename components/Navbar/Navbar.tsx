@@ -14,7 +14,7 @@ export default function Navbar({ user }: any) {
     <div className="fixed z-20 md:hidden bg-white text-darkGray text-opacity-70 bottom-0 w-screen flex justify-around text-sm py-2 min-w-fit">
       <Home route={router.asPath} />
       {user && <Bookmark route={router.asPath} />}
-      <Search />
+      <Search route={router.pathname} />
       <Maps />
       <User user={user} route={router.asPath} />
     </div>

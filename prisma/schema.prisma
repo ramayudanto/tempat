@@ -51,6 +51,7 @@ model Rating {
   restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   userId String?
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postDate DateTime @default(now())
 }
 
 model Images {
@@ -100,7 +101,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image         String @default("https://ramayudanto.com/wp-content/uploads/2022/11/Profile-picture-3.png")
+  image         String @default("https://ramayudanto.com/wp-content/uploads/2022/11/Profile-picture-4.png")
   username String? @unique
   accounts      Account[]
   sessions      Session[]

@@ -2,7 +2,7 @@ import SkeletonWrapper from "./SkeletonWrapper";
 
 export default function SkeletonCardRow() {
   return (
-    <div className="border-2">
+    <div>
       <div className="flex justify-between items-center">
         <SkeletonWrapper type={"header"} />
         <SkeletonWrapper type={"button"} />

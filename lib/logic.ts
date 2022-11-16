@@ -1,3 +1,5 @@
+import CryptoJS from "crypto-js";
+
 export const ratingCounter = (rating: any) => {
   let finalRating: number = 0;
   rating.forEach((rate: any) => {
@@ -44,4 +46,33 @@ export const featureLogic = (feature: String) => {
     name += " ";
   }
   return name;
+};
+
+export const recentRestaurantHandler = (restaurant: any) => {
+  const initialList = JSON.parse(decryptLocalStorage("recentSearchRestaurant") || "[]");
+  if (!initialList.some((item: any) => item.name === restaurant.name)) {
+    const recent = [restaurant, ...initialList];
+    localStorage.setItem("recentSearchRestaurant", encryptLocalStorage(JSON.stringify(recent)));
+  } else {
+    const filtered = initialList.filter((item: any) => item.name !== restaurant.name);
+    const recent = [restaurant, ...filtered];
+    localStorage.setItem("recentSearchRestaurant", encryptLocalStorage(JSON.stringify(recent)));
+  }
+};
+
+export function getMultipleRandom(arr: any[], num: number) {
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  const reduced = shuffled.slice(0, num);
+
+  return reduced;
+}
+
+export const decryptLocalStorage = (key: string) => {
+  const encrypted = localStorage.getItem(key);
+  const value = CryptoJS.AES.decrypt(String(encrypted), process.env.NEXT_PUBLIC_SECRET!).toString(CryptoJS.enc.Utf8);
+  return value;
+};
+
+export const encryptLocalStorage = (key: string) => {
+  return CryptoJS.AES.encrypt(key, process.env.NEXT_PUBLIC_SECRET!).toString();
 };

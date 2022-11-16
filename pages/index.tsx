@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Header from "../components/Head/Header";
 import Navbar from "../components/Navbar/Navbar";
 import RestaurantRow from "../components/RestaurantRow";
@@ -9,6 +9,9 @@ import { useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import Image from "next/image";
+import MainPageSearch from "../components/Search/MainPageSearch";
+import { getMultipleRandom } from "../lib/logic";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await unstable_getServerSession(req, res, authOptions);
@@ -46,17 +49,53 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 export default function Home({ restoran, user }: any) {
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState<string>("");
+  const [searchData, setSearchData] = useState<any[]>([]);
+  // console.log(searchData);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (search === "") {
+      setSearchData([]);
+      return;
+    }
+    const getData = setTimeout(async () => {
+      setIsLoading(true);
+      const data = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getSearch?q=${search}`)).json();
+      setSearchData(getMultipleRandom(data, 3));
+      setIsLoading(false);
+    }, 500);
+
+    return () => clearTimeout(getData);
+  }, [search]);
 
   return (
     <>
       <Header title="Home" />
-      <Topbar />
-      <SearchBar />
-      <RestaurantRow restaurants={restoran} title={"Popular restaurants around you"} />
-      <RestaurantRow search="Coffee" title={"Coffee to brighten up your day"} />
-      <RestaurantRow search="Japanese" title={"Japanese"} />
-      <RestaurantRow search="Italian" title={"Italian"} />
+      <div className="mx-4 pb-20">
+        <Topbar />
+        <div className="border-[1px] flex justify-between items-center overflow-hidden my-4 rounded-2xl px-2 py-1 relative">
+          <input
+            placeholder="Restaurant name, cuisine, or a dish..."
+            type="text"
+            name=""
+            className="w-[90%] outline-none p-1 text-sm"
+            spellCheck={false}
+            value={search}
+            onChange={(e: any) => {
+              setSearch(e.target.value);
+            }}
+          />
+          <button className="pr-2">
+            <Image src={"/searchIcon.svg"} width={15} height={15} alt="search" />
+          </button>
+        </div>
+        {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+        <RestaurantRow restaurants={restoran} title={"Popular restaurants around you"} />
+        <RestaurantRow search="Coffee" title={"Coffee to brighten up your day"} />
+        <RestaurantRow search="Japanese" title={"Japanese"} />
+        <RestaurantRow search="Italian" title={"Italian"} />
+      </div>
       <Navbar user={user} />
     </>
   );

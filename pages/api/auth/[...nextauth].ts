@@ -26,12 +26,10 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_SERVER_USER,
       async sendVerificationRequest(params) {
         const { identifier, url, provider, theme } = params;
-        // console.log("url: " + url);
         const oldurl = new URL(url);
         const host = process.env.NEXT_PUBLIC_API_URL!;
         const newURL = decodeURIComponent(String(oldurl)).replaceAll("http://localhost:3000", process.env.NEXT_PUBLIC_API_URL!);
 
-        console.log("newURL: " + encodeURIComponent(newURL));
         // NOTE: You are not required to use `nodemailer`, use whatever you want.
         const transport = createTransport(provider.server);
         const result = await transport.sendMail({

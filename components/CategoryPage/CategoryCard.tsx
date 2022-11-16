@@ -1,14 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { openTimeLogic, priceLogic, ratingCounter, truncate } from "../../lib/logic";
+import { openTimeLogic, priceLogic, ratingCounter, recentRestaurantHandler, truncate } from "../../lib/logic";
 import CategoryImage from "./CategoryImage";
 
-export default function CategoryCard({ restaurant, isLast }: any) {
+export default function CategoryCard({ restaurant, isLast, onclick }: any) {
   const { name, category, closeTime, openTime, rating, featureImage, priceRange, routeName } = restaurant;
+
   return (
     <Link href={`/restos/${routeName}`}>
-      <a className={`p-4 pb-3 md:border-[1px] md:rounded-md md:m-5 ${!isLast && "border-b-[3px]"}`}>
+      <a
+        className={`pb-3 md:border-[1px] md:rounded-md md:m-5 ${!isLast && "border-b-[3px]"}`}
+        onClick={() => {
+          recentRestaurantHandler(restaurant);
+        }}
+      >
         <div className="flex justify-between mb-2">
           <div>
             <p className="font-semibold text-darkGray">{truncate(name, 21)}</p>

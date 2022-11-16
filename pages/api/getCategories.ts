@@ -1,11 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getMultipleRandom } from "../../lib/logic";
 import { prisma } from "../../lib/prisma";
-
-function getMultipleRandom(arr: any, num: number) {
-  const shuffled = [...arr].sort(() => 0.5 - Math.random());
-
-  return shuffled.slice(0, num);
-}
 
 export default async function handler(req: any, res: NextApiResponse) {
   const { category } = req.query;

@@ -15,6 +15,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await unstable_getServerSession(context.req, context.res, authOptions);
   const { routeName } = context.params;
+  await prisma.rating.findFirst();
   const restoran = await prisma.restaurant.findUnique({
     where: {
       routeName,
@@ -24,6 +25,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         include: {
           user: true,
         },
+        orderBy: [
+          {
+            postDate: "desc",
+          },
+        ],
       },
       category: {
         select: {
