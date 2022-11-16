@@ -28,6 +28,7 @@ export default function CreateRating({ cancel, restaurant, session }: any) {
         rate: Number(currentRate),
         email: session?.user?.email!,
         comment: commentRef.current!.value,
+        postDate: new Date().toISOString(),
       }),
       headers: {
         "Content-Type": "application/json",

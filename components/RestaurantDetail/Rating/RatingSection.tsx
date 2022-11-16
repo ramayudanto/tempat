@@ -21,9 +21,13 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
       </div>
       <p className="text-sm my-3">RECENT REVIEWS</p>
       <div className="flex space-x-4 overflow-x-scroll">
-        {reviews.map((item: any, i: number) => {
-          return <RatingCard key={i} item={item} />;
-        })}
+        {reviews
+          .sort((a: any, b: any) => {
+            return new Date(a.postDate).valueOf() - new Date(b.postDate).valueOf();
+          })
+          .map((item: any, i: number) => {
+            return <RatingCard key={i} item={item} />;
+          })}
       </div>
       {isOpen && (
         <>
