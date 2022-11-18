@@ -25,6 +25,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         include: {
           user: true,
         },
+        orderBy: [
+          {
+            postDate: "desc",
+          },
+        ],
       },
       category: {
         select: {

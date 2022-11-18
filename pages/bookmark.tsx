@@ -48,7 +48,7 @@ export default function bookmark({ bookmarks, user }: any) {
       <Header title="Bookmark" />
       {/* <CategoryHero name="bookmark" /> */}
       <div className="mx-4 mt-10 pb-20">
-        <p className="font-semibold text-2xl">Restoran Favorit</p>
+        <p className="font-semibold text-2xl mb-3">Restoran Favorit</p>
         <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
           {bookmarks.map((bookmark: any, i: any) => {
             return <BookmarkCard key={i} restaurant={bookmark} />;
