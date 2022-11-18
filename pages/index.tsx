@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     },
     take: 10,
-    // skip,
+    skip,
   });
   return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)) } };
 };
