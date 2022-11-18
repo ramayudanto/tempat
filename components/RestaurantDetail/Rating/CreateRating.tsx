@@ -6,7 +6,7 @@ import { ReviewContext } from "../../../pages/restos/[routeName]";
 
 const stars = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
-export default function CreateRating({ cancel, restaurant, session }: any) {
+export default function CreateRating({ cancel, restaurant, user: session }: any) {
   const { id: restaurantId, name, locationBroad } = restaurant;
   const [currentRate, setCurrentRate] = useState(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
@@ -26,7 +26,6 @@ export default function CreateRating({ cancel, restaurant, session }: any) {
       body: JSON.stringify({
         restaurantId,
         rate: Number(currentRate),
-        email: session?.user?.email!,
         comment: commentRef.current!.value,
         postDate: new Date().toISOString(),
       }),

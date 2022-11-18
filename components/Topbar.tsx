@@ -2,18 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { getCoordinate } from "../lib/location";
 export default function Topbar() {
   const { data: session } = useSession();
-  // const getLocation = async (coordinate: any) => {
-  //   const res = await fetch(`https://eu1.locationiq.com/v1/reverse?key=${process.env.NEXT_PUBLIC_IQ_KEY}&lat${"-7.0051453"}=&lon=${"110.4381254"}&format=json`);
-  //   const data = await res.json();
-  //   console.log(data);
-  // };
-  // useEffect(() => {
-  //   console.log(getCoordinate());
-  //   getLocation(getCoordinate());
-  // }, []);
   return (
     <div className="flex justify-between items-center pt-4">
       <div className="flex gap-x-2 items-center">

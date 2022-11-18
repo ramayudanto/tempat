@@ -37,6 +37,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
           URL: true,
         },
       },
+      userBookmark: {
+        select: {
+          email: true,
+        },
+      },
     },
   });
   if (!restoran) {
@@ -50,14 +55,14 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 export const ReviewContext = createContext(null as any);
 
 export default function Restaurant({ restaurant, user }: any) {
-  const { name, information, rating } = restaurant;
+  const { name, information, rating, userBookmark } = restaurant;
   const [reviews, setReviews] = useState<any[]>(rating);
   const ratingDivRef = useRef<HTMLDivElement>(null);
   return (
     <>
       <Header title={name} />
       <div className="mx-5 text-darkGray">
-        <TopButtons />
+        <TopButtons user={user} restaurant={restaurant} />
         <RestaurantHeader restaurant={restaurant} />
         <div className="flex justify-between">
           <button

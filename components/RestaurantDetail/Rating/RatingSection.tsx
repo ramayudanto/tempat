@@ -11,7 +11,6 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVerifyOpen, setVerifyIsOpen] = useState<boolean>(false);
   const { reviews } = useContext(ReviewContext);
-  const { data: session } = useSession();
   const router = useRouter();
   return (
     <div className="mx-5 mb-96 text-darkGray" ref={divRef}>
@@ -36,7 +35,7 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
               setIsOpen(false);
             }}
             restaurant={restaurant}
-            session={session}
+            user={user}
           />
         </>
       )}

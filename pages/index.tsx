@@ -41,9 +41,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
           categoryName: true,
         },
       },
+      userBookmark: {
+        select: {
+          email: true,
+        },
+      },
     },
     take: 10,
-    skip,
+    // skip,
   });
   return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)) } };
 };
@@ -53,6 +58,8 @@ export default function Home({ restoran, user }: any) {
   const [searchData, setSearchData] = useState<any[]>([]);
   // console.log(searchData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // console.log(restoran[0]);
 
   useEffect(() => {
     if (search === "") {

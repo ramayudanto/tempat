@@ -1,13 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { unstable_getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 
 import { prisma } from "../../lib/prisma";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { rate, restaurantId, email, comment } = req.body;
+  if (req.method !== "POST") {
+    res.status(400);
+    res.end();
+    return;
+  }
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401);
+    res.end();
+    return;
+  }
+  const { rate, restaurantId, comment } = req.body;
   const user = await prisma.user.findUnique({
     where: {
-      email,
+      email: session.user?.email!,
     },
     select: {
       id: true,

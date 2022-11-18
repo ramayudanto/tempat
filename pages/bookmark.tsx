@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import Header from "../components/Head/Header";
 import { prisma } from "../lib/prisma";
 import Navbar from "../components/Navbar/Navbar";
@@ -42,7 +42,10 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return { props: { user: session.user!, bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)) } };
 };
 
-export default function bookmark({ bookmarks, user }: any) {
+export const BookmarkContext = createContext(null as any);
+
+export default function Bookmark({ bookmarks, user }: any) {
+  const [userBookmark, setUserBookmark] = useState<any[]>(bookmarks);
   return (
     <>
       <Header title="Bookmark" />
@@ -50,8 +53,12 @@ export default function bookmark({ bookmarks, user }: any) {
       <div className="mx-4 mt-10 pb-20">
         <p className="font-semibold text-2xl mb-3">Restoran Favorit</p>
         <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
-          {bookmarks.map((bookmark: any, i: any) => {
-            return <BookmarkCard key={i} restaurant={bookmark} />;
+          {userBookmark.map((bookmark: any, i: any) => {
+            return (
+              <BookmarkContext.Provider value={{ userBookmark, setUserBookmark }} key={i}>
+                <BookmarkCard restaurant={bookmark} />
+              </BookmarkContext.Provider>
+            );
           })}
         </div>
       </div>

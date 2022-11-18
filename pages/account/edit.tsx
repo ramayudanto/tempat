@@ -54,7 +54,7 @@ export default function Edit({ user }: any) {
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
+      method: "PUT",
     }).then((res) => {
       if (res.status === 400) {
         toastRef.current!.show();

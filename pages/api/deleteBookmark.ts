@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-
 import { prisma } from "../../lib/prisma";
 import { authOptions } from "./auth/[...nextauth]";
 
@@ -16,24 +15,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
     return;
   }
+  const { routeName } = req.body;
   const email = session?.user?.email!;
-  const { username, image, name } = req.body;
+
   try {
-    const response = await prisma.user.update({
+    await prisma.user.update({
       where: {
         email,
       },
       data: {
-        username,
-        name,
-        image,
+        bookmark: {
+          disconnect: {
+            routeName,
+          },
+        },
       },
     });
-    // console.log("test " + response);
     res.status(200);
     res.end();
   } catch (e) {
-    res.status(400);
+    console.log(e);
+    res.status(409);
     res.end();
   }
 }
