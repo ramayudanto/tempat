@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import SkeletonCardRow from "./Skeleton/SkeletonCardRow";
 
-export default function RestaurantRow({ restaurants, title, search }: any) {
+export default function RestaurantRow({ restaurants, title, search, user }: any) {
   const [data, setData] = useState<any[]>(restaurants || []);
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export default function RestaurantRow({ restaurants, title, search }: any) {
       </div>
       <div className={`flex overflow-x-scroll gap-4`}>
         {data.map((restaurant: any, i: number) => {
-          return <RestaurantCard key={i} restaurant={restaurant} />;
+          return <RestaurantCard user={user} key={i} restaurant={restaurant} />;
         })}
       </div>
     </div>

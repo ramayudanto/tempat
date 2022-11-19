@@ -4,20 +4,17 @@ import { openTimeLogic, priceLogic, ratingCounter, recentRestaurantHandler, trun
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function RestaurantCard({ restaurant }: any) {
+export default function RestaurantCard({ user: session, restaurant }: any) {
   const { featureImage, name, priceRange, openTime, closeTime, category, rating, locationBroad, routeName, userBookmark } = restaurant;
-  const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === "loading" || !userBookmark) return;
+  const [isBookmakred, setIsBookmarked] = useState<boolean>(
     userBookmark.map((item: any) => {
-      if (item.email === session?.user?.email) {
-        setIsBookmarked(true);
+      if (item.email === session?.email) {
+        return true;
+      } else {
+        return false;
       }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status]);
+    })[0]
+  );
 
   const bookmarkHandler = (e: FormEvent) => {
     e.preventDefault();

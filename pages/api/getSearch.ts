@@ -114,7 +114,8 @@ export default async function handler(req: any, res: NextApiResponse) {
     res.status(200);
     res.end();
   } catch (e) {
-    res.status(404);
     console.log(e);
+    res.status(404);
+    res.end();
   }
 }

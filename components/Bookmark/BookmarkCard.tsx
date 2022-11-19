@@ -42,7 +42,7 @@ export default function BookmarkCard({ restaurant }: any) {
         </div>
         <div className="px-4 py-2 space-y-1">
           <div className="flex justify-between items-center mb-1">
-            <p className="font-semibold text-darkGray">{truncate(name, 17)}</p>
+            <p className="font-semibold text-darkGray">{truncate(name, 16)}</p>
             {/* <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
               <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />

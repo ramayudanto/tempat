@@ -77,5 +77,7 @@ export default async function handler(req: any, res: NextApiResponse) {
     res.end();
   } catch (e) {
     console.log(e);
+    res.status(404);
+    res.end();
   }
 }

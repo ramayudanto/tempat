@@ -5,9 +5,12 @@ import { openTimeLogic } from "../../lib/logic";
 export default function DetailedInformation({ restaurant }: any) {
   const { name, featureImage, location, closeTime, openTime, category, priceRange } = restaurant;
   return (
-    <div className="mx-5 text-darkGray">
+    <div className="mx-4 text-darkGray">
       <p className="font-semibold mb-2">About the restaurant</p>
-      <Image layout="responsive" src={featureImage[0].URL} width={16} height={10} alt={name} className="rounded" />
+      {/* <Image layout="responsive" src={featureImage[0].URL} width={16} height={10} alt={name} className="rounded" /> */}
+      <div className="w-[330px] md:w-2/3 h-[200px] md:h-[500px] rounded-md overflow-hidden relative mx-auto">
+        <Image layout="fill" src={featureImage[0].URL} alt={name} objectFit="cover" />
+      </div>
       <div className="flex gap-x-8 mt-5">
         <div className="space-y-3 basis-[80%]">
           <div className="flex gap-x-1 items-center">

@@ -98,10 +98,10 @@ export default function Home({ restoran, user }: any) {
           </button>
         </div>
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restoran} title={"Popular restaurants around you"} />
-        <RestaurantRow search="Coffee" title={"Coffee to brighten up your day"} />
-        <RestaurantRow search="Japanese" title={"Japanese"} />
-        <RestaurantRow search="Italian" title={"Italian"} />
+        <RestaurantRow user={user} restaurants={restoran} title={"Popular restaurants around you"} />
+        <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
+        <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
+        <RestaurantRow user={user} search="Italian" title={"Italian"} />
       </div>
       <Navbar user={user} />
     </>
