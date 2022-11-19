@@ -56,7 +56,7 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
   return (
     <Backdrop onClick={cancel}>
       <div
-        className="fixed z-[30] animate-loginFade bg-white h-[55vh] bottom-0 w-screen rounded-t-2xl pt-4"
+        className="fixed z-[30] animate-loginFade bg-white pb-8 bottom-0 w-screen rounded-t-2xl pt-4"
         onClick={(e) => {
           e.stopPropagation();
         }}

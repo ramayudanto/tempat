@@ -15,12 +15,12 @@ export default function TopButtons({ user, restaurant }: any) {
       } else {
         return false;
       }
-    })
+    })[0]
   );
 
   const router = useRouter();
 
-  const bookmarkHandler = (e: any) => {
+  const bookmarkHandler = async (e: any) => {
     if (isBookmakred) {
       fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
         method: "PUT",
