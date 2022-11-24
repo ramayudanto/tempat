@@ -13,16 +13,15 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
   const toastRef = useRef<any>(null);
   const { setReviews } = useContext(ReviewContext);
 
-  const submitRating = (e: FormEvent) => {
+  const submitRating = async (e: FormEvent) => {
     e.preventDefault();
     if (!currentRate) return;
     toastRef.current!.show();
-    // fetch("https://dummyjson.com/products/1").then(() => {
+    // await fetch("https://dummyjson.com/products/1").then(() => {
     //   setCurrentRate(null);
-    //   commentRef.current!.value = "";
-    //   // cancel();
+    //   // commentRef.current!.value = "";
     // });
-    fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
       body: JSON.stringify({
         restaurantId,
         rate: Number(currentRate),
@@ -33,30 +32,29 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
         "Content-Type": "application/json",
       },
       method: "POST",
-    }).then(() => {
-      setReviews((prev: any) => [
-        ...prev,
-        {
-          rate: Number(currentRate),
-          comment: commentRef.current!.value,
-          user: {
-            image: session?.user?.image,
-            name: session?.user?.name,
-          },
-        },
-      ]);
-      setTimeout(() => {
-        cancel();
-        // toastRef.current!.show();
-        setCurrentRate(null);
-        commentRef.current!.value = "";
-      }, 900);
     });
+    setReviews((prev: any) => [
+      ...prev,
+      {
+        rate: Number(currentRate),
+        comment: commentRef.current!.value,
+        user: {
+          image: session?.image,
+          name: session?.name,
+        },
+      },
+    ]);
+    setTimeout(() => {
+      cancel();
+      // toastRef.current!.show();
+      setCurrentRate(null);
+      commentRef.current!.value = "";
+    }, 900);
   };
   return (
     <Backdrop onClick={cancel}>
       <div
-        className="fixed z-[30] animate-loginFade bg-white pb-8 bottom-0 w-screen rounded-t-2xl pt-4"
+        className="fixed z-[60] h-fit overflow-scroll animate-loginFade bg-white pb-8 bottom-0 w-screen rounded-t-2xl pt-4"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -106,6 +104,7 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
             </div>
           </div>
           <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} />
+          {/* <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} /> */}
         </div>
         <Toast message={"Review posted!"} ref={toastRef} />
       </div>

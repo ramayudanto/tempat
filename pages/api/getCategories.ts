@@ -4,7 +4,7 @@ import { prisma } from "../../lib/prisma";
 
 export default async function handler(req: any, res: NextApiResponse) {
   if (req.method !== "GET") {
-    res.status(400);
+    res.status(405);
     res.end();
     return;
   }
