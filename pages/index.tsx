@@ -5,13 +5,13 @@ import RestaurantRow from "../components/RestaurantRow";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
-import { useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import Image from "next/image";
 import MainPageSearch from "../components/Search/MainPageSearch";
 import { getMultipleRandom } from "../lib/logic";
+import { Restaurant } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await unstable_getServerSession(req, res, authOptions);
@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
 export default function Home({ restoran, user }: any) {
   const [search, setSearch] = useState<string>("");
-  const [searchData, setSearchData] = useState<any[]>([]);
+  const [searchData, setSearchData] = useState<Restaurant[]>([]);
   // console.log(searchData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

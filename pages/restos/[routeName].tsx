@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 export const ReviewContext = createContext(null as any);
 
 export default function Restaurant({ restaurant, user }: any) {
-  const { name, information, rating, userBookmark } = restaurant;
+  const { name, information, rating } = restaurant;
   const [reviews, setReviews] = useState<any[]>(rating);
   const ratingDivRef = useRef<HTMLDivElement>(null);
   return (
