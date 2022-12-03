@@ -5,7 +5,7 @@ import BookmarkIcon from "../../public/bookmarkIcon.svg";
 import ShareIcon from "../../public/shareIcon.svg";
 import { useState } from "react";
 
-export default function TopButtons({ user, restaurant }: any) {
+export default function TopButtons({ user, restaurant, onClick }: any) {
   const { routeName, userBookmark } = restaurant;
   // console.log(user);
   const [isBookmakred, setIsBookmarked] = useState<boolean>(
@@ -54,7 +54,7 @@ export default function TopButtons({ user, restaurant }: any) {
         </svg>
       </button>
       <div className="flex gap-x-3 items-center">
-        <button>
+        <button onClick={onClick}>
           <CameraIcon />
         </button>
         {user && (

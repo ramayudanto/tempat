@@ -52,6 +52,7 @@ model Rating {
   userId String?
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
   postDate DateTime @default(now())
+  imageUrl String?
 }
 
 model Images {

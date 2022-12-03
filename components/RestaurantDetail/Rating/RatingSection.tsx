@@ -2,10 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { ReviewContext } from "../../../pages/restos/[routeName]";
 import CreateRating from "./CreateRating";
 import RatingCard from "./RatingCard";
-import { useSession } from "next-auth/react";
-import LoginPage from "../../login/LoginPage";
 import Verify from "../../verify/Verify";
 import { useRouter } from "next/router";
+import { Rating } from "@prisma/client";
 
 export default function RatingSection({ user, divRef, restaurant }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);

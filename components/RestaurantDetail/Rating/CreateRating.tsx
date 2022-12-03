@@ -3,12 +3,14 @@ import Toast from "../../Toast";
 import RatingForm from "./RatingForm";
 import Backdrop from "../../login/Backdrop";
 import { ReviewContext } from "../../../pages/restos/[routeName]";
+import { submitRate } from "../../../lib/firebase";
 
 const stars = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
 export default function CreateRating({ cancel, restaurant, user: session }: any) {
   const { id: restaurantId, name, locationBroad } = restaurant;
   const [currentRate, setCurrentRate] = useState(null);
+  const [imageUpload, setImageUpload] = useState<any>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const toastRef = useRef<any>(null);
   const { setReviews } = useContext(ReviewContext);
@@ -21,18 +23,13 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
     //   setCurrentRate(null);
     //   // commentRef.current!.value = "";
     // });
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
-      body: JSON.stringify({
-        restaurantId,
-        rate: Number(currentRate),
-        comment: commentRef.current!.value,
-        postDate: new Date().toISOString(),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    const body = {
+      restaurantId,
+      rate: Number(currentRate),
+      comment: commentRef.current!.value,
+      postDate: new Date().toISOString(),
+    };
+    const image = await submitRate(imageUpload, body);
     setReviews((prev: any) => [
       ...prev,
       {
@@ -42,6 +39,8 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
           image: session?.image,
           name: session?.name,
         },
+        postDate: new Date().toISOString(),
+        imageUrl: image,
       },
     ]);
     setTimeout(() => {
@@ -103,7 +102,7 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
               })}
             </div>
           </div>
-          <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} />
+          <RatingForm commentRef={commentRef} imageUpload={imageUpload} setImageUpload={setImageUpload} submitRating={submitRating} session={session} />
           {/* <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} /> */}
         </div>
         <Toast message={"Review posted!"} ref={toastRef} />

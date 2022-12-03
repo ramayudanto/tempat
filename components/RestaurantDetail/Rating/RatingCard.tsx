@@ -25,7 +25,12 @@ export default function RatingCard({ item }: any) {
           </svg>
         </div>
       </div>
-      <p className="ml-2">{truncate(comment, 80)}</p>
+      <p className="ml-2 mb-2">{truncate(comment, 80)}</p>
+      {item.imageUrl && (
+        <div className="w-full h-48 rounded overflow-hidden relative">
+          <Image src={item?.imageUrl} layout="fill" alt={"review photo"} objectFit="cover" />
+        </div>
+      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
     return;
   }
-  const { rate, restaurantId, comment } = req.body;
+  const { rate, restaurantId, comment, imageUrl } = req.body;
   const user = await prisma.user.findUnique({
     where: {
       email: session.user?.email!,
@@ -26,38 +26,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       id: true,
     },
   });
-  if (comment.length !== 0) {
-    try {
-      await prisma.rating.create({
-        data: {
-          id: uuidv4(),
-          rate,
-          restaurantId,
-          userId: user?.id,
-          comment,
-        },
-      });
-      res.send("success");
-      res.status(200);
-    } catch (e) {
-      console.log(e);
-    }
-  } else {
-    try {
-      await prisma.rating.create({
-        data: {
-          id: uuidv4(),
-          rate,
-          restaurantId,
-          userId: user?.id,
-        },
-      });
-      res.send("success");
-      res.status(200);
-    } catch (e) {
-      console.log(e);
-      res.status(400);
-      res.end();
-    }
+
+  try {
+    await prisma.rating.create({
+      data: {
+        id: uuidv4(),
+        rate,
+        restaurantId,
+        userId: user?.id,
+        comment,
+        imageUrl,
+      },
+    });
+    res.send("success");
+    res.status(200);
+  } catch (e) {
+    console.log(e);
   }
 }
