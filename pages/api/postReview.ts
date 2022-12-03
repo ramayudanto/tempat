@@ -1,3 +1,4 @@
+import { Rating } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
@@ -27,16 +28,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     },
   });
 
+  const data: Rating = {
+    id: uuidv4(),
+    rate,
+    restaurantId,
+    userId: user!.id,
+    comment,
+    imageUrl: String(imageUrl),
+    postDate: new Date(),
+  };
+
   try {
     await prisma.rating.create({
-      data: {
-        id: uuidv4(),
-        rate,
-        restaurantId,
-        userId: user?.id,
-        comment,
-        imageUrl: String(imageUrl),
-      },
+      data,
     });
     res.send("success");
     res.status(200);
