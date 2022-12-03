@@ -34,5 +34,6 @@ jobs:
             source ~/.nvm/nvm.sh
             npm install
             cp ../nomato-env/.env .
+            npx prisma generate
             npm run build
             pm2 restart nomato-v2
