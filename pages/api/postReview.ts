@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         restaurantId,
         userId: user?.id,
         comment,
-        imageUrl,
+        imageUrl: String(imageUrl),
       },
     });
     res.send("success");
