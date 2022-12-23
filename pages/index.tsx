@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Header from "../components/Head/Header";
-import PopularRestaurant from "../components/PopularRestaurant";
+import Navbar from "../components/Navbar/Navbar";
+import RestaurantRow from "../components/RestaurantRow";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
+import { GetServerSideProps } from "next";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
+import Image from "next/image";
+import MainPageSearch from "../components/Search/MainPageSearch";
+import { getMultipleRandom } from "../lib/logic";
+import { Restaurant } from "@prisma/client";
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  // console.log(session);
+  const count = await prisma.restaurant.count();
+  const skip = Math.floor(Math.random() * count);
   const restoran = await prisma.restaurant.findMany({
     select: {
       name: true,
@@ -29,20 +41,69 @@ export const getServerSideProps = async () => {
           categoryName: true,
         },
       },
+      userBookmark: {
+        select: {
+          email: true,
+        },
+      },
     },
+    take: 10,
+    skip,
   });
-  return { props: { restoran: JSON.parse(JSON.stringify(restoran)) } };
+  return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)) } };
 };
 
-export default function Home({ restoran }: any) {
-  const [search, setSearch] = useState(null);
+export default function Home({ restoran, user }: any) {
+  const [search, setSearch] = useState<string>("");
+  const [searchData, setSearchData] = useState<Restaurant[]>([]);
+  // console.log(searchData);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // console.log(restoran[0]);
+
+  useEffect(() => {
+    if (search === "") {
+      setSearchData([]);
+      return;
+    }
+    const getData = setTimeout(async () => {
+      setIsLoading(true);
+      const data = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getSearch?q=${search}`)).json();
+      setSearchData(getMultipleRandom(data, 3));
+      setIsLoading(false);
+    }, 500);
+
+    return () => clearTimeout(getData);
+  }, [search]);
+
   return (
     <>
       <Header title="Home" />
-      <Topbar />
-      <SearchBar />
-      <PopularRestaurant restaurants={restoran} reverse={false} />
-      <PopularRestaurant restaurants={restoran} reverse={true} />
+      <div className="mx-4 pb-20">
+        <Topbar />
+        <div className="border-[1px] flex justify-between items-center overflow-hidden my-4 rounded-2xl px-2 py-1 relative">
+          <input
+            placeholder="Restaurant name, cuisine, or a dish..."
+            type="text"
+            name=""
+            className="w-[90%] outline-none p-1 text-sm"
+            spellCheck={false}
+            value={search}
+            onChange={(e: any) => {
+              setSearch(e.target.value);
+            }}
+          />
+          <button className="pr-2">
+            <Image src={"/searchIcon.svg"} width={15} height={15} alt="search" />
+          </button>
+        </div>
+        {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+        <RestaurantRow user={user} restaurants={restoran} title={"Popular restaurants around you"} />
+        <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
+        <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
+        <RestaurantRow user={user} search="Italian" title={"Italian"} />
+      </div>
+      <Navbar user={user} />
     </>
   );
 }

@@ -8,6 +8,12 @@
   }
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 ::-webkit-scrollbar {
   background: #fff;
   height: 9px;
@@ -17,4 +23,21 @@
 ::-webkit-scrollbar-thumb {
   background: #eaeaea;
   border-radius: 6px;
+}
+
+.filter-input {
+  -webkit-appearance: none;
+  height: 5px;
+  background: #3333331a;
+  border-radius: 5px;
+}
+
+.filter-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 100%;
+  background: #952525;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
 }

@@ -1,17 +1,16 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-export default function Notfound() {
+export default function NotFound() {
   const router = useRouter();
+
   useEffect(() => {
-    const push = setTimeout(() => {
-      router.push("/");
-    }, 2000);
-    return () => clearTimeout(push);
+    router.push("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div>
-      <p>salah route</p>
+      <p>404</p>
     </div>
   );
 }

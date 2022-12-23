@@ -10,6 +10,40 @@ module.exports = {
         darkGray: "#333333",
         lightGray: "#D9D9D9",
       },
+      keyframes: {
+        loading: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(50%)" },
+        },
+        fadeInToast: {
+          "0%": { opacity: 0, transform: "translateY(-70%)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: 0, transform: "translateY(100%)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+        fade: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        fadeInLogin: {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        fadeOut: {
+          "0%": { opacity: 1, transform: "translateY(0)" },
+          "100%": { opacity: 0, transform: "translateY(-70%)" },
+        },
+      },
+      animation: {
+        loader: "loading 1s infinite",
+        fadeToast: "fadeInToast 0.3s",
+        fade: "fadeIn 0.5s",
+        fadeIn: "fade 0.3s",
+        loginFade: "fadeInLogin 0.3s",
+        fadeOut: "fadeOut 0.5s",
+      },
     },
   },
   plugins: [],

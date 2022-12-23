@@ -1,7 +1,6 @@
 import { featureLogic } from "../../lib/logic";
 
 export default function RestaurantFeature({ information }: any) {
-  //   console.log(information);
   return (
     <div className="mx-5 text-darkGray">
       <p className="font-semibold mb-3">More Info</p>
