@@ -34,7 +34,7 @@ export default function RestaurantRow({ restaurants, title, search, user }: any)
           See all
         </p>
       </div>
-      <div className={`flex overflow-x-scroll gap-4`}>
+      <div className={`flex overflow-x-scroll gap-4 pl-4 -mx-4`}>
         {data.map((restaurant: any, i: number) => {
           return <RestaurantCard user={user} key={i} restaurant={restaurant} />;
         })}

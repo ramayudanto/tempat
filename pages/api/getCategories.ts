@@ -15,23 +15,6 @@ export default async function handler(req: any, res: NextApiResponse) {
     return;
   }
   try {
-    // const data = await prisma.restaurant.findMany({
-    //   where: {
-    //     category: {
-    //       some: {
-    //         categoryName: category,
-    //       },
-    //     },
-    //   },
-    //   include: {
-    //     category: true,
-    //     featureImage: {
-    //       select: { URL: true },
-    //     },
-    //     rating: true,
-    //   },
-    // });
-
     const restoran = await prisma.restaurant.findMany({
       where: {
         category: {

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function CategoryImage({ images }: any) {
   return (
-    <div className="flex overflow-x-scroll overflow-y-hidden gap-4">
+    <div className="flex overflow-x-scroll overflow-y-hidden gap-4 -mx-4 pl-4">
       {images.map((image: any, i: any) => {
         return (
           <div className="w-[135px] h-[87px] relative" key={i}>
