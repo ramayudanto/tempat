@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">Nomato</h1>
 
-## Getting Started
+<img src="images/1.png" width="1000"/>
 
-First, run the development server:
+This website is not just a pretty face, it is a technological marvel, built using NextJS, that leverages its pre-built functions such as server-side rendering and API routes, to make it a speed demon. The design is not just pleasing to the eye, it is a work of art, styled with TailwindCSS, that makes it the envy of all other websites.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+For the deployment, I host it on a DigitalOcean's virtual private server, Droplet, and implemented an NGINX reverse proxy to redirect users when accessing the site from port 80/443 to 3000, where the application runs. This ensures a seamless and secure user experience, that is second to none.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Security-wise I applied an SSL certificate with NGINX that has been issued by Cloudflare, providing an extra layer of security for the users. And let's not forget the integration of a Continuous Deployment pipeline using Github Action, that will automatically push the latest changes in the main branch and trigger the build on the VPS, making the deployment process faster and more efficient.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<img src="images/2.png" width="1000"/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Features
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+#### 1. Home page with search bar
 
-## Learn More
+- The searchbar will query to the DB onChange and debounced for 500ms
 
-To learn more about Next.js, take a look at the following resources:
+#### 2. Login
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Login with your own email or through google account
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### 3. Restaurant detail
 
-## Deploy on Vercel
+#### 4. Restaurant Search
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### 5. Rate the Restaurant with Image Upload
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### 6. Bookmark your favorite Restaurant
+
+<br/>
