@@ -9,6 +9,18 @@ module.exports = {
         green: "#22AF39",
         darkGray: "#333333",
         lightGray: "#D9D9D9",
+        customRed: {
+          50: "#fdeaea",
+          100: "##f7bfbf",
+          200: "#f4a0a0",
+          300: "#ee7575",
+          400: "##eb5a5a",
+          500: "#e63131",
+          600: "#d12d2d",
+          700: "#a32323",
+          800: "##7f1b1b",
+          900: "#611515",
+        },
       },
       keyframes: {
         loading: {

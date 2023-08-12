@@ -1,7 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,9 +16,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 export const storage = getStorage(app);
+export const firestore = firebase.firestore();
 
 export const getRestaurantImage = async (id: number) => {
   const restaurantIdRef = ref(storage, `/${id}/rating`);

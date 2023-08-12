@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import SkeletonCardRow from "./Skeleton/SkeletonCardRow";
+import SkeletonCardRow from "../Skeleton/SkeletonCardRow";
 
 export default function RestaurantRow({ restaurants, title, search, user }: any) {
   const [data, setData] = useState<any[]>(restaurants || []);

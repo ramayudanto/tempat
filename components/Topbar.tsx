@@ -2,8 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import useArea from "../lib/useArea";
+import SkeletonWrapper from "./Skeleton/SkeletonWrapper";
 export default function Topbar() {
   const { data: session } = useSession();
+  // const area = useArea();
+
   return (
     <div className="flex justify-between items-center pt-4">
       <div className="flex gap-x-2 items-center">
@@ -14,7 +18,7 @@ export default function Topbar() {
             clipRule="evenodd"
           />
         </svg>
-        <p className="text-black font-semibold">Jakarta</p>
+        {/* {area ? <p className="text-black font-semibold">{area}</p> : <SkeletonWrapper type={"text"} />} */}
       </div>
       {session ? (
         <Image src={session?.user?.image!} width="30" height={"30"} alt="logo putih" objectFit="cover" className="rounded-full" />

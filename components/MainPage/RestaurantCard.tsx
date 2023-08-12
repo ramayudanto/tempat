@@ -1,20 +1,22 @@
 import Image from "next/image";
 import React, { FormEvent, useEffect, useState } from "react";
-import { openTimeLogic, priceLogic, ratingCounter, recentRestaurantHandler, truncate } from "../lib/logic";
+import { openTimeLogic, priceLogic, ratingCounter, recentRestaurantHandler, truncate } from "../../lib/logic";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import BookmarkButton from "./BookmarkButton";
 
 export default function RestaurantCard({ user: session, restaurant }: any) {
-  const { featureImage, name, priceRange, openTime, closeTime, category, rating, locationBroad, routeName, userBookmark } = restaurant;
-  const [isBookmakred, setIsBookmarked] = useState<boolean>(
-    userBookmark.map((item: any) => {
-      if (item.email === session?.email) {
-        return true;
-      } else {
-        return false;
-      }
-    })[0]
-  );
+  const { featureImage, name, price_level: priceRange, openTime, closeTime, category, thumbnail, rating, locationBroad, routeName, userBookmark } = restaurant;
+  const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
+  // const [isBookmakred, setIsBookmarked] = useState<boolean>(
+  //   userBookmark.map((item: any) => {
+  //     if (item.email === session?.email) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   })[0]
+  // );
 
   const bookmarkHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -51,33 +53,25 @@ export default function RestaurantCard({ user: session, restaurant }: any) {
           recentRestaurantHandler(restaurant);
         }}
       >
-        <div className="bg-cover w-[274px] h-[190px] relative rounded-t-xl" style={{ backgroundImage: `url(${featureImage[0]?.URL})` }}>
-          {session && (
-            <button className="p-2 flex items-center justify-center bg-white rounded-full right-4 top-2 absolute z-20" onClick={bookmarkHandler}>
-              {isBookmakred ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-darkRed">
-                  <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                </svg>
-              )}
-            </button>
-          )}
-          <div className="flex px-[0.5rem] py-1 font-semibold items-center justify-center text-xs bg-white opacity-75 absolute bottom-2 right-3 rounded-full">
+        <div className="bg-cover w-[274px] h-[190px] relative rounded-t-xl" style={{ backgroundImage: `url(${thumbnail})` }}>
+          {session && <BookmarkButton isBookmarked={isBookmakred} bookmarkHandler={bookmarkHandler} />}
+          {/* <div className="flex px-[0.5rem] py-1 font-semibold items-center justify-center text-xs bg-white opacity-75 absolute bottom-2 right-3 rounded-full">
             <p>2.0 Km</p>
-          </div>
+          </div> */}
         </div>
         <div className="px-4 py-2 space-y-1">
           <div className="flex justify-between items-center mb-1">
             <p className="font-semibold text-darkGray">{truncate(name, 21)}</p>
-            <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
+            {/* <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
               <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
+              <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
+            </div> */}
+            <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
+              <p className="text-sm">{rating}</p>
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
             </div>
           </div>
-          <div className="flex gap-x-1">
+          {/* <div className="flex gap-x-1">
             {category.map((item: any, i: any, row: any) => {
               if (i + 1 === row.length) {
                 return (
@@ -93,11 +87,12 @@ export default function RestaurantCard({ user: session, restaurant }: any) {
                 );
               }
             })}
-          </div>
+          </div> */}
           <p className="text-darkGray text-opacity-70 text-xs">{truncate(locationBroad, 40)}</p>
           <div className="flex items-center justify-between">
             <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>
-            <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p>
+            {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
+            <p className="text-darkGray text-opacity-70 text-xs">price range: {priceRange}</p>
           </div>
         </div>
       </a>

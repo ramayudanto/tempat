@@ -11,6 +11,9 @@ export default function SkeletonWrapper({ type }: any) {
     if (type === "button") {
       return "w-[10%] h-4";
     }
+    if (type === "text") {
+      return "w-16 h-3";
+    }
   };
   return <div className={`bg-[#ddd] mx-4 shrink-0 rounded-lg my-2 relative ${getClass(type)}`}>{<Shimmer />}</div>;
 }

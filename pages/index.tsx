@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import Header from "../components/Head/Header";
 import Navbar from "../components/Navbar/Navbar";
-import RestaurantRow from "../components/RestaurantRow";
+import RestaurantRow from "../components/MainPage/RestaurantRow";
 import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
@@ -12,10 +12,12 @@ import Image from "next/image";
 import MainPageSearch from "../components/Search/MainPageSearch";
 import { getMultipleRandom } from "../lib/logic";
 import { Restaurant } from "@prisma/client";
+import { firestore } from "../lib/firebase";
+import useInsert from "../lib/useInsert";
+import Jumbotron from "../components/MainPage/Jumbotron";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await unstable_getServerSession(req, res, authOptions);
-  // console.log(session);
   const count = await prisma.restaurant.count();
   const skip = Math.floor(Math.random() * count);
   const restoran = await prisma.restaurant.findMany({
@@ -50,16 +52,39 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     take: 10,
     skip,
   });
-  return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)) } };
+
+  const restoRef = firestore.collection("resto1");
+  const resto = await restoRef.limit(10).get();
+  const restoData = resto.docs.map((doc: any) => doc.data());
+
+  return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)), restoData: JSON.parse(JSON.stringify(restoData)) } };
+  // return {
+  //   props: {
+  //     user: session?.user || null,
+  //     restoran: [
+  //       {
+  //         name: "OPEN Restaurant - DoubleTree by Hilton Jakarta Diponegoro",
+  //         locationBroad: "DoubleTree by Hilton Hotel, Cikini, Jakarta",
+  //         priceRange: "700.000 ",
+  //         openTime: "1970-01-01T03:00:00.000Z",
+  //         closeTime: "1970-01-01T11:00:00.000Z",
+  //         featureImage: [{ URL: "https://b.zmtcdn.com/data/pictures/1/7422631/61f7cd504f60c63d29dd07380b882ee4_featured_v2.jpg" }],
+  //         routeName: "OPEN-Restaurant-DoubleTree-by-Hilton-Jakarta-Diponegoro",
+  //         rating: [],
+  //         category: [{ categoryName: "Western" }, { categoryName: "Asian" }, { categoryName: "French" }],
+  //         userBookmark: [],
+  //       },
+  //     ],
+  //   },
+  // };
 };
 
-export default function Home({ restoran, user }: any) {
+export default function Home({ restoran, user, restoData }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<Restaurant[]>([]);
-  // console.log(searchData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   // console.log(restoran[0]);
+  console.log(restoData[0]);
 
   useEffect(() => {
     if (search === "") {
@@ -79,30 +104,16 @@ export default function Home({ restoran, user }: any) {
   return (
     <>
       <Header title="Home" />
-      <div className="mx-4 pb-20">
-        <Topbar />
-        <div className="border-[1px] flex justify-between items-center overflow-hidden my-4 rounded-2xl px-2 py-1 relative">
-          <input
-            placeholder="Restaurant name, cuisine, or a dish..."
-            type="text"
-            name=""
-            className="w-[90%] outline-none p-1 text-sm"
-            spellCheck={false}
-            value={search}
-            onChange={(e: any) => {
-              setSearch(e.target.value);
-            }}
-          />
-          <button className="pr-2">
-            <Image src={"/searchIcon.svg"} width={15} height={15} alt="search" />
-          </button>
-        </div>
+      <div className="pb-20 overflow-hidden">
+        <Jumbotron />
+
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow user={user} restaurants={restoran} title={"Popular restaurants around you"} />
-        <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
+        <RestaurantRow user={user} restaurants={restoData} title={"Popular restaurants around you"} />
+        {/* <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
         <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
-        <RestaurantRow user={user} search="Italian" title={"Italian"} />
+        <RestaurantRow user={user} search="Italian" title={"Italian"} /> */}
       </div>
+      {/* <p>{JSON.stringify(restoran[0])}</p> */}
       <Navbar user={user} />
     </>
   );
