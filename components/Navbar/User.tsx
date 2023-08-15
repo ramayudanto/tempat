@@ -2,16 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function User({ user, route }: any) {
-  if (user) {
-    return (
-      <Link href="/account">
-        <a className="flex flex-col items-center w-[20%]">
-          <Image src={user?.image!} width="25" height={"25"} alt="logo putih" objectFit="cover" className="rounded-full" />
-          <p className={`${(route === "/account" || route === "/account/edit") && "text-darkRed font-medium"}`}>Profile</p>
-        </a>
-      </Link>
-    );
-  }
+  // if (user) {
+  //   return (
+  //     <Link href="/account">
+  //       <a className="flex flex-col items-center w-[20%]">
+  //         <Image src={user?.image!} width="25" height={"25"} alt="logo putih" objectFit="cover" className="rounded-full" />
+  //         <p className={`${(route === "/account" || route === "/account/edit") && "text-darkRed font-medium"}`}>Profile</p>
+  //       </a>
+  //     </Link>
+  //   );
+  // }
   return (
     <Link href={"/login"}>
       <a className={`flex flex-col items-center w-[20%]  ${route === "/login" && "text-darkRed font-medium"}`}>

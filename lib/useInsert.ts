@@ -1,18 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "./firebase";
 
-const DATA = [{ place_id: "1", gofood_name: "kfc", Category: "Fast Food", thumbnail: "1" }];
+const DATA = [1, 2, 3];
+
+const categories = [
+  { id: "1", categoryName: "Bakso & Soto" },
+  { id: "2", categoryName: "Bakery" },
+  { id: "3", categoryName: "Beverages" },
+  { id: "4", categoryName: "Chicken & Duck" },
+  { id: "5", categoryName: "Chinese" },
+  { id: "6", categoryName: "Coffee" },
+  { id: "7", categoryName: "Fast Food" },
+  { id: "8", categoryName: "Japanese" },
+  { id: "9", categoryName: "Korean" },
+  { id: "10", categoryName: "Martabak" },
+  { id: "11", categoryName: "Middle Eastern" },
+  { id: "12", categoryName: "Noodles" },
+  { id: "13", categoryName: "Pizza & Pasta" },
+  { id: "14", categoryName: "Rice" },
+  { id: "15", categoryName: "Seafood" },
+  { id: "16", categoryName: "Sweets" },
+  { id: "17", categoryName: "Snacks" },
+  { id: "18", categoryName: "Western" },
+];
 
 export default function useInsert() {
   const [users, setUser] = useState<any>(1);
 
   useEffect(() => {
     const insert = () => {
-      DATA.map((row) => {
+      const reducedArray = DATA.map((item: any) => {
+        const categories = item.Category.split(", ").map((category: any) => category.trim());
+        return {
+          Category: categories,
+          place_id: item.place_id,
+        };
+      });
+      reducedArray.map((row: any) => {
         const place_id = row.place_id;
-        const gofood_name = row.gofood_name;
         const category = row.Category;
-        const thumbnail = row.thumbnail;
 
         const restaurantRef = firestore.collection("resto1").where("place_id", "==", place_id);
         restaurantRef
@@ -25,9 +51,7 @@ export default function useInsert() {
                 // Update the document fields
                 docRef
                   .update({
-                    gofood_name: gofood_name,
                     category: category,
-                    thumbnail: thumbnail,
                   })
                   .then(() => {
                     console.log("Document updated successfully");
@@ -45,8 +69,33 @@ export default function useInsert() {
           });
       });
     };
+    const add = async () => {
+      const batch = firestore.batch();
+
+      categories.forEach((category) => {
+        const categoryRef = firestore.collection("category").doc(category.id);
+        batch.set(categoryRef, category);
+      });
+
+      try {
+        await batch.commit();
+        console.log("Bulk category addition successful.");
+      } catch (error) {
+        console.error("Error adding categories: ", error);
+      }
+    };
+    const filter = (array: any) => {
+      const newData = array.map((item: any) => {
+        return {
+          place_id: item["place_id"],
+          Category: item["Category"],
+        };
+      });
+      return newData;
+    };
 
     // insert();
+    // add();
   }, []);
 
   return users;

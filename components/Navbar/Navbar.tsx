@@ -11,7 +11,7 @@ export default function Navbar({ user }: any) {
   // const { data: session } = useSession();
 
   return (
-    <div className="fixed z-20 bg-white text-darkGray text-opacity-70 bottom-0 w-screen flex justify-around text-sm py-2 min-w-fit">
+    <div className="fixed max-w-[420px] mx-auto left-0 right-0 z-20 bg-white text-darkGray text-opacity-70 bottom-0 w-screen flex justify-around text-sm py-2 min-w-fit">
       <Home route={router.asPath} />
       <Bookmark route={router.asPath} />
       <Search route={router.pathname} />

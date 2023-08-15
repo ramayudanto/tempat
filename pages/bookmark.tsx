@@ -8,45 +8,45 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import NoBookmark from "../public/NoBookmark.svg";
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+// export const getServerSideProps: GetServerSideProps = async (context: any) => {
+//   const session = await unstable_getServerSession(context.req, context.res, authOptions);
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-  const bookmarks = await prisma.user.findUnique({
-    where: {
-      email: session.user?.email!,
-    },
-    select: {
-      bookmark: {
-        include: {
-          featureImage: {
-            select: {
-              URL: true,
-            },
-          },
-          rating: {
-            select: {
-              rate: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  return { props: { user: session.user!, bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)) } };
-};
+//   if (!session) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/login",
+//       },
+//     };
+//   }
+//   const bookmarks = await prisma.user.findUnique({
+//     where: {
+//       email: session.user?.email!,
+//     },
+//     select: {
+//       bookmark: {
+//         include: {
+//           featureImage: {
+//             select: {
+//               URL: true,
+//             },
+//           },
+//           rating: {
+//             select: {
+//               rate: true,
+//             },
+//           },
+//         },
+//       },
+//     },
+//   });
+//   return { props: { user: session.user!, bookmarks: JSON.parse(JSON.stringify(bookmarks?.bookmark)) } };
+// };
 
 export const BookmarkContext = createContext(null as any);
 
 export default function Bookmark({ bookmarks, user }: any) {
-  const [userBookmark, setUserBookmark] = useState<any[]>(bookmarks);
+  const [userBookmark, setUserBookmark] = useState<any[]>([]);
   return (
     <>
       <Header title="Bookmark" />

@@ -15,9 +15,10 @@ import { Restaurant } from "@prisma/client";
 import { firestore } from "../lib/firebase";
 import useInsert from "../lib/useInsert";
 import Jumbotron from "../components/MainPage/Jumbotron";
+import CategoryList from "../components/MainPage/CategoryList";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  // const session = await unstable_getServerSession(req, res, authOptions);
   const count = await prisma.restaurant.count();
   const skip = Math.floor(Math.random() * count);
   const restoran = await prisma.restaurant.findMany({
@@ -54,10 +55,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   });
 
   const restoRef = firestore.collection("resto1");
-  const resto = await restoRef.limit(10).get();
-  const restoData = resto.docs.map((doc: any) => doc.data());
+  const totalDocs = await restoRef.get().then((snapshot) => snapshot.size);
 
-  return { props: { user: session?.user || null, restoran: JSON.parse(JSON.stringify(restoran)), restoData: JSON.parse(JSON.stringify(restoData)) } };
+  const randomIndex = Math.floor(Math.random() * totalDocs);
+
+  const resto = await restoRef.orderBy("__name__").startAt(randomIndex.toString()).limit(10).get();
+  const restoData = resto.docs.map((doc) => doc.data());
+
+  const categoryRef = firestore.collection("category");
+  const categories = await categoryRef.get();
+  const categoryLists = categories.docs.map((doc: any) => doc.data());
+
+  return { props: { restoran: JSON.parse(JSON.stringify(restoran)), restoData: JSON.parse(JSON.stringify(restoData)), category: categoryLists } };
   // return {
   //   props: {
   //     user: session?.user || null,
@@ -79,12 +88,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // };
 };
 
-export default function Home({ restoran, user, restoData }: any) {
+export default function Home({ restoran, restoData, category }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // console.log(restoran[0]);
-  console.log(restoData[0]);
+  // console.log(restoData[0]);
+  // const users = useInsert();
 
   useEffect(() => {
     if (search === "") {
@@ -104,17 +114,18 @@ export default function Home({ restoran, user, restoData }: any) {
   return (
     <>
       <Header title="Home" />
-      <div className="pb-20 overflow-hidden">
+      <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px]">
         <Jumbotron />
+        <CategoryList category={category} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow user={user} restaurants={restoData} title={"Popular restaurants around you"} />
+        <RestaurantRow restaurants={restoData} title={"Popular restaurants around you"} />
         {/* <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
         <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
         <RestaurantRow user={user} search="Italian" title={"Italian"} /> */}
       </div>
       {/* <p>{JSON.stringify(restoran[0])}</p> */}
-      <Navbar user={user} />
+      <Navbar />
     </>
   );
 }

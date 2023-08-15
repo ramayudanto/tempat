@@ -76,3 +76,8 @@ export const decryptLocalStorage = (key: string) => {
 export const encryptLocalStorage = (key: string) => {
   return CryptoJS.AES.encrypt(key, process.env.NEXT_PUBLIC_SECRET!).toString();
 };
+
+export function getRandomElementsFromArray(array: any, count: any) {
+  const shuffledArray = array.sort(() => Math.random() - 0.5);
+  return shuffledArray.slice(0, count);
+}
