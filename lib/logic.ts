@@ -8,21 +8,36 @@ export const ratingCounter = (rating: any) => {
   return Number(finalRating / rating.length).toFixed(1);
 };
 
-export const openTimeLogic = (open: any, close: any) => {
-  //   const openHours = `${new Date(open).getHours()}${new Date(open).getMinutes()}`
-  //   const closeHours = `${new Date(close).getHours()}${new Date(open).getMinutes()}`
-  const openTime = new Date(open);
-  const closeTime = new Date(close);
-  const nowHour = new Date().getHours();
-  const nowMin = new Date().getMinutes();
-  const nowISOFormat = new Date(`1970-01-01T${String(nowHour).length === 1 ? `0${nowHour}` : nowHour}:${nowMin}:00.000Z`);
+export function openTimeLogic(openingHoursObject: any) {
+  if (!openingHoursObject) return "Unavailable";
 
-  if (nowISOFormat > openTime && nowISOFormat < closeTime) {
-    return "Open now";
+  if (openingHoursObject.periods.length === 1 && openingHoursObject.periods[0].open.time === "0000") {
+    return "Open 24 Hour";
+  }
+
+  const now = new Date();
+  const currentDay = now.getDay();
+  const currentTime = `${now.getHours()}${now.getMinutes().toString().padStart(2, "0")}`;
+
+  let isOpen = false;
+
+  openingHoursObject.periods.forEach((period: any) => {
+    const openDay = period.open.day;
+    const closeDay = period.close.day;
+    const openTime = period.open.time;
+    const closeTime = period.close.time;
+
+    if ((currentDay === openDay && currentTime >= openTime) || (currentDay === closeDay && currentTime <= closeTime) || (currentDay > openDay && currentDay < closeDay)) {
+      isOpen = true;
+    }
+  });
+
+  if (isOpen) {
+    return "Open Now";
   } else {
     return "Closed";
   }
-};
+}
 
 export const priceLogic = (priceRange: String) => {
   // const array = priceRange.split("/");
@@ -80,4 +95,20 @@ export const encryptLocalStorage = (key: string) => {
 export function getRandomElementsFromArray(array: any, count: any) {
   const shuffledArray = array.sort(() => Math.random() - 0.5);
   return shuffledArray.slice(0, count);
+}
+
+export function translateToK(number: number) {
+  if (number >= 1000 && number < 1000000) {
+    const thousands = Math.floor(number / 1000);
+    return thousands + "K+";
+  }
+
+  // Handle cases where the number is outside the specified range
+  return number.toString();
+}
+
+export function translatePriceRange(number: number) {
+  if (!number) return "$";
+  const symbols = ["$", "$$", "$$$"];
+  return symbols[number - 1];
 }

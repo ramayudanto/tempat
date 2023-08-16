@@ -13,59 +13,67 @@ import { prisma } from "../../lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { Rating } from "@prisma/client";
 import Gallery from "../../components/Gallery/Gallery";
+import { firestore } from "../../lib/firebase";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  // const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const template = {
+    id: 2,
+    name: "Cold Moo",
+    description: null,
+    locationBroad: "Darmawangsa",
+    location: "Ruko Dharmawangsa Square, Jl. Darmawangsa VI No.20, RT.5/RW.1, Pulo, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
+    priceRange: "100.000",
+    openTime: "1970-01-01T03:00:00.000Z",
+    closeTime: "1970-01-01T11:00:00.000Z",
+    routeName: "cold-moo",
+    rating: [],
+    category: [{ categoryName: "Ice cream" }, { categoryName: "Dessert" }],
+    information: { id: 2, restaurantId: 2, smoking: false, takeOut: true, wifi: false, indoorSeating: true, prayingRoom: false },
+    featureImage: [{ URL: "https://dev.ramayudanto.com/wp-content/uploads/2022/09/picture-1630330942.jpg" }],
+    userBookmark: [],
+  };
   const { routeName } = context.params;
-  await prisma.rating.findFirst();
-  const restoran = await prisma.restaurant.findUnique({
-    where: {
-      routeName,
-    },
-    include: {
-      rating: {
-        include: {
-          user: true,
-        },
-      },
-      category: {
-        select: {
-          categoryName: true,
-        },
-      },
-      information: true,
-      featureImage: {
-        select: {
-          URL: true,
-        },
-      },
-      userBookmark: {
-        select: {
-          email: true,
-        },
-      },
-    },
-  });
-  if (!restoran) {
+  console.log(routeName);
+
+  try {
+    const querySnapshot = await firestore.collection("resto1").where("place_id", "==", routeName).limit(1).get();
+
+    if (querySnapshot.empty)
+      return {
+        notFound: true,
+      };
+
+    const document = querySnapshot.docs[0];
+    const data = document.data();
     return {
-      notFound: true,
+      props: {
+        documentData: data,
+      },
+    };
+  } catch (error) {
+    console.error("Error getting document:", error);
+    return {
+      props: {
+        documentData: null,
+      },
     };
   }
-  return { props: { user: session?.user || null, restaurant: JSON.parse(JSON.stringify(restoran)) } };
 };
 
 export const ReviewContext = createContext(null as any);
 
-export default function Restaurant({ restaurant, user }: any) {
-  const { name, information, rating } = restaurant;
-  const [reviews, setReviews] = useState<Rating[]>(rating);
+export default function Restaurant({ documentData: restaurant }: any) {
+  console.log(restaurant);
+  const { gofood_name: name, rating } = restaurant;
+  // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const ratingDivRef = useRef<HTMLDivElement>(null);
   if (!isGalleryOpen) {
     return (
       <>
         <Header title={name} />
-        <div className="mx-5 text-darkGray">
+        {/* <div className="mx-5 text-darkGray">
           <TopButtons
             onClick={() => {
               setIsGalleryOpen(true);
@@ -110,8 +118,8 @@ export default function Restaurant({ restaurant, user }: any) {
         <hr className="border-4 my-4" />
         <ReviewContext.Provider value={{ reviews, setReviews }}>
           <RatingSection user={user} divRef={ratingDivRef} restaurant={restaurant} />
-        </ReviewContext.Provider>
-        <Navbar user={user} />
+        </ReviewContext.Provider> */}
+        <Navbar />
       </>
     );
   } else {
