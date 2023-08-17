@@ -14,6 +14,8 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { Rating } from "@prisma/client";
 import Gallery from "../../components/Gallery/Gallery";
 import { firestore } from "../../lib/firebase";
+import ImageSection from "../../components/restaurant-2/ImageSection";
+import TopSection from "../../components/restaurant-2/TopSection";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   // const session = await unstable_getServerSession(context.req, context.res, authOptions);
@@ -73,6 +75,12 @@ export default function Restaurant({ documentData: restaurant }: any) {
     return (
       <>
         <Header title={name} />
+        <div className="max-w-[420px] mx-auto bg-slate-500">
+          <ImageSection thumbnail={restaurant.thumbnail} />
+          <div className=" bg-white rounded-t-2xl pt-5 px-4">
+            <TopSection restaurant={restaurant} />
+          </div>
+        </div>
         {/* <div className="mx-5 text-darkGray">
           <TopButtons
             onClick={() => {

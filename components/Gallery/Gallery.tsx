@@ -25,7 +25,7 @@ export default function Gallery({ setIsGalleryOpen, restaurant }: any) {
     <>
       <Header title={`${restaurant.name} Gallery`} />
       <HeaderSection restaurant={restaurant} setIsGalleryOpen={setIsGalleryOpen} />
-      <div className="flex items-center gap-x-4 mt-5 mx-4">
+      <div className="flex items-center gap-x-4 mt-5 mx-4 max-w-[420px]">
         {categoryList.map((item: string, i: number) => {
           return (
             <div

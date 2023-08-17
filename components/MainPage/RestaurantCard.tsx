@@ -9,9 +9,9 @@ export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, gofood_name, price_level: priceRange, opening_hours, category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
-  const locationBroad =
-    restaurant.address_components.find((component: any) => component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")) ||
-    "Unknown";
+  const locationBroad = restaurant.address_components.find((component: any) =>
+    component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
+  );
 
   // const [isBookmakred, setIsBookmarked] = useState<boolean>(
   //   userBookmark.map((item: any) => {
@@ -75,7 +75,7 @@ export default function RestaurantCard({ restaurant }: any) {
                 fill="#E63131"
               />
             </svg>
-            <p className="text-xs text-lightGray">{locationBroad.short_name || locationBroad.long_name}</p>
+            <p className="text-xs text-lightGray">{locationBroad.short_name || locationBroad.long_name || "Unknown"}</p>
           </div>
           <div className="flex items-center gap-x-[2px]">
             <div className="flex items-center gap-x-[2px]">

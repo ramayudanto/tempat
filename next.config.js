@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["dev.ramayudanto.com", "b.zmtcdn.com", "upload.wikimedia.org", "images.unsplash.com", "lh3.googleusercontent.com", "ramayudanto.com", "firebasestorage.googleapis.com"],
+    domains: ["dev.ramayudanto.com", "b.zmtcdn.com", "upload.wikimedia.org", "images.unsplash.com", "lh3.googleusercontent.com", "ramayudanto.com", "firebasestorage.googleapis.com", "i.gojekapi.com", "socialistmodernism.com"],
   },
   webpack(config) {
     config.module.rules.push({
