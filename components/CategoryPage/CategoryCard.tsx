@@ -35,7 +35,7 @@ export default function CategoryCard({ restaurant, isLast, onclick }: any) {
                 }
               })}
             </div>
-            <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>
+            {/* <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p> */}
           </div>
           <div className="flex flex-col items-end justify-between">
             <div className="bg-green p-1 px-2 rounded flex font-semibold text-white items-center gap-x-1">

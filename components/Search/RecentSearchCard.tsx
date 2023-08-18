@@ -45,7 +45,7 @@ export default function RecentSearchCard({ restaurant }: any) {
           </div>
           <p className="text-darkGray text-opacity-70 text-xs">{truncate(locationBroad, 40)}</p>
           <div className="flex items-center justify-between">
-            <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>
+            {/* <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p> */}
             <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p>
           </div>
         </div>

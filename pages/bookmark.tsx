@@ -54,15 +54,16 @@ export default function Bookmark({ bookmarks, user }: any) {
       <div className="mx-4 mt-10 pb-20 relative h-screen">
         <p className="font-semibold text-2xl mb-3">Restoran Favorit</p>
         {userBookmark.length !== 0 ? (
-          <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
-            {userBookmark.map((bookmark: any, i: any) => {
-              return (
-                <BookmarkContext.Provider value={{ userBookmark, setUserBookmark }} key={i}>
-                  <BookmarkCard restaurant={bookmark} />
-                </BookmarkContext.Provider>
-              );
-            })}
-          </div>
+          // <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
+          //   {userBookmark.map((bookmark: any, i: any) => {
+          //     return (
+          //       <BookmarkContext.Provider value={{ userBookmark, setUserBookmark }} key={i}>
+          //         <BookmarkCard restaurant={bookmark} />
+          //       </BookmarkContext.Provider>
+          //     );
+          //   })}
+          // </div>
+          <></>
         ) : (
           <div className="absolute min-h-max top-1/2 bottom-2/3 left-0 right-0 m-auto flex flex-col justify-center items-center">
             <NoBookmark />

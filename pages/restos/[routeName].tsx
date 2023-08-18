@@ -3,7 +3,7 @@ import { unstable_getServerSession } from "next-auth";
 import { createContext, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
-import DetailedInformation from "../../components/RestaurantDetail/DetailedInformation";
+import DetailedInformation from "../../components/restaurant-2/DetailedInformation";
 import MenuSection from "../../components/RestaurantDetail/MenuSection";
 import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
 import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeature";
@@ -36,7 +36,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     userBookmark: [],
   };
   const { routeName } = context.params;
-  console.log(routeName);
 
   try {
     const querySnapshot = await firestore.collection("resto1").where("place_id", "==", routeName).limit(1).get();
@@ -50,14 +49,14 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const data = document.data();
     return {
       props: {
-        documentData: data,
+        restaurant: data,
       },
     };
   } catch (error) {
     console.error("Error getting document:", error);
     return {
       props: {
-        documentData: null,
+        restaurant: null,
       },
     };
   }
@@ -65,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 
 export const ReviewContext = createContext(null as any);
 
-export default function Restaurant({ documentData: restaurant }: any) {
+export default function Restaurant({ restaurant }: any) {
   console.log(restaurant);
   const { gofood_name: name, rating } = restaurant;
   // const [reviews, setReviews] = useState<Rating[]>(rating);
@@ -79,6 +78,8 @@ export default function Restaurant({ documentData: restaurant }: any) {
           <ImageSection thumbnail={restaurant.thumbnail} />
           <div className=" bg-white rounded-t-2xl pt-5 px-4">
             <TopSection restaurant={restaurant} />
+            <hr className="border-y-2 my-4" />
+            <DetailedInformation restaurant={restaurant} />
           </div>
         </div>
         {/* <div className="mx-5 text-darkGray">

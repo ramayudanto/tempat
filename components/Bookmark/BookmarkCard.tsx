@@ -48,7 +48,7 @@ export default function BookmarkCard({ restaurant }: any) {
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
             </div> */}
           </div>
-          <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p>
+          {/* <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p> */}
         </div>
       </a>
     </Link>

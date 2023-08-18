@@ -17,7 +17,7 @@ export default function DetailedInformation({ restaurant }: any) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-darkGray basis-[10%]">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p>{openTimeLogic(openTime, closeTime)}</p>
+            {/* <p>{openTimeLogic(openTime, closeTime)}</p> */}
           </div>
           <div className="flex gap-x-1 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-darkGray basis-[10%]">
