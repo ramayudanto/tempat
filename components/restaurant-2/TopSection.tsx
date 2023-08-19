@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function TopSection({ restaurant }: any) {
+export default function TopSection({ restaurant, divRef }: any) {
   const locationBroad = restaurant.address_components.find((component: any) =>
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
-  );
+  ) || { short_name: "Unknown", long_name: "Unknown" };
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" ref={divRef}>
       <div className="flex items-center justify-between">
         <p className="font-semibold text-darkGray text-xl">{restaurant.gofood_name}</p>
         <div className="bg-green flex items-center px-3 py-2 rounded gap-x-1">

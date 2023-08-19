@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { GetServerSideProps } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import DetailedInformation from "../../components/restaurant-2/DetailedInformation";
-import MenuSection from "../../components/RestaurantDetail/MenuSection";
 import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
 import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeature";
 import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader";
@@ -16,6 +17,10 @@ import Gallery from "../../components/Gallery/Gallery";
 import { firestore } from "../../lib/firebase";
 import ImageSection from "../../components/restaurant-2/ImageSection";
 import TopSection from "../../components/restaurant-2/TopSection";
+import MenuSection from "../../components/restaurant-2/MenuSection";
+import RestoFooter from "../../components/restaurant-2/RestoFooter";
+import RestoTopbar from "../../components/restaurant-2/RestoTopbar";
+import { useInView } from "react-intersection-observer";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   // const session = await unstable_getServerSession(context.req, context.res, authOptions);
@@ -63,72 +68,50 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 };
 
 export const ReviewContext = createContext(null as any);
+export const ActiveSectionContext = createContext(null as any);
 
 export default function Restaurant({ restaurant }: any) {
-  console.log(restaurant);
   const { gofood_name: name, rating } = restaurant;
   // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
-  const ratingDivRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [aboutRef, aboutInView] = useInView();
+  const [menuRef, menuInView] = useInView();
+  const [facilityRef, facilityInView] = useInView();
+  const [reviewRef, reviewInView] = useInView();
+  const [othersRef, othersInView] = useInView();
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY || window.pageYOffset;
+    setIsActive(scrollY > 200);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (!isGalleryOpen) {
     return (
       <>
         <Header title={name} />
-        <div className="max-w-[420px] mx-auto bg-slate-500">
-          <ImageSection thumbnail={restaurant.thumbnail} />
-          <div className=" bg-white rounded-t-2xl pt-5 px-4">
-            <TopSection restaurant={restaurant} />
-            <hr className="border-y-2 my-4" />
-            <DetailedInformation restaurant={restaurant} />
+        {/* {isActive && <RestoTopbar sections={sections} currentSection={currentSection} />} */}
+        <ActiveSectionContext.Provider value={{ activeSection, setActiveSection, menuRef, aboutRef, facilityRef, reviewRef, othersRef }}>
+          <div className="max-w-[420px] mx-auto bg-slate-500">
+            <ImageSection thumbnail={restaurant.thumbnail} />
+            <div className=" bg-white rounded-t-2xl pt-5 px-4">
+              <TopSection restaurant={restaurant} />
+              <hr className="border-y-2 my-4" />
+              <DetailedInformation restaurant={restaurant} />
+              <hr className="border-y-2 my-4" />
+              <MenuSection restaurant={restaurant} />
+            </div>
           </div>
-        </div>
-        {/* <div className="mx-5 text-darkGray">
-          <TopButtons
-            onClick={() => {
-              setIsGalleryOpen(true);
-            }}
-            user={user}
-            restaurant={restaurant}
-          />
-          <RestaurantHeader restaurant={restaurant} />
-          <div className="flex justify-between">
-            <button
-              className="text-white border-darkRed border-2 bg-darkRed px-12 py-3 rounded"
-              onClick={() => {
-                ratingDivRef?.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                  inline: "start",
-                });
-              }}
-            >
-              REVIEWS
-            </button>
-            <button
-              onClick={() => {
-                setIsGalleryOpen(true);
-              }}
-              className="text-darkGray border-darkRed border-2 px-12 py-3 rounded"
-            >
-              Photos
-            </button>
-          </div>
-        </div>
-        <hr className="border-4 my-4" />
-        <DetailedInformation restaurant={restaurant} />
-        <hr className="border-4 my-4" />
-        <MenuSection restaurant={restaurant} />
-        {information && (
-          <>
-            <hr className="border-4 my-4" />
-            <RestaurantFeature information={information} />
-          </>
-        )}
-        <hr className="border-4 my-4" />
-        <ReviewContext.Provider value={{ reviews, setReviews }}>
-          <RatingSection user={user} divRef={ratingDivRef} restaurant={restaurant} />
-        </ReviewContext.Provider> */}
-        <Navbar />
+        </ActiveSectionContext.Provider>
+        {!isActive && <RestoFooter restaurant={restaurant} />}
       </>
     );
   } else {

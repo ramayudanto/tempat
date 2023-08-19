@@ -112,3 +112,33 @@ export function translatePriceRange(number: number) {
   const symbols = ["$", "$$", "$$$"];
   return symbols[number - 1];
 }
+
+export function translateOpeningHours(data: any) {
+  const openingHours = [];
+  for (const period of data.periods) {
+    const openDay = data.weekday_text[period.open.day].split(":")[0];
+    const openTime = period.open.time.slice(0, 2) + ":" + period.open.time.slice(2) + " AM";
+    const closeTime = period.close.time.slice(0, 2) + ":" + period.close.time.slice(2) + " AM";
+
+    openingHours.push({
+      day: openDay,
+      openTime: openTime,
+      closeTime: closeTime,
+    });
+  }
+
+  return openingHours;
+}
+
+export function getCloseTimeForToday(openingHours: any) {
+  const now = new Date();
+  const currentDay = now.toLocaleDateString("en-US", { weekday: "long" });
+
+  const todayOpeningHours = openingHours.find((item: any) => item.day === currentDay);
+
+  if (todayOpeningHours) {
+    return todayOpeningHours.closeTime;
+  }
+
+  return "Closed today";
+}

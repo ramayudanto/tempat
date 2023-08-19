@@ -1,15 +1,23 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { ActiveSectionContext } from "../../pages/restos/[routeName]";
+import { useContext } from "react";
 
 export default function ImageSection({ thumbnail }: any) {
   const containerStyle = {
-    backgroundImage: 'url("/placeholder.png")', // Path relative to the public directory
+    backgroundImage: 'url("/placeholder.png")',
     backgroundSize: "cover",
-    // Other inline styling properties can be added here
   };
+  const router = useRouter();
   return (
     <div className="relative">
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
-        <button className="p-[10px] bg-white rounded-full">
+        <button
+          className="p-[10px] bg-white rounded-full"
+          onClick={() => {
+            router.back();
+          }}
+        >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 8H1M1 8L8 15M1 8L8 1" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -22,7 +30,7 @@ export default function ImageSection({ thumbnail }: any) {
       </div>
       <div className="">
         <div className="relative h-[400px]">
-          <Image src={thumbnail} alt="test" layout="fill" objectFit="cover" />
+          <Image src={thumbnail} alt="test" layout="fill" objectFit="cover" loading="eager" />
         </div>
         <div className="flex gap-x-1">
           {[1, 2, 3, 4].map((item: any, i: any, row: any) => {

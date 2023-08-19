@@ -18,7 +18,7 @@ export default function CategoryList({ category: categories }: any) {
             <Link href={`/`} key={i}>
               <a className="flex space-y-2 flex-col items-center justify-around">
                 {/* <Image src={`/category/${category.categoryName}.svg`} width={10} height={20} alt={category.categoryName} /> */}
-                <Image src={`/category/Japanese.svg`} width={30} height={30} alt={category.categoryName} />
+                <Image src={`/category/Japanese.svg`} width={30} height={30} alt={category.categoryName} loading="eager" />
                 <p className="font-medium flex-grow text-center text-xs text-[#364152]">{category.categoryName}</p>
               </a>
             </Link>

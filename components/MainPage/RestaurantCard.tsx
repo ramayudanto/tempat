@@ -11,7 +11,7 @@ export default function RestaurantCard({ restaurant }: any) {
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
   const locationBroad = restaurant.address_components.find((component: any) =>
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
-  );
+  ) || { short_name: "Unknown", long_name: "Unknown" };
 
   // const [isBookmakred, setIsBookmarked] = useState<boolean>(
   //   userBookmark.map((item: any) => {
@@ -53,7 +53,7 @@ export default function RestaurantCard({ restaurant }: any) {
   return (
     <Link href={`/restos/${restaurant.place_id}`}>
       <a
-        className="rounded-lg flex-none shadow-xl w-[35vw] "
+        className="rounded-lg flex-none shadow-xl w-[33vw] max-w-[137px] "
         onClick={() => {
           recentRestaurantHandler(restaurant);
         }}
@@ -75,7 +75,7 @@ export default function RestaurantCard({ restaurant }: any) {
                 fill="#E63131"
               />
             </svg>
-            <p className="text-xs text-lightGray">{locationBroad.short_name || locationBroad.long_name || "Unknown"}</p>
+            <p className="text-xs text-lightGray">{locationBroad.short_name || locationBroad.long_name}</p>
           </div>
           <div className="flex items-center gap-x-[2px]">
             <div className="flex items-center gap-x-[2px]">
