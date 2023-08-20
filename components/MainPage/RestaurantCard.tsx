@@ -23,43 +23,43 @@ export default function RestaurantCard({ restaurant }: any) {
   //   })[0]
   // );
 
-  const bookmarkHandler = (e: FormEvent) => {
-    e.preventDefault();
-    if (isBookmakred) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          routeName,
-        }),
-      });
-      setIsBookmarked(false);
-    } else {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/setBookmark`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          routeName,
-        }),
-      });
-      setIsBookmarked(true);
-    }
-  };
+  // const bookmarkHandler = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   if (isBookmakred) {
+  //     fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         routeName,
+  //       }),
+  //     });
+  //     setIsBookmarked(false);
+  //   } else {
+  //     fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/setBookmark`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         routeName,
+  //       }),
+  //     });
+  //     setIsBookmarked(true);
+  //   }
+  // };
 
   return (
     <Link href={`/restos/${restaurant.place_id}`}>
       <a
-        className="rounded-lg shadow-xl w-[33vw] max-w-[137px] "
+        className="rounded-lg flex-none shadow-xl w-[33vw] max-w-[137px] "
         onClick={() => {
           recentRestaurantHandler(restaurant);
         }}
       >
         <div className="bg-cover bg-center h-[190px] relative rounded-t-xl" style={{ backgroundImage: `url(${thumbnail})` }}>
-          {session && <BookmarkButton isBookmarked={isBookmakred} bookmarkHandler={bookmarkHandler} />}
+          {session && <BookmarkButton isBookmarked={isBookmakred} bookmarkHandler={() => {}} />}
           {/* <div className="flex px-[0.5rem] py-1 font-semibold items-center justify-center text-xs bg-white opacity-75 absolute bottom-2 right-3 rounded-full">
             <p>2.0 Km</p>
           </div> */}
