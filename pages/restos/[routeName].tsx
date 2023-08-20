@@ -6,13 +6,6 @@ import { createContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import DetailedInformation from "../../components/restaurant-2/DetailedInformation";
-import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
-import RestaurantFeature from "../../components/RestaurantDetail/RestaurantFeature";
-import RestaurantHeader from "../../components/RestaurantDetail/RestaurantHeader";
-import TopButtons from "../../components/RestaurantDetail/TopButtons";
-import { prisma } from "../../lib/prisma";
-import { authOptions } from "../api/auth/[...nextauth]";
-import { Rating } from "@prisma/client";
 import Gallery from "../../components/Gallery/Gallery";
 import { firestore } from "../../lib/firebase";
 import ImageSection from "../../components/restaurant-2/ImageSection";
@@ -21,6 +14,7 @@ import MenuSection from "../../components/restaurant-2/MenuSection";
 import RestoFooter from "../../components/restaurant-2/RestoFooter";
 import RestoTopbar from "../../components/restaurant-2/RestoTopbar";
 import { useInView } from "react-intersection-observer";
+import RestoFacility from "../../components/restaurant-2/RestoFacility";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   // const session = await unstable_getServerSession(context.req, context.res, authOptions);
@@ -83,9 +77,15 @@ export default function Restaurant({ restaurant }: any) {
   const [reviewRef, reviewInView] = useInView();
   const [othersRef, othersInView] = useInView();
 
+  const aboutDivRef = useRef<any>(null);
+  const menuDivRef = useRef<any>(null);
+  const facilityDivRef = useRef<any>(null);
+  const reviewDivRef = useRef<any>(null);
+  const othersDivRef = useRef<any>(null);
+
   const handleScroll = () => {
     const scrollY = window.scrollY || window.pageYOffset;
-    setIsActive(scrollY > 200);
+    setIsActive(scrollY > 150);
   };
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -94,12 +94,20 @@ export default function Restaurant({ restaurant }: any) {
     };
   }, []);
 
+  useEffect(() => {
+    if (aboutInView) setActiveSection("about");
+    if (menuInView) setActiveSection("menu");
+    if (facilityInView) setActiveSection("facility");
+    if (reviewInView) setActiveSection("review");
+    if (othersInView) setActiveSection("others");
+  }, [aboutInView, menuInView, facilityInView, reviewInView, othersInView]);
+
   if (!isGalleryOpen) {
     return (
       <>
         <Header title={name} />
-        {/* {isActive && <RestoTopbar sections={sections} currentSection={currentSection} />} */}
-        <ActiveSectionContext.Provider value={{ activeSection, setActiveSection, menuRef, aboutRef, facilityRef, reviewRef, othersRef }}>
+        <ActiveSectionContext.Provider value={{ menuRef, aboutRef, facilityRef, reviewRef, othersRef, activeSection, menuDivRef, aboutDivRef, facilityDivRef, reviewDivRef, othersDivRef }}>
+          {isActive && <RestoTopbar />}
           <div className="max-w-[420px] mx-auto bg-slate-500">
             <ImageSection thumbnail={restaurant.thumbnail} />
             <div className=" bg-white rounded-t-2xl pt-5 px-4">
@@ -108,6 +116,8 @@ export default function Restaurant({ restaurant }: any) {
               <DetailedInformation restaurant={restaurant} />
               <hr className="border-y-2 my-4" />
               <MenuSection restaurant={restaurant} />
+              <hr className="border-y-2 my-4" />
+              <RestoFacility restaurant={restaurant} />
             </div>
           </div>
         </ActiveSectionContext.Provider>

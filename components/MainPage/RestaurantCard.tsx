@@ -53,7 +53,7 @@ export default function RestaurantCard({ restaurant }: any) {
   return (
     <Link href={`/restos/${restaurant.place_id}`}>
       <a
-        className="rounded-lg flex-none shadow-xl w-[33vw] max-w-[137px] "
+        className="rounded-lg shadow-xl w-[33vw] max-w-[137px] "
         onClick={() => {
           recentRestaurantHandler(restaurant);
         }}
@@ -66,7 +66,7 @@ export default function RestaurantCard({ restaurant }: any) {
         </div>
 
         <div className="p-2 space-y-2">
-          <p className="font-semibold text-sm">{truncate(gofood_name, 23)}</p>
+          <p className="font-semibold text-sm">{truncate(gofood_name, 22)}</p>
 
           <div className="flex gap-x-2">
             <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">

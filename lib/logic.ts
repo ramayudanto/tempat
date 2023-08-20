@@ -1,12 +1,12 @@
 import CryptoJS from "crypto-js";
 
-export const ratingCounter = (rating: any) => {
-  let finalRating: number = 0;
-  rating.forEach((rate: any) => {
-    finalRating += rate.rate;
-  });
-  return Number(finalRating / rating.length).toFixed(1);
-};
+// export const ratingCounter = (rating: any) => {
+//   let finalRating: number = 0;
+//   rating.forEach((rate: any) => {
+//     finalRating += rate.rate;
+//   });
+//   return Number(finalRating / rating.length).toFixed(1);
+// };
 
 export function openTimeLogic(openingHoursObject: any) {
   if (!openingHoursObject) return "Unavailable";
@@ -114,6 +114,18 @@ export function translatePriceRange(number: number) {
 }
 
 export function translateOpeningHours(data: any) {
+  if (!data) return [];
+  if (data.periods.length === 1 && data.periods[0].open.time === "0000") {
+    return [
+      { day: "Monday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Tuesday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Wednesday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Thursday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Friday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Saturday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+      { day: "Sunday", openTime: "00:00 AM", closeTime: "24:00 PM" },
+    ];
+  }
   const openingHours = [];
   for (const period of data.periods) {
     const openDay = data.weekday_text[period.open.day].split(":")[0];
@@ -126,8 +138,8 @@ export function translateOpeningHours(data: any) {
       closeTime: closeTime,
     });
   }
-
   return openingHours;
+  // return [];
 }
 
 export function getCloseTimeForToday(openingHours: any) {

@@ -7,7 +7,7 @@ export default function CategoryImage({ images }: any) {
       {images.map((image: any, i: any) => {
         return (
           <div className="w-[135px] h-[87px] relative" key={i}>
-            <Image src={image?.URL} width={135} height={87} alt={i} layout="fixed" objectFit="cover" className="rounded" />
+            <Image src={image} width={135} height={87} alt={i} layout="fixed" objectFit="cover" className="rounded" />
           </div>
         );
       })}

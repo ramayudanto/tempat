@@ -6,16 +6,15 @@ import SkeletonCardRow from "../Skeleton/SkeletonCardRow";
 export default function RestaurantRow({ restaurants, title, search }: any) {
   const [data, setData] = useState<any[]>(restaurants || []);
   const router = useRouter();
-  // const fetchData = async () => {
-  //   const res = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getCategories?category=${search}`)).json();
-  //   setData(res);
-  // };
-
-  // useEffect(() => {
-  //   if (!search) return;
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const fetchData = async () => {
+    const res = await (await fetch(`/api/getCategories?q=${search}`)).json();
+    setData(res);
+  };
+  useEffect(() => {
+    if (!search) return;
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return data.length == 0 ? (
     <SkeletonCardRow />

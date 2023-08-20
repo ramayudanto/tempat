@@ -9,8 +9,9 @@ export default function ImageSection({ thumbnail }: any) {
     backgroundSize: "cover",
   };
   const router = useRouter();
+  const { aboutDivRef } = useContext(ActiveSectionContext);
   return (
-    <div className="relative">
+    <div ref={aboutDivRef} className="relative">
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
           className="p-[10px] bg-white rounded-full"

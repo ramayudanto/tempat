@@ -19,40 +19,40 @@ import CategoryList from "../components/MainPage/CategoryList";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // const session = await unstable_getServerSession(req, res, authOptions);
-  const count = await prisma.restaurant.count();
-  const skip = Math.floor(Math.random() * count);
-  const restoran = await prisma.restaurant.findMany({
-    select: {
-      name: true,
-      locationBroad: true,
-      priceRange: true,
-      openTime: true,
-      closeTime: true,
-      featureImage: {
-        select: {
-          URL: true,
-        },
-      },
-      routeName: true,
-      rating: {
-        select: {
-          rate: true,
-        },
-      },
-      category: {
-        select: {
-          categoryName: true,
-        },
-      },
-      userBookmark: {
-        select: {
-          email: true,
-        },
-      },
-    },
-    take: 10,
-    skip,
-  });
+  // const count = await prisma.restaurant.count();
+  // const skip = Math.floor(Math.random() * count);
+  // const restoran = await prisma.restaurant.findMany({
+  //   select: {
+  //     name: true,
+  //     locationBroad: true,
+  //     priceRange: true,
+  //     openTime: true,
+  //     closeTime: true,
+  //     featureImage: {
+  //       select: {
+  //         URL: true,
+  //       },
+  //     },
+  //     routeName: true,
+  //     rating: {
+  //       select: {
+  //         rate: true,
+  //       },
+  //     },
+  //     category: {
+  //       select: {
+  //         categoryName: true,
+  //       },
+  //     },
+  //     userBookmark: {
+  //       select: {
+  //         email: true,
+  //       },
+  //     },
+  //   },
+  //   take: 10,
+  //   skip,
+  // });
 
   const restoRef = firestore.collection("resto1");
   const totalDocs = await restoRef.get().then((snapshot) => snapshot.size);
@@ -66,29 +66,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const categories = await categoryRef.get();
   const categoryLists = categories.docs.map((doc: any) => doc.data());
 
-  return { props: { restoran: JSON.parse(JSON.stringify(restoran)), restoData: JSON.parse(JSON.stringify(restoData)), category: categoryLists } };
-  // return {
-  //   props: {
-  //     user: session?.user || null,
-  //     restoran: [
-  //       {
-  //         name: "OPEN Restaurant - DoubleTree by Hilton Jakarta Diponegoro",
-  //         locationBroad: "DoubleTree by Hilton Hotel, Cikini, Jakarta",
-  //         priceRange: "700.000 ",
-  //         openTime: "1970-01-01T03:00:00.000Z",
-  //         closeTime: "1970-01-01T11:00:00.000Z",
-  //         featureImage: [{ URL: "https://b.zmtcdn.com/data/pictures/1/7422631/61f7cd504f60c63d29dd07380b882ee4_featured_v2.jpg" }],
-  //         routeName: "OPEN-Restaurant-DoubleTree-by-Hilton-Jakarta-Diponegoro",
-  //         rating: [],
-  //         category: [{ categoryName: "Western" }, { categoryName: "Asian" }, { categoryName: "French" }],
-  //         userBookmark: [],
-  //       },
-  //     ],
-  //   },
-  // };
+  return { props: { restaurant: JSON.parse(JSON.stringify(restoData)), category: categoryLists } };
 };
 
-export default function Home({ restoran, restoData, category }: any) {
+export default function Home({ restaurant, category }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -119,9 +100,10 @@ export default function Home({ restoran, restoData, category }: any) {
         <CategoryList category={category} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restoData} title={"Popular restaurants around you"} />
-        {/* <RestaurantRow user={user} search="Coffee" title={"Coffee to brighten up your day"} />
-        <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
+        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you"} />
+        <RestaurantRow search="Japanese" title={"Oriental taste"} />
+        <RestaurantRow search="Noodles" title={"For noodle fan"} />
+        {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
         <RestaurantRow user={user} search="Italian" title={"Italian"} /> */}
       </div>
       {/* <p>{JSON.stringify(restoran[0])}</p> */}
