@@ -26,7 +26,7 @@ export default function RestaurantCard({ restaurant }: any) {
   // const bookmarkHandler = (e: FormEvent) => {
   //   e.preventDefault();
   //   if (isBookmakred) {
-  //     fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
+  //     fetch(`/api/deleteBookmark`, {
   //       method: "PUT",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function RestaurantCard({ restaurant }: any) {
   //     });
   //     setIsBookmarked(false);
   //   } else {
-  //     fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/setBookmark`, {
+  //     fetch(`/api/setBookmark`, {
   //       method: "PUT",
   //       headers: {
   //         "Content-Type": "application/json",

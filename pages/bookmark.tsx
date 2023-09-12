@@ -4,12 +4,12 @@ import { prisma } from "../lib/prisma";
 import Navbar from "../components/Navbar/Navbar";
 import BookmarkCard from "../components/Bookmark/BookmarkCard";
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import NoBookmark from "../public/NoBookmark.svg";
 
 // export const getServerSideProps: GetServerSideProps = async (context: any) => {
-//   const session = await unstable_getServerSession(context.req, context.res, authOptions);
+//   const session = await getServerSession(context.req, context.res, authOptions);
 
 //   if (!session) {
 //     return {

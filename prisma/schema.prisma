@@ -102,8 +102,9 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image         String @default("https://ramayudanto.com/wp-content/uploads/2022/11/Profile-picture-4.png")
+  image         String?
   username String? @unique
+  hashedPassword String?
   accounts      Account[]
   sessions      Session[]
   rating Rating[]

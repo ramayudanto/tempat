@@ -6,7 +6,7 @@ import SearchBar from "../components/SearchBar";
 import Topbar from "../components/Topbar";
 import { prisma } from "../lib/prisma";
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import Image from "next/image";
 import MainPageSearch from "../components/Search/MainPageSearch";
@@ -16,9 +16,12 @@ import { firestore } from "../lib/firebase";
 import useInsert from "../lib/useInsert";
 import Jumbotron from "../components/MainPage/Jumbotron";
 import CategoryList from "../components/MainPage/CategoryList";
+import { getSession, useSession } from "next-auth/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  // const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
+  console.log(session);
+
   // const count = await prisma.restaurant.count();
   // const skip = Math.floor(Math.random() * count);
   // const restoran = await prisma.restaurant.findMany({
@@ -66,16 +69,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const categories = await categoryRef.get();
   const categoryLists = categories.docs.map((doc: any) => doc.data());
 
-  return { props: { restaurant: JSON.parse(JSON.stringify(restoData)), category: categoryLists } };
+  return { props: { restaurant: JSON.parse(JSON.stringify(restoData)), category: categoryLists, user: session || null } };
 };
 
-export default function Home({ restaurant, category }: any) {
+export default function Home({ restaurant, category, user }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<Restaurant[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const session = useSession();
   // console.log(restoran[0]);
   // console.log(restoData[0]);
   // const users = useInsert();
+
+  console.log(user);
 
   useEffect(() => {
     if (search === "") {
@@ -84,7 +90,7 @@ export default function Home({ restaurant, category }: any) {
     }
     const getData = setTimeout(async () => {
       setIsLoading(true);
-      const data = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getSearch?q=${search}`)).json();
+      const data = await (await fetch(`/api/getSearch?q=${search}`)).json();
       setSearchData(getMultipleRandom(data, 3));
       setIsLoading(false);
     }, 500);

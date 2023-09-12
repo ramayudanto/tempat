@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useContext, useState } from "react";
-import { openTimeLogic, priceLogic, ratingCounter, truncate } from "../../lib/logic";
+import { openTimeLogic, priceLogic, truncate } from "../../lib/logic";
 import { BookmarkContext } from "../../pages/bookmark";
 // import CategoryImage from "../CategoryPage/CategoryImage";
 
@@ -18,7 +18,7 @@ export default function BookmarkCard({ restaurant }: any) {
       setUserBookmark(newBookmark);
     }, 500);
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
+    fetch(`/api/deleteBookmark`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { prisma } from "../../lib/prisma";
 import Header from "../../components/Head/Header";
@@ -7,7 +7,7 @@ import AccountSection from "../../components/Account/AccountSection";
 import Navbar from "../../components/Navbar/Navbar";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
   // const { routeName } = context.params;
   if (!session) {
     return {
@@ -31,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return { props: { user } };
 };
 export default function account({ user }: any) {
+  console.log(user);
   return (
     <>
       <Header title="Account" />

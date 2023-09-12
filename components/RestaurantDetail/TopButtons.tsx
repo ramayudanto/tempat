@@ -22,7 +22,7 @@ export default function TopButtons({ user, restaurant, onClick }: any) {
 
   const bookmarkHandler = async (e: any) => {
     if (isBookmakred) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/deleteBookmark`, {
+      fetch(`/api/deleteBookmark`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default function TopButtons({ user, restaurant, onClick }: any) {
       });
       setIsBookmarked(false);
     } else {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/setBookmark`, {
+      fetch(`/api/setBookmark`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

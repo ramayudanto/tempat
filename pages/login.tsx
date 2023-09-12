@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import LoginPage from "../components/login/LoginPage";
+import Header from "../components/Head/Header";
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getSession(context);
   if (session) {
@@ -13,16 +14,19 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       },
     };
   }
-  return { props: { user: false } };
+  return { props: {} };
 };
 
 export default function login() {
   return (
     <>
-      <div className="w-screen h-[30vh] relative">
-        <Image src={"https://ramayudanto.com/wp-content/uploads/2022/11/Burger.png"} layout="fill" alt="burger" objectFit="cover" priority />
+      <Header title={"Login"} />
+      <div className="max-w-[425px] mx-auto">
+        <div className="h-[275px] relative">
+          <Image src={"/homepage-1.png"} layout="fill" alt="burger" objectFit="cover" priority />
+        </div>
+        <LoginPage />
       </div>
-      <LoginPage />
     </>
   );
 }

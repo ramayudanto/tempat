@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { createContext, FormEvent, useRef, useState } from "react";
@@ -12,7 +12,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Toast from "../../components/Toast";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
   // const { routeName } = context.params;
   if (!session) {
     return {
@@ -49,7 +49,7 @@ export default function Edit({ user }: any) {
     e.preventDefault();
     const name = nameRef.current?.value! === "" ? user.name : nameRef.current?.value!;
     const username = usernameRef.current?.value! === "" ? user.username : usernameRef.current?.value!;
-    fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/updateUser`, {
+    fetch(`/api/updateUser`, {
       body: JSON.stringify({ name, username, image }),
       headers: {
         "Content-Type": "application/json",

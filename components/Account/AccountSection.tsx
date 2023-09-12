@@ -12,7 +12,7 @@ export default function AccountSection({ user }: any) {
 
         <button
           onClick={() => {
-            router.push("/account/edit");
+            router.push("/account/edit", undefined, { shallow: true });
           }}
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,7 @@ export default function AccountSection({ user }: any) {
         </button>
       </div>
       <div className="flex flex-col items-center w-full gap-y-5">
-        <Image src={user?.image!} width="150" height={"150"} alt="logo putih" objectFit="cover" className="rounded-full self-center" />
+        {/* <Image src={user?.image!} width="150" height={"150"} alt="logo putih" objectFit="cover" className="rounded-full self-center" /> */}
         <div className="self-start w-full">
           <p className="font-medium text-darkGray text-opacity-70">Username</p>
           <input className="outline-none border-b-2 bg-white w-full" disabled type="text" placeholder={user.username || "not set"} />
