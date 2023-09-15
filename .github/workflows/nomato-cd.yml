@@ -36,4 +36,4 @@ jobs:
             cp ../nomato-env/.env .
             npx prisma generate
             npm run build
-            pm2 restart nomato-v2
+            pm2 restart tempat
