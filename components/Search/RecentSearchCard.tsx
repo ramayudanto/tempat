@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FormEvent, useEffect, useState } from "react";
-import { openTimeLogic, priceLogic, ratingCounter, recentRestaurantHandler, truncate } from "../../lib/logic";
+import { openTimeLogic, priceLogic, recentRestaurantHandler, truncate } from "../../lib/logic";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
@@ -22,7 +22,7 @@ export default function RecentSearchCard({ restaurant }: any) {
           <div className="flex justify-between items-center mb-1">
             <p className="font-semibold text-darkGray">{truncate(name, 21)}</p>
             <div className="bg-green w-[47px] h-[26px] rounded flex font-semibold text-white items-center justify-evenly">
-              <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
+              {/* <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p> */}
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
             </div>
           </div>

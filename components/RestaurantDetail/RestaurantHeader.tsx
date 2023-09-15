@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { ratingCounter } from "../../lib/logic";
+// import { ratingCounter } from "../../lib/logic";
 
 export default function RestaurantHeader({ restaurant }: any) {
   const { name, category, rating, locationBroad } = restaurant;
@@ -29,7 +29,7 @@ export default function RestaurantHeader({ restaurant }: any) {
       </div>
       <div className="bg-green w-[55px] h-[55px] rounded flex flex-col font-semibold text-white items-center justify-center">
         <div className="flex gap-x-1">
-          <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p>
+          {/* <p className="text-sm">{ratingCounter(rating).includes("a") ? "0" : ratingCounter(rating)}</p> */}
           <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
         </div>
         <p className="font-normal">RATED</p>
