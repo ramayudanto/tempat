@@ -21,7 +21,7 @@ export default function TopSection({ restaurant }: any) {
       password: "123456789",
       redirect: false,
     }).then(() => {
-      console.log(session);
+      // console.log(session);
     });
   };
 

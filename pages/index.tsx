@@ -20,7 +20,7 @@ import { getSession, useSession } from "next-auth/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
-  console.log(session);
+  // console.log(session);
 
   // const count = await prisma.restaurant.count();
   // const skip = Math.floor(Math.random() * count);

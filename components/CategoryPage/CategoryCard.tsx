@@ -6,7 +6,7 @@ import CategoryImage from "./CategoryImage";
 
 export default function CategoryCard({ restaurant, i, isLast, onclick }: any) {
   const { gofood_name: name, category, closeTime, openTime, rating, thumbnail, priceRange, routeName } = restaurant;
-  console.log(restaurant);
+  // console.log(restaurant);
 
   return (
     <Link href={`/restos/${routeName}`}>

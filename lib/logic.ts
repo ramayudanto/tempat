@@ -104,7 +104,7 @@ export function translateToK(number: number) {
   }
 
   // Handle cases where the number is outside the specified range
-  return number.toString();
+  return String(number);
 }
 
 export function translatePriceRange(number: number) {
