@@ -106,7 +106,7 @@ export default function Home({ restaurant, category, user }: any) {
         <CategoryList category={category} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you"} />
+        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you!"} />
         <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} />
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
