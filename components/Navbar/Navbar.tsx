@@ -5,10 +5,11 @@ import Home from "./Home";
 import Maps from "./Maps";
 import Search from "./Search";
 import User from "./User";
+import { useSession } from "next-auth/react";
 
 export default function Navbar({ user }: any) {
   const router = useRouter();
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
   return (
     <div className="fixed max-w-[420px] mx-auto left-0 right-0 z-20 bg-white text-darkGray text-opacity-70 bottom-0 w-screen flex justify-around text-sm py-2 min-w-fit">
@@ -16,7 +17,7 @@ export default function Navbar({ user }: any) {
       <Bookmark route={router.asPath} />
       <Search route={router.pathname} />
       {/* <Maps /> */}
-      <User user={user} route={router.asPath} />
+      <User user={session?.user} route={router.asPath} />
     </div>
   );
 }

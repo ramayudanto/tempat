@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { useRef } from "react";
 import CategoryCard from "../../components/CategoryPage/CategoryCard";
@@ -12,7 +12,7 @@ import { prisma } from "../../lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
   const categories = await prisma.category.findMany({
     include: {
       restaurant: {

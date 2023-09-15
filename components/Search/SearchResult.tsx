@@ -12,7 +12,7 @@ export default function SearchResult({ query }: any) {
   const [highestPrice, setHighestPrice] = useState<Number>(0);
 
   const fetchData = async () => {
-    const res = await (await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/getSearch?q=${query}`)).json();
+    const res = await (await fetch(`/api/getSearch?q=${query}`)).json();
     setData(res);
     setIsLoading(false);
   };

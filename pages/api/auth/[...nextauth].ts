@@ -7,12 +7,59 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 import { URLSearchParams } from "url";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
+
+async function saveSession(sessionToken: string, userId: any) {
+  // Use Prisma to create or update a session record in the database
+  const session = await prisma.session.create({
+    data: {
+      sessionToken,
+      id: uuidv4(),
+      expires: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString(),
+      userId,
+    },
+  });
+
+  return session;
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      // `credentials` is used to generate a form on the sign in page.
+      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
+      // e.g. domain, username, password, 2FA token, etc.
+      // You can pass any HTML attribute to the <input> tag through the object.
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "your username" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: any, req: any) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+        if (!email || !password) return null;
+        const user = await prisma.user.findUnique({
+          where: {
+            email,
+          },
+        });
+        if (!user) return null;
+        const passwordMatch = await bcrypt.compare(password, user?.hashedPassword!);
+
+        if (!passwordMatch) return null;
+
+        await saveSession(req.body.csrfToken, user.id);
+        return user;
+      },
     }),
     EmailProvider({
       server: {
@@ -49,6 +96,22 @@ export const authOptions: NextAuthOptions = {
   ],
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXT_PUBLIC_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
+  },
+  // callbacks: {
+  //   jwt(params) {
+  //     // update token
+  //     if (params.user?.role) {
+  //       params.token.role = params.user.role;
+  //     }
+  //     // return final_token
+  //     return params.token;
+  //   },
+  // },
 };
 
 function html(params: { newURL: any }) {

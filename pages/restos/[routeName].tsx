@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { GetServerSideProps } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { createContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
@@ -15,9 +15,11 @@ import RestoFooter from "../../components/restaurant-2/RestoFooter";
 import RestoTopbar from "../../components/restaurant-2/RestoTopbar";
 import { useInView } from "react-intersection-observer";
 import RestoFacility from "../../components/restaurant-2/RestoFacility";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  // const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(context.req, context.res, authOptions);
+  console.log(session);
   const template = {
     id: 2,
     name: "Cold Moo",

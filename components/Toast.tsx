@@ -1,6 +1,6 @@
 import { useImperativeHandle, useState, forwardRef } from "react";
 
-const Toast = forwardRef(function Inside({ message }: any, ref: any) {
+const Toast = forwardRef(function Inside({ message, color }: any, ref: any) {
   const [show, setShow] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -8,12 +8,14 @@ const Toast = forwardRef(function Inside({ message }: any, ref: any) {
       setShow(true);
       setTimeout(() => {
         setShow(false);
-      }, 2000);
+      }, 2500);
     },
   }));
 
   return show ? (
-    <div className={`fixed top-10 flex items-center justify-center right-0 mx-auto left-0 z-[100] animate-fadeToast select-none rounded-md px-2 py-3 text-lg w-3/4 font-medium tracking-wide text-white bg-darkRed`}>
+    <div
+      className={`fixed top-10 flex items-center justify-center right-0 mx-auto left-0 z-[100] animate-fadeToast select-none rounded-md px-2 py-3 text-lg w-3/4 font-medium tracking-wide text-white ${color ? `bg-${color}` : "bg-darkRed"}`}
+    >
       <p>{message}</p>
     </div>
   ) : (

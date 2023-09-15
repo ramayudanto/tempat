@@ -1,4 +1,4 @@
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { useRef } from "react";
 import CategoryCard from "../../components/CategoryPage/CategoryCard";
 import CategoryHero from "../../components/CategoryPage/CategoryHero";

@@ -1,6 +1,6 @@
 import { Rating } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { unstable_getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 
 import { prisma } from "../../lib/prisma";
@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
     return;
   }
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   if (!session) {
     res.status(401);
     res.end();

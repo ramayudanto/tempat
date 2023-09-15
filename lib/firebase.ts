@@ -39,7 +39,7 @@ export const submitRate = async (imageFile: File, body: any) => {
     const imageRef = ref(storage, `/${restaurantId}/rating/${imageFile!.name + v4()}`);
     await uploadBytes(imageRef, imageFile!);
     const imageUrl = await getDownloadURL(imageRef);
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
+    await fetch(`/api/postReview`, {
       body: JSON.stringify({ ...body, imageUrl }),
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const submitRate = async (imageFile: File, body: any) => {
     });
     return imageUrl;
   } else {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL!}/api/postReview`, {
+    await fetch(`/api/postReview`, {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
