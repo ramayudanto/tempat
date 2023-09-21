@@ -8,7 +8,7 @@ import { prisma } from "../../lib/prisma";
 
 export const getServerSideProps = async (context: any) => {
   const { routeName } = context.params;
-  const restoranList = await prisma.restaurant.findMany();
+  const restoranList = await prisma.restaurantV2.findMany();
 
   return { props: { restaurant: JSON.parse(JSON.stringify(restoranList)) } };
 };
