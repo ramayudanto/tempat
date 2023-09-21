@@ -7,48 +7,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Restaurant {
-  id            Int          @id @default(autoincrement())
-  name          String
-  description   String?
-  locationBroad String
-  location      String
-  priceRange    String
-  openTime      DateTime
-  closeTime     DateTime
-  routeName     String?      @unique
-  featureImage  Images[]
-  information   Information?
-  rating        Rating[]
-  category      Category[]
-  Collection    Collection[]
-  userBookmark User[]
-}
-
-model Category {
-  id           Int          @id @default(autoincrement())
-  categoryName String       @unique
-  routeName    String?      @unique
-  restaurant   Restaurant[]
-}
-
-model Information {
-  id            Int        @id @default(autoincrement())
-  restaurantId  Int        @unique
-  smoking       Boolean    @default(false)
-  takeOut       Boolean    @default(false)
-  wifi          Boolean    @default(false)
-  indoorSeating Boolean    @default(false)
-  prayingRoom   Boolean    @default(false)
-  restaurant    Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-}
 
 model Rating {
   id           String         @id
   rate         Int
   comment      String?
   restaurantId Int?
-  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurant   RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   userId String?
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
   postDate DateTime @default(now())
@@ -59,7 +24,7 @@ model Images {
   id           Int         @id @default(autoincrement())
   URL          String
   restaurantId Int?
-  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  restaurant   RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 }
 
 model Collection {
@@ -67,7 +32,7 @@ model Collection {
   collectionName String       @unique
   description    String?
   routeName      String?      @unique
-  Restaurant     Restaurant[]
+  Restaurant     RestaurantV2[]
 }
 
 model Account {
@@ -108,7 +73,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   rating Rating[]
-  bookmark Restaurant[]
+  bookmark RestaurantV2[]
 }
 
 model VerificationToken {
@@ -117,4 +82,92 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model AddressComponentV2 {
+  id Int @id @default(autoincrement())
+  long_name String @unique
+  short_name String @unique
+  types String
+  restaurant RestaurantV2[]
+}
+
+model OpeningHoursV2 {
+  id Int @id @default(autoincrement())
+  monday String?
+  tuesday String?
+  wednesday String?
+  thursday String?
+  friday String?
+  saturday String?
+  sunday String?
+  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  restaurantId Int @unique
+}
+
+model GeometryV2 {
+  id Int @id @default(autoincrement())
+  lat Float?
+  lng Float?
+  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  restaurantId Int @unique
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique
+  icon String?
+  restaurants RestaurantV2[]
+}
+
+model RestaurantV2 {
+  id Int @id @default(autoincrement())
+  curbside_pickup Boolean?
+  delivery Boolean?
+  dine_in Boolean?
+  formatted_address String?
+  formatted_phone_number String?
+  gofood_name String?
+  icon String?
+  icon_mask_base_uri String?
+  international_phone_number String?
+  name String?
+  permanently_closed String?
+  place_id String? @unique
+  price_level Int?
+  rating Float?
+  reference String?
+  reservable Boolean?
+  serves_beer Boolean?
+  serves_breakfast Boolean?
+  serves_brunch Boolean?
+  serves_dinner Boolean?
+  serves_lunch Boolean?
+  serves_vegetarian_food Boolean?
+  serves_wine Boolean?
+  takeout Boolean?
+  thumbnail String?
+  types String[]
+  url String?
+  user_ratings_total Int?
+  vicinity String?
+  website String?
+  wheelchair_accessible_entrance Boolean?
+  address_components AddressComponentV2[]
+  opening_hours OpeningHoursV2?
+  geometry GeometryV2?
+  categories Category[]
+  Ratings Rating[]
+  Images Images[]
+  Collections Collection[]
+  bookmarkedBy User[]
+  menu Menu? 
+}
+
+model Menu{
+  id Int @id @default(autoincrement())
+  image String?
+  menu_type String?
+  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  restaurantId Int @unique
 }

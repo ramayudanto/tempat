@@ -1,11 +1,11 @@
 import React from "react";
 import CategoryCard from "../CategoryPage/CategoryCard";
-import { Restaurant } from "@prisma/client";
+import { RestaurantV2 } from "@prisma/client";
 
-export default function MainPageSearch({ data, isLoading }: { data: Restaurant[]; isLoading: boolean }) {
+export default function MainPageSearch({ data, isLoading }: { data: RestaurantV2[]; isLoading: boolean }) {
   if (!isLoading) {
     return (
-      <div className="border-[1px] p-3 absolute mx-auto right-0 w-[90%] bg-white rounded-md left-0 z-[100] top-[105px]">
+      <div className="border-[1px] p-3 absolute mx-auto right-0 w-[75%] bg-white rounded-md left-0 z-[100] top-[212px] overflow-y-scroll">
         <div className="flex flex-col gap-y-3">
           {data.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {

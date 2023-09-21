@@ -9,7 +9,7 @@ export default function MostSearched() {
   return (
     <div className="mt-8 w-full">
       <p className="font-semibold mb-2">Makanan yang lagi banyak dicari</p>
-      <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-2 grid-cols-2">
         {items.map((item: any, i: any) => {
           return (
             <div className="rounded-lg text-white tracking-wider font-medium relative h-28 bg-left bg-cover" style={{ backgroundImage: `url(${item.image})` }} key={i}>

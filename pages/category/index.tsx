@@ -10,41 +10,29 @@ import Navbar from "../../components/Navbar/Navbar";
 import Topbar from "../../components/Topbar";
 import { prisma } from "../../lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]";
+import Image from "next/image";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
-  const categories = await prisma.category.findMany({
-    include: {
-      restaurant: {
-        include: {
-          category: true,
-          rating: {
-            select: {
-              rate: true,
-            },
-          },
-          featureImage: true,
-        },
-      },
-    },
-  });
+  const categories = await prisma.category.findMany();
   if (!categories) {
     return {
       notFound: true,
     };
   }
-  return { props: { user: session?.user, categories: JSON.parse(JSON.stringify(categories)) } };
+  return { props: { user: session?.user || null, categories: JSON.parse(JSON.stringify(categories)) } };
 };
 
 export default function Categories({ categories, user }: any) {
-  const { categoryName, restaurant: restaurants } = categories;
-  // console.log(categories);
+  function replaceSpacesWithHyphens(inputString: string) {
+    return inputString.replace(/ /g, "-");
+  }
   return (
     <>
       <Header title={"Categories"} />
-      <Topbar />
+      {/* <Topbar /> */}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 md:gap-5 lg:grid-cols-5 mx-3 my-5 gap-3">
+      <div className="mx-auto grid grid-cols-2 gap-3 px-4 pt-10 pb-32 bg-white max-w-[420px]">
         {/* {restaurants.map((restaurant: any, i: any, row: any) => {
           if (i + 1 === row.length) {
             return <CategoryCard key={i} restaurant={restaurant} isLast={true} />;
@@ -53,10 +41,15 @@ export default function Categories({ categories, user }: any) {
           }
         })} */}
         {categories.map((category: any, i: any) => {
-          const { categoryName } = category;
+          const { name } = category;
+          const svgSource = `/category/${decodeURI(replaceSpacesWithHyphens(name))}.svg`;
+
           return (
-            <Link href={`/category/${categoryName}`} key={i}>
-              <a className="border-[1px] rounded-md p-2">{categoryName}</a>
+            <Link href={`/category/${name}`} key={i}>
+              <a className="border-[1px] rounded-md p-1 flex items-center space-x-3 py-4">
+                <Image src={svgSource} width={30} height={30} alt={name} loading="eager" />
+                <p>{name}</p>
+              </a>
             </Link>
           );
         })}

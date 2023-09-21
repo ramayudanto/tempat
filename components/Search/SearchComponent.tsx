@@ -42,7 +42,7 @@ export default function Search() {
   };
 
   return (
-    <div className="mx-4 pt-8 pb-20">
+    <div className="pt-8 px-4 pb-48 overflow-hidden mx-auto bg-white max-w-[420px]">
       {!router.query.q && <p className="font-semibold text-2xl mb-3">Cari</p>}
       <div className="flex items-center gap-x-2 mb-4">
         {router.query.q && (

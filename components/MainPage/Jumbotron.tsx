@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Jumbotron() {
+export default function Jumbotron({ search, setSearch }: { search: string; setSearch: any }) {
   return (
     <div className="relative">
       <Image src={`/homepage-${1}.png`} objectFit="cover" alt="homepage-1" layout="responsive" width={4} height={2} />
@@ -22,10 +22,10 @@ export default function Jumbotron() {
           name=""
           className="w-[90%] outline-none p-1 text-sm placeholder:text-xs placeholder:font-normal"
           spellCheck={false}
-          //   value={search}
-          //   onChange={(e: any) => {
-          //     setSearch(e.target.value);
-          //   }}
+          value={search}
+          onChange={(e: any) => {
+            setSearch(e.target.value);
+          }}
         />
       </div>
     </div>

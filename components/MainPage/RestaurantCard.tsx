@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import BookmarkButton from "./BookmarkButton";
 
 export default function RestaurantCard({ restaurant }: any) {
-  const { featureImage, gofood_name, price_level: priceRange, opening_hours, category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
+  const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
   const locationBroad = restaurant.address_components.find((component: any) =>
@@ -95,13 +95,13 @@ export default function RestaurantCard({ restaurant }: any) {
               if (i + 1 === row.length) {
                 return (
                   <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
-                    {item}
+                    {item.name}
                   </p>
                 );
               } else {
                 return (
                   <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
-                    {item},
+                    {item.name},
                   </p>
                 );
               }

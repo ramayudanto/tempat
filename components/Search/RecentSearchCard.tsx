@@ -15,7 +15,10 @@ export default function RecentSearchCard({ restaurant }: any) {
           recentRestaurantHandler(restaurant);
         }}
       >
-        <div className="bg-cover w-[274px] h-[190px] rounded-t-xl" style={{ backgroundImage: `url(${featureImage[0]?.URL})` }}>
+        <div
+          className="bg-cover w-[274px] h-[190px] rounded-t-xl"
+          // style={{ backgroundImage: `url(${featureImage[0]?.URL})` }}
+        >
           {/* <Image src={featureImage[0]?.URL} alt={name} layout="fill" objectFit={"fill"} /> */}
         </div>
         <div className="px-4 py-2 space-y-1">
@@ -26,7 +29,7 @@ export default function RecentSearchCard({ restaurant }: any) {
               <Image src={"/starIcon.svg"} width={10} height={10} alt="star" />
             </div>
           </div>
-          <div className="flex gap-x-1">
+          {/* <div className="flex gap-x-1">
             {category.map((item: any, i: any, row: any) => {
               if (i + 1 === row.length) {
                 return (
@@ -42,7 +45,7 @@ export default function RecentSearchCard({ restaurant }: any) {
                 );
               }
             })}
-          </div>
+          </div> */}
           <p className="text-darkGray text-opacity-70 text-xs">{truncate(locationBroad, 40)}</p>
           <div className="flex items-center justify-between">
             {/* <p className="text-darkRed text-xs">{openTimeLogic(openTime, closeTime)}</p> */}

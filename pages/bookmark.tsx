@@ -51,8 +51,8 @@ export default function Bookmark({ bookmarks, user }: any) {
     <>
       <Header title="Bookmark" />
       {/* <CategoryHero name="bookmark" /> */}
-      <div className="mx-4 mt-10 pb-20 relative h-screen">
-        <p className="font-semibold text-2xl mb-3">Restoran Favorit</p>
+      <div className="pt-10 overflow-hidden relative mx-auto bg-white max-w-[420px] h-screen flex flex-col just">
+        <p className="font-semibold text-2xl mb-3 px-4">Restoran Favorit</p>
         {userBookmark.length !== 0 ? (
           // <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
           //   {userBookmark.map((bookmark: any, i: any) => {
@@ -65,7 +65,7 @@ export default function Bookmark({ bookmarks, user }: any) {
           // </div>
           <></>
         ) : (
-          <div className="absolute min-h-max top-1/2 bottom-2/3 left-0 right-0 m-auto flex flex-col justify-center items-center">
+          <div className="min-h-max absolute top-1/3 bottom-1/3 mx-auto flex flex-col justify-center items-center">
             <NoBookmark />
             <p className="text-center text-darkGray">Kamu belum punya restauran favorit. Yuk tambahkan sekarang!</p>
           </div>
