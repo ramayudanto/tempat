@@ -8,31 +8,59 @@ import CryptoJS from "crypto-js";
 //   return Number(finalRating / rating.length).toFixed(1);
 // };
 
-export function openTimeLogic(openingHoursObject: any) {
-  if (!openingHoursObject) return "Unavailable";
+// export function openTimeLogic(openingHoursObject: any) {
+//   if (!openingHoursObject) return "Unavailable";
 
-  if (openingHoursObject.periods.length === 1 && openingHoursObject.periods[0].open.time === "0000") {
-    return "Open 24 Hour";
+//   if (openingHoursObject.periods.length === 1 && openingHoursObject.periods[0].open.time === "0000") {
+//     return "Open 24 Hour";
+//   }
+
+//   const now = new Date();
+//   const currentDay = now.getDay();
+//   const currentTime = `${now.getHours()}${now.getMinutes().toString().padStart(2, "0")}`;
+
+//   let isOpen = false;
+
+//   openingHoursObject.periods.forEach((period: any) => {
+//     const openDay = period.open.day;
+//     const closeDay = period.close.day;
+//     const openTime = period.open.time;
+//     const closeTime = period.close.time;
+
+//     if ((currentDay === openDay && currentTime >= openTime) || (currentDay === closeDay && currentTime <= closeTime) || (currentDay > openDay && currentDay < closeDay)) {
+//       isOpen = true;
+//     }
+//   });
+
+//   if (isOpen) {
+//     return "Open Now";
+//   } else {
+//     return "Closed";
+//   }
+// }
+
+export function openTimeLogic(openingHours: any) {
+  if (!openingHours) return "Unavailable";
+  if (openingHours === "24") return "Open 24 Hour";
+  const now = new Date();
+  const [openStr, closeStr] = openingHours.split("\u2009–\u2009"); // Use unicode characters for the whitespace
+
+  const [openHour, openMinute] = openStr.split(":").map(Number);
+  let [closeHour, closeMinute] = closeStr.split(":").map(Number);
+
+  if (closeHour === 12 && closeStr.includes("AM")) {
+    closeHour = 24; // Convert 12 AM to 24:00
   }
 
-  const now = new Date();
-  const currentDay = now.getDay();
-  const currentTime = `${now.getHours()}${now.getMinutes().toString().padStart(2, "0")}`;
+  const openTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), openHour, openMinute);
+  let closeTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), closeHour, closeMinute);
 
-  let isOpen = false;
+  if (closeTime < openTime) {
+    closeTime.setDate(closeTime.getDate() + 1);
+  }
 
-  openingHoursObject.periods.forEach((period: any) => {
-    const openDay = period.open.day;
-    const closeDay = period.close.day;
-    const openTime = period.open.time;
-    const closeTime = period.close.time;
-
-    if ((currentDay === openDay && currentTime >= openTime) || (currentDay === closeDay && currentTime <= closeTime) || (currentDay > openDay && currentDay < closeDay)) {
-      isOpen = true;
-    }
-  });
-
-  if (isOpen) {
+  // return "Open Now" if current time is between openTime and closeTime;
+  if (now >= openTime && now <= closeTime) {
     return "Open Now";
   } else {
     return "Closed";

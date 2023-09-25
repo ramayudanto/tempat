@@ -8,6 +8,14 @@ import BookmarkButton from "./BookmarkButton";
 export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
+
+  function getTodaysOpeningHours(schedule: any) {
+    const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const today = new Date().getDay(); // Get the current day (0 for Sunday, 1 for Monday, etc.)
+    const todayName = daysOfWeek[today]; // Get the day name from the array
+
+    return schedule[todayName];
+  }
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
   const locationBroad = restaurant.address_components.find((component: any) =>
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
@@ -49,7 +57,6 @@ export default function RestaurantCard({ restaurant }: any) {
   //     setIsBookmarked(true);
   //   }
   // };
-
   return (
     <Link href={`/restos/${restaurant.place_id}`}>
       <a
@@ -75,7 +82,7 @@ export default function RestaurantCard({ restaurant }: any) {
                 fill="#E63131"
               />
             </svg>
-            <p className="text-xs text-lightGray">{locationBroad.short_name || locationBroad.long_name}</p>
+            <p className="text-xs text-lightGray">{truncate(locationBroad.short_name || locationBroad.long_name, 17)}</p>
           </div>
           <div className="flex items-center gap-x-[2px]">
             <div className="flex items-center gap-x-[2px]">
@@ -109,7 +116,7 @@ export default function RestaurantCard({ restaurant }: any) {
           </div>
 
           <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
-          <p className="text-darkRed text-xs">{openTimeLogic(opening_hours)}</p>
+          <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>

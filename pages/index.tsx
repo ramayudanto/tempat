@@ -17,15 +17,15 @@ import useInsert from "../lib/useInsert";
 import Jumbotron from "../components/MainPage/Jumbotron";
 import CategoryList from "../components/MainPage/CategoryList";
 import { getSession, useSession } from "next-auth/react";
+import { get } from "http";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
   // console.log(session);
 
   const countResto = await prisma.restaurantV2.count();
-  const countCategory = await prisma.category.count();
   const skipResto = Math.floor(Math.random() * countResto);
-  const skipCategory = Math.floor(Math.random() * countCategory);
+  const skipCategory = Math.floor(Math.random() * 11) + 1;
   const restoran = await prisma.restaurantV2.findMany({
     select: {
       gofood_name: true,
@@ -35,37 +35,43 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       categories: true,
       price_level: true,
       thumbnail: true,
+      opening_hours: true,
+      place_id: true,
     },
     take: 10,
     skip: skipResto,
   });
 
-  const restoRef = firestore.collection("resto1");
-  const totalDocs = await restoRef.get().then((snapshot) => snapshot.size);
-
-  const randomIndex = Math.floor(Math.random() * totalDocs);
-
-  const resto = await restoRef.orderBy("__name__").startAt(randomIndex.toString()).limit(10).get();
-  const restoData = resto.docs.map((doc) => doc.data());
-
-  // const categoryRef = firestore.collection("category");
-  // const categories = await categoryRef.get();
-  // const categoryLists = categories.docs.map((doc: any) => doc.data());
   const category = await prisma.category.findMany({
     take: 8,
     skip: skipCategory,
   });
 
-  return { props: { restaurant: JSON.parse(JSON.stringify(restoran)), category, user: session || null, restoran } };
+  const shuffledCategory = category.sort(() => 0.5 - Math.random());
+
+  return { props: { restaurant: JSON.parse(JSON.stringify(restoran)), categories: shuffledCategory, user: session || null, restoran } };
 };
 
-export default function Home({ restaurant, category, user, restoran }: any) {
+export default function Home({ restaurant, categories, user, restoran }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const session = useSession();
-  // console.log(restoData[0]);
   // const users = useInsert();
+
+  function getValueForToday(json: any) {
+    const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+    const today = new Date().toLocaleString("en-US", { weekday: "long" }).toLowerCase();
+
+    if (daysOfWeek.includes(today)) {
+      return json[today];
+    } else {
+      return null; // Return null if today is not a valid day of the week in the JSON object
+    }
+  }
+
+  console.log(restoran[4]?.gofood_name + " " + getValueForToday(restoran[4].opening_hours));
 
   useEffect(() => {
     if (search === "") {
@@ -87,7 +93,7 @@ export default function Home({ restaurant, category, user, restoran }: any) {
       <Header title="Home" />
       <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px]">
         <Jumbotron search={search} setSearch={setSearch} />
-        <CategoryList category={category} />
+        <CategoryList categories={categories} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
         <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you!"} />

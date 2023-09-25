@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getRandomElementsFromArray } from "../../lib/logic";
 
-export default function CategoryList({ category: categories }: any) {
+export default function CategoryList({ categories }: any) {
   function replaceSpacesWithHyphens(inputString: string) {
     return inputString.replace(/ /g, "-");
   }

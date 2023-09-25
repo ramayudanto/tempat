@@ -2,9 +2,10 @@ import { signIn, useSession } from "next-auth/react";
 import React from "react";
 
 export default function TopSection({ restaurant }: any) {
-  const locationBroad = restaurant.address_components.find((component: any) =>
-    component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
-  ) || { short_name: "Unknown", long_name: "Unknown" };
+  const locationBroad = {
+    short_name: "Jakarta",
+    long_name: "Jakarta",
+  };
 
   const session = useSession();
 
@@ -49,7 +50,7 @@ export default function TopSection({ restaurant }: any) {
         <p className="font-medium text-sm text-lightGray">{locationBroad.short_name || locationBroad.long_name || "Unknown"}</p>
       </div>
       <div className="flex gap-x-1 overflow-hidden">
-        {restaurant?.category.map((item: any, i: any, row: any) => {
+        {/* {restaurant?.category.map((item: any, i: any, row: any) => {
           if (i + 1 === row.length) {
             return (
               <p className="text-lightGray font-medium flex-none text-opacity-70 text-xs" key={i}>
@@ -63,7 +64,7 @@ export default function TopSection({ restaurant }: any) {
               </p>
             );
           }
-        })}
+        })} */}
       </div>
       <div className="flex font-semibold gap-x-6">
         <button className="bg-customRed-600 flex justify-center gap-x-2 text-white w-1/2 py-2 rounded-lg text-sm">

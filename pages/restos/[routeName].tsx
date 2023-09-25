@@ -7,7 +7,6 @@ import Header from "../../components/Head/Header";
 import Navbar from "../../components/Navbar/Navbar";
 import DetailedInformation from "../../components/restaurant-2/DetailedInformation";
 import Gallery from "../../components/Gallery/Gallery";
-import { firestore } from "../../lib/firebase";
 import ImageSection from "../../components/restaurant-2/ImageSection";
 import TopSection from "../../components/restaurant-2/TopSection";
 import MenuSection from "../../components/restaurant-2/MenuSection";
@@ -16,51 +15,19 @@ import RestoTopbar from "../../components/restaurant-2/RestoTopbar";
 import { useInView } from "react-intersection-observer";
 import RestoFacility from "../../components/restaurant-2/RestoFacility";
 import { authOptions } from "../api/auth/[...nextauth]";
+import { prisma } from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
   console.log(session);
-  const template = {
-    id: 2,
-    name: "Cold Moo",
-    description: null,
-    locationBroad: "Darmawangsa",
-    location: "Ruko Dharmawangsa Square, Jl. Darmawangsa VI No.20, RT.5/RW.1, Pulo, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12160",
-    priceRange: "100.000",
-    openTime: "1970-01-01T03:00:00.000Z",
-    closeTime: "1970-01-01T11:00:00.000Z",
-    routeName: "cold-moo",
-    rating: [],
-    category: [{ categoryName: "Ice cream" }, { categoryName: "Dessert" }],
-    information: { id: 2, restaurantId: 2, smoking: false, takeOut: true, wifi: false, indoorSeating: true, prayingRoom: false },
-    featureImage: [{ URL: "https://dev.ramayudanto.com/wp-content/uploads/2022/09/picture-1630330942.jpg" }],
-    userBookmark: [],
-  };
   const { routeName } = context.params;
+  const restaurant = await prisma.restaurantV2.findUnique({
+    where: {
+      place_id: routeName,
+    },
+  });
 
-  try {
-    const querySnapshot = await firestore.collection("resto1").where("place_id", "==", routeName).limit(1).get();
-
-    if (querySnapshot.empty)
-      return {
-        notFound: true,
-      };
-
-    const document = querySnapshot.docs[0];
-    const data = document.data();
-    return {
-      props: {
-        restaurant: data,
-      },
-    };
-  } catch (error) {
-    console.error("Error getting document:", error);
-    return {
-      props: {
-        restaurant: null,
-      },
-    };
-  }
+  return { props: { restaurant: JSON.parse(JSON.stringify(restaurant)), user: session || null } };
 };
 
 export const ReviewContext = createContext(null as any);
