@@ -71,8 +71,6 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
     }
   }
 
-  console.log(restoran[4]?.gofood_name + " " + getValueForToday(restoran[4].opening_hours));
-
   useEffect(() => {
     if (search === "") {
       setSearchData([]);
