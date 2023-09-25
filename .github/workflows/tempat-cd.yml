@@ -18,8 +18,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: CD
-        run: echo 'CD is Disabled (Check workflow comment for the code).'
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
         with:
@@ -30,9 +28,6 @@ jobs:
           script: |
             cd ~/tempat
             git pull origin main
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            npm install
             cp ../tempat-env/.env .
             npx prisma generate
             npm run build
