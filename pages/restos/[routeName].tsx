@@ -25,6 +25,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     where: {
       place_id: routeName,
     },
+    include: {
+      address_components: true,
+      categories: true,
+      opening_hours: true,
+    },
   });
 
   return { props: { restaurant: JSON.parse(JSON.stringify(restaurant)), user: session || null } };

@@ -32,5 +32,6 @@ jobs:
             source ~/.nvm/nvm.sh
             cp ../tempat-env/.env .
             npx prisma generate
+            pm2 stop tempat
             npm run build
-            pm2 restart tempat
+            pm2 start tempat

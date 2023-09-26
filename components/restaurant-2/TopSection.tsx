@@ -2,10 +2,9 @@ import { signIn, useSession } from "next-auth/react";
 import React from "react";
 
 export default function TopSection({ restaurant }: any) {
-  const locationBroad = {
-    short_name: "Jakarta",
-    long_name: "Jakarta",
-  };
+  const locationBroad = restaurant.address_components.find((component: any) =>
+    component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
+  ) || { short_name: "Unknown", long_name: "Unknown" };
 
   const session = useSession();
 
@@ -79,7 +78,7 @@ export default function TopSection({ restaurant }: any) {
           </svg>
           Menu
         </button>
-        <button onClick={testHandler} className="bg-customRed-50 flex justify-center gap-x-2 text-customRed-700 w-1/2 py-2 rounded-lg text-sm">
+        <button className="bg-customRed-50 flex justify-center gap-x-2 text-customRed-700 w-1/2 py-2 rounded-lg text-sm">
           <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-[2px]">
             <path
               d="M17.2497 8.58333C17.2497 12.4953 14.0784 15.6667 10.1664 15.6667C9.26904 15.6667 8.4107 15.4998 7.62065 15.1954C7.47621 15.1398 7.40398 15.112 7.34655 15.0987C7.29006 15.0857 7.24917 15.0803 7.19124 15.0781C7.13234 15.0758 7.06773 15.0825 6.93849 15.0958L2.67097 15.537C2.26411 15.579 2.06067 15.6001 1.94067 15.5269C1.83615 15.4631 1.76496 15.3566 1.746 15.2356C1.72425 15.0968 1.82146 14.9168 2.01589 14.557L3.37893 12.034C3.49119 11.8262 3.54731 11.7223 3.57273 11.6225C3.59784 11.5238 3.60391 11.4527 3.59588 11.3512C3.58775 11.2484 3.54266 11.1147 3.4525 10.8472C3.2129 10.1363 3.08302 9.375 3.08302 8.58333C3.08302 4.67132 6.25434 1.5 10.1664 1.5C14.0784 1.5 17.2497 4.67132 17.2497 8.58333Z"

@@ -117,6 +117,7 @@ model Category {
   id Int @id @default(autoincrement())
   name String @unique
   icon String?
+  header String?
   restaurants RestaurantV2[]
 }
 

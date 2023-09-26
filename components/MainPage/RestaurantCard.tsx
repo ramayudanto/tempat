@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FormEvent, useEffect, useState } from "react";
-import { openTimeLogic, recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
+import { getTodaysOpeningHours, openTimeLogic, recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BookmarkButton from "./BookmarkButton";
@@ -9,13 +9,6 @@ export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
 
-  function getTodaysOpeningHours(schedule: any) {
-    const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-    const today = new Date().getDay(); // Get the current day (0 for Sunday, 1 for Monday, etc.)
-    const todayName = daysOfWeek[today]; // Get the day name from the array
-
-    return schedule[todayName];
-  }
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
   const locationBroad = restaurant.address_components.find((component: any) =>
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
