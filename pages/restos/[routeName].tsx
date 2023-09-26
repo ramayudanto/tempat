@@ -29,6 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       address_components: true,
       categories: true,
       opening_hours: true,
+      bookmarkedBy: true,
     },
   });
 
@@ -83,7 +84,7 @@ export default function Restaurant({ restaurant }: any) {
         <ActiveSectionContext.Provider value={{ menuRef, aboutRef, facilityRef, reviewRef, othersRef, activeSection, menuDivRef, aboutDivRef, facilityDivRef, reviewDivRef, othersDivRef }}>
           {isActive && <RestoTopbar />}
           <div className="max-w-[420px] mx-auto bg-slate-500">
-            <ImageSection thumbnail={restaurant.thumbnail} />
+            <ImageSection restaurant={restaurant} thumbnail={restaurant.thumbnail} />
             <div className=" bg-white rounded-t-2xl pt-5 px-4">
               <TopSection restaurant={restaurant} />
               <hr className="border-y-2 my-4" />

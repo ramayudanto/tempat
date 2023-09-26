@@ -1,15 +1,62 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useSession } from "next-auth/react";
 
-export default function ImageSection({ thumbnail }: any) {
+export default function ImageSection({ thumbnail, restaurant }: any) {
+  const { place_id, bookmarkedBy } = restaurant;
+  const session = useSession();
   const containerStyle = {
     backgroundImage: 'url("/placeholder.png")',
     backgroundSize: "cover",
   };
   const router = useRouter();
   const { aboutDivRef } = useContext(ActiveSectionContext);
+  const [isBookmakred, setIsBookmarked] = useState<boolean>(
+    bookmarkedBy.map((item: any) => {
+      if (item.email === session?.data?.user?.email) {
+        return true;
+      } else {
+        return false;
+      }
+    })[0]
+  );
+
+  const bookmarkHandler = async (e: any) => {
+    if (isBookmakred) {
+      try {
+        await fetch(`/api/deleteBookmark`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            place_id,
+          }),
+        });
+        setIsBookmarked(false);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        await fetch(`/api/setBookmark`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            place_id,
+          }),
+        });
+        setIsBookmarked(true);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div ref={aboutDivRef} className="relative">
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
@@ -23,10 +70,16 @@ export default function ImageSection({ thumbnail }: any) {
             <path d="M15 8H1M1 8L8 15M1 8L8 1" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <button className="p-[10px] bg-white rounded-full">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[18px] h-[18px]">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-          </svg>
+        <button className="p-[10px] bg-white rounded-full" onClick={bookmarkHandler}>
+          {isBookmakred ? (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-darkRed">
+              <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+            </svg>
+          )}
         </button>
       </div>
       <div className="">

@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
-import { getTodaysOpeningHours, openTimeLogic, translatePriceRange } from "../../lib/logic";
+import { getTodaysOpeningHours, openTimeLogic, translateOpeningHours, translatePriceRange } from "../../lib/logic";
 import Image from "next/image";
 import Link from "next/link";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 
 export default function IconedInformation({ restaurant }: any) {
   const { opening_hours, priceRange, categories } = restaurant;
-  // const open = translateOpeningHours(restaurant.opening_hours);
+  const open = translateOpeningHours(restaurant.opening_hours);
   const [isOpenHourOpen, setIsOpenHourOpen] = useState<boolean>(false);
-  console.log(getTodaysOpeningHours(opening_hours));
-
   const { aboutRef } = useContext(ActiveSectionContext);
 
   return (
@@ -35,17 +33,17 @@ export default function IconedInformation({ restaurant }: any) {
                   fillOpacity="0.66"
                 />
               </svg>
-              {/* {isOpenHourOpen && (
-                <div className="absolute top-5 border-[2px] p-2 w-max -left-16 rounded space-y-1 bg-[#f3f3f3]">
+              {isOpenHourOpen && (
+                <div className="absolute top-5 border-[1px] p-2 w-max -left-[80px] rounded space-y-1 bg-white shadow-xl">
                   {open.map((item: any, i: number) => {
                     return (
-                      <p key={i}>
-                        {item.day} | {item.openTime} - {item.closeTime}
+                      <p className="capitalize" key={i}>
+                        {item.day} | {item.open_time} - {item.close_time}
                       </p>
                     );
                   })}
                 </div>
-              )} */}
+              )}
             </div>
           </>
         )}

@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   return { props: { user } };
 };
 export default function account({ user }: any) {
-  console.log(user);
   return (
     <>
       <Header title="Account" />

@@ -5,7 +5,6 @@ import IconedInformation from "./IconedInformation";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 
 export default function DetailedInformation({ restaurant }: any) {
-  console.log(restaurant);
   return (
     <div className="space-y-4">
       <p className="text-[#333] font-semibold text-sm">About the restaurant</p>

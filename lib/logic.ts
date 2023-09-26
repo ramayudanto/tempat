@@ -138,33 +138,22 @@ export function translatePriceRange(number: number) {
 }
 
 export function translateOpeningHours(data: any) {
-  return 1;
-  // if (!data) return [];
-  // if (data.periods.length === 1 && data.periods[0].open.time === "0000") {
-  //   return [
-  //     { day: "Monday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Tuesday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Wednesday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Thursday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Friday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Saturday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //     { day: "Sunday", openTime: "00:00 AM", closeTime: "24:00 PM" },
-  //   ];
-  // }
-  // const openingHours = [];
-  // for (const period of data.periods) {
-  //   const openDay = data.weekday_text[period.open.day].split(":")[0];
-  //   const openTime = period.open.time.slice(0, 2) + ":" + period.open.time.slice(2) + " AM";
-  //   const closeTime = period.close.time.slice(0, 2) + ":" + period.close.time.slice(2) + " AM";
+  if (!data) return [];
+  const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
-  //   openingHours.push({
-  //     day: openDay,
-  //     openTime: openTime,
-  //     closeTime: closeTime,
-  //   });
-  // }
-  // return openingHours;
-  // return [];
+  const output = daysOfWeek.map((day) => {
+    const timeRange = data[day].split(" – ");
+    const openTime = timeRange[0];
+    const closeTime = timeRange[1];
+
+    return {
+      day: day,
+      open_time: openTime,
+      close_time: closeTime,
+    };
+  });
+
+  return output;
 }
 
 export function getCloseTimeForToday(openingHours: any) {

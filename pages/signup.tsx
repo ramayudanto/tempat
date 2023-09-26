@@ -112,7 +112,8 @@ export default function Signup() {
     setIsUserExist(data.userExists);
   };
 
-  const testHandler = async () => {
+  const testHandler = async (e: FormEvent) => {
+    e.preventDefault();
     checkExistingEmail(emailInputRef.current!.value);
   };
 

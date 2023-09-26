@@ -9,28 +9,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
     return;
   }
-  // const session = await getServerSession(req, res, authOptions);
-  // if (!session) {
-  //   res.status(401);
-  //   res.end();
-  //   return;
-  // }
-  // const { routeName } = req.body;
-  // const email = session?.user?.email!;
+  const session = await getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401);
+    res.end();
+    return;
+  }
+  const { place_id } = req.body;
+  const email = session?.user?.email!;
 
   try {
-    // await prisma.user.update({
-    //   where: {
-    //     email,
-    //   },
-    //   data: {
-    //     bookmark: {
-    //       disconnect: {
-    //         routeName,
-    //       },
-    //     },
-    //   },
-    // });
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        bookmark: {
+          disconnect: {
+            place_id,
+          },
+        },
+      },
+    });
     res.status(200);
     res.end();
   } catch (e) {
