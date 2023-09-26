@@ -4,8 +4,10 @@ import React from "react";
 import LoginPage from "../components/login/LoginPage";
 import Header from "../components/Head/Header";
 import { getServerSession } from "next-auth";
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context);
+import { authOptions } from "./api/auth/[...nextauth]";
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+  console.log(session);
   if (session) {
     return {
       redirect: {

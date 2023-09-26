@@ -101,7 +101,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
         <RestaurantRow user={user} search="Italian" title={"Italian"} /> */}
       </div>
       {/* <p>{JSON.stringify(restoran[0])}</p> */}
-      <Navbar />
+      <Navbar user={user} />
     </>
   );
 }

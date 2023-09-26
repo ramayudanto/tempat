@@ -6,8 +6,9 @@ import Header from "../../components/Head/Header";
 import AccountSection from "../../components/Account/AccountSection";
 import Navbar from "../../components/Navbar/Navbar";
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+  console.log(session);
   // const { routeName } = context.params;
   if (!session) {
     return {
