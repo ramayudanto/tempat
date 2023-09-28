@@ -15,14 +15,22 @@ export default function LoginPage({ closeLogin }: any) {
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const toastRef = useRef<any>(null);
+  const errorToastRef = useRef<any>(null);
 
-  const emailSubmit = (e: FormEvent) => {
+  const emailSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    toastRef.current!.show();
     const email = emailInputRef.current!.value;
     const password = passwordInputRef.current!.value;
-    signIn("credentials", { email, password, redirect: false });
-    router.push("/", undefined, { shallow: true });
+    const res = await signIn("credentials", { email, password, redirect: false });
+    console.log(res);
+    if (res?.status && res.error === "Password doesn't match") {
+      errorToastRef.current!.show();
+    } else {
+      toastRef.current!.show();
+      setTimeout(() => {
+        // router.push("/", undefined, { shallow: true });
+      }, 1000);
+    }
   };
   // if (router.query.success) {
   //   return <Sucess />;
@@ -31,6 +39,7 @@ export default function LoginPage({ closeLogin }: any) {
     <>
       <Header title={"Login"} />
       <Toast message="Login successfull" color="green" ref={toastRef} />
+      <Toast message="Wrong password" ref={errorToastRef} />
       <div className="animate-loginFade h-screen px-4 bg-white rounded-t-2xl pt-4 flex flex-col gap-y-5">
         <div className="text-center">
           <p className="font-semibold text-xl text-darkGray">Sign In</p>
