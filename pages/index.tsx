@@ -16,8 +16,7 @@ import { firestore } from "../lib/firebase";
 import useInsert from "../lib/useInsert";
 import Jumbotron from "../components/MainPage/Jumbotron";
 import CategoryList from "../components/MainPage/CategoryList";
-import { getSession, useSession } from "next-auth/react";
-import { get } from "http";
+import { RestaurantV2 } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -54,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
 export default function Home({ restaurant, categories, user, restoran }: any) {
   const [search, setSearch] = useState<string>("");
-  const [searchData, setSearchData] = useState<any[]>([]);
+  const [searchData, setSearchData] = useState<RestaurantV2[] | any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const session = useSession();
   // const users = useInsert();
@@ -94,7 +93,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
         <CategoryList categories={categories} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you!"} />
+        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you!"} search={null} />
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />

@@ -14,6 +14,7 @@ const nextConfig = {
       "i.gojekapi.com",
       "socialistmodernism.com",
       "uploads-ssl.webflow.com",
+      "tempatapp.sgp1.cdn.digitaloceanspaces.com",
     ],
   },
   webpack(config) {

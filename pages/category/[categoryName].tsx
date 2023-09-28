@@ -35,23 +35,22 @@ export const getServerSideProps = async (context: any) => {
   return {
     props: {
       category,
-      categoryName,
     },
   };
 };
 
-export default function Category({ category, categoryName }: any) {
+export default function Category({ category }: any) {
   const { restaurants } = category;
   return (
     <>
-      <Header title={categoryName} />
+      <Header title={category.name} />
       {/* <CategoryTopBar /> */}
       <div className="pb-32 overflow-hidden">
-        <CategoryHero name={categoryName} />
+        <CategoryHero category={category} />
         <div className="flex flex-col gap-y-0 rounded-t-xl">
           {restaurants.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
-              return <CategoryCard key={i} restaurant={restaurant} isLast={true} />;
+              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={true} />;
             } else {
               return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={false} />;
             }

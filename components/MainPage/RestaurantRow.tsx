@@ -2,8 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import SkeletonCardRow from "../Skeleton/SkeletonCardRow";
+import { RestaurantV2 } from "@prisma/client";
 
-export default function RestaurantRow({ restaurants, title, search }: any) {
+export default function RestaurantRow({ restaurants, title, search }: { restaurants: RestaurantV2[] | any[]; title: string; search: string | null }) {
   const [data, setData] = useState<any[]>(restaurants || []);
   const router = useRouter();
   const fetchData = async () => {

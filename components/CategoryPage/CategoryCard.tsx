@@ -3,13 +3,14 @@ import Link from "next/link";
 import React from "react";
 import { openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
 import CategoryImage from "./CategoryImage";
+import { RestaurantV2 } from "@prisma/client";
 
-export default function CategoryCard({ restaurant, i, isLast, onclick }: any) {
-  const { gofood_name: name, categories: category, closeTime, openTime, rating, thumbnail, priceRange, routeName } = restaurant;
+export default function CategoryCard({ restaurant, i, isLast, onclick }: { restaurant: any; i: any; isLast: any; onclick?: any }) {
+  const { gofood_name: name, categories: category, closeTime, openTime, rating, thumbnail, priceRange, place_id } = restaurant;
   // console.log(restaurant);
 
   return (
-    <Link href={`/restos/${routeName}`}>
+    <Link href={`/restos/${place_id}`}>
       <a
         className={`rounded-md p-4 bg-white ${i === 0 && "pt-2"} ${!isLast && "border-b-[3px]"}`}
         onClick={() => {

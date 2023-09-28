@@ -19,7 +19,6 @@ import { prisma } from "../../lib/prisma";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
-  console.log(session);
   const { routeName } = context.params;
   const restaurant = await prisma.restaurantV2.findUnique({
     where: {
