@@ -9,9 +9,9 @@ export default function MainPageSearch({ data, isLoading }: { data: RestaurantV2
         <div className="flex flex-col gap-y-3">
           {data.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
-              return <CategoryCard key={i} restaurant={restaurant} isLast={true} />;
+              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={true} />;
             } else {
-              return <CategoryCard key={i} restaurant={restaurant} isLast={false} />;
+              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={false} />;
             }
           })}
         </div>
