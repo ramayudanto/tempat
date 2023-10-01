@@ -39,7 +39,6 @@ export const ReviewContext = createContext(null as any);
 export const ActiveSectionContext = createContext(null as any);
 
 export default function Restaurant({ restaurant }: any) {
-  const { gofood_name: name, rating } = restaurant;
   // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -79,11 +78,11 @@ export default function Restaurant({ restaurant }: any) {
   if (!isGalleryOpen) {
     return (
       <>
-        <Header title={name} />
+        <Header title={restaurant?.gofood_name} />
         <ActiveSectionContext.Provider value={{ menuRef, aboutRef, facilityRef, reviewRef, othersRef, activeSection, menuDivRef, aboutDivRef, facilityDivRef, reviewDivRef, othersDivRef }}>
           {isActive && <RestoTopbar />}
           <div className="max-w-[420px] mx-auto bg-slate-500">
-            <ImageSection restaurant={restaurant} thumbnail={restaurant.thumbnail} />
+            <ImageSection restaurant={restaurant} thumbnail={restaurant?.thumbnail} />
             <div className=" bg-white rounded-t-2xl pt-5 px-4">
               <TopSection restaurant={restaurant} />
               <hr className="border-y-2 my-4" />

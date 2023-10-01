@@ -5,7 +5,6 @@ import { useContext, useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function ImageSection({ thumbnail, restaurant }: any) {
-  const { place_id, bookmarkedBy } = restaurant;
   const session = useSession();
   const containerStyle = {
     backgroundImage: 'url("/placeholder.png")',
@@ -14,7 +13,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
   const router = useRouter();
   const { aboutDivRef } = useContext(ActiveSectionContext);
   const [isBookmakred, setIsBookmarked] = useState<boolean>(
-    bookmarkedBy.map((item: any) => {
+    restaurant?.bookmarkedBy.map((item: any) => {
       if (item.email === session?.data?.user?.email) {
         return true;
       } else {
@@ -32,7 +31,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            place_id,
+            place_id: restaurant?.place_id,
           }),
         });
         setIsBookmarked(false);
@@ -47,7 +46,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            place_id,
+            place_id: restaurant?.place_id,
           }),
         });
         setIsBookmarked(true);
