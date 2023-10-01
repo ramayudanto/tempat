@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useRef, useState } from "react";
-import Toast from "../../Toast";
+import Toast from "../../Toasts/Toast";
 import RatingForm from "./RatingForm";
 import Backdrop from "../../login/Backdrop";
 import { ReviewContext } from "../../../pages/restos/[routeName]";

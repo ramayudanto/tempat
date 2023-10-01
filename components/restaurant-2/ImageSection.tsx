@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
+import AddBookmarkToast from "../../components/Toasts/AddBookmarkToast";
+import DeleteBookmarkToast from "../../components/Toasts/DeleteBookmarkToast";
 
 export default function ImageSection({ thumbnail, restaurant }: any) {
   const session = useSession();
@@ -34,6 +36,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             place_id: restaurant?.place_id,
           }),
         });
+        deleteToastRef.current!.show();
         setIsBookmarked(false);
       } catch (err) {
         console.log(err);
@@ -49,15 +52,21 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             place_id: restaurant?.place_id,
           }),
         });
+        addToastRef.current!.show();
         setIsBookmarked(true);
       } catch (err) {
         console.log(err);
       }
     }
   };
+  const addToastRef = useRef<any>(null);
+  const deleteToastRef = useRef<any>(null);
 
   return (
     <div ref={aboutDivRef} className="relative">
+      <AddBookmarkToast ref={addToastRef} />
+      <DeleteBookmarkToast ref={deleteToastRef} />
+
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
           className="p-[10px] bg-white rounded-full"

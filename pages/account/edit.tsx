@@ -9,7 +9,7 @@ import Header from "../../components/Head/Header";
 import SelectImage from "../../components/EditProfile/SelectImage";
 import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar/Navbar";
-import Toast from "../../components/Toast";
+import Toast from "../../components/Toasts/Toast";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);

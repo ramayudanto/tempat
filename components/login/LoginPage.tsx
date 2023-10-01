@@ -6,7 +6,7 @@ import LoginForm from "./LoginForm";
 import Navbar from "../Navbar/Navbar";
 import { useRouter } from "next/router";
 import Sucess from "./Sucess";
-import Toast from "../Toast";
+import Toast from "../Toasts/Toast";
 
 export default function LoginPage({ closeLogin }: any) {
   const { data: session } = useSession();
@@ -22,13 +22,12 @@ export default function LoginPage({ closeLogin }: any) {
     const email = emailInputRef.current!.value;
     const password = passwordInputRef.current!.value;
     const res = await signIn("credentials", { email, password, redirect: false });
-    console.log(res);
     if (res?.status && res.error === "Password doesn't match") {
       errorToastRef.current!.show();
     } else {
       toastRef.current!.show();
       setTimeout(() => {
-        // router.push("/", undefined, { shallow: true });
+        router.push("/", undefined, { shallow: true });
       }, 1000);
     }
   };

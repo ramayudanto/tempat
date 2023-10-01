@@ -1,20 +1,20 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useRef, useState } from "react";
 import { getTodaysOpeningHours, openTimeLogic, priceLogic, translatePriceRange, translateToK, truncate } from "../../lib/logic";
 import { BookmarkContext } from "../../pages/bookmark";
 // import CategoryImage from "../CategoryPage/CategoryImage";
+import DeleteBookmarkToast from "../Toasts/DeleteBookmarkToast";
 
 export default function BookmarkCard({ restaurant }: any) {
   // const [isBookmakred, setIsBookmarked] = useState<boolean>(true);
   const { userBookmark, setUserBookmark } = useContext(BookmarkContext);
+  const deleteToastRef = useRef<any>(null);
 
   const bookmarkHandler = async (e: FormEvent) => {
     e.preventDefault();
 
-    const newBookmark = userBookmark.filter((item: any) => item.gofood_name !== restaurant?.gofood_name);
-
-    await fetch(`/api/deleteBookmark`, {
+    const res = await fetch(`/api/deleteBookmark`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,14 @@ export default function BookmarkCard({ restaurant }: any) {
         place_id: restaurant?.place_id,
       }),
     });
-    setUserBookmark(newBookmark);
+    // if code 200 make a toast
+    if (res.status === 200) {
+      deleteToastRef.current!.show();
+      const newBookmark = userBookmark.filter((item: any) => item.gofood_name !== restaurant?.gofood_name);
+      setTimeout(() => {
+        setUserBookmark(newBookmark);
+      }, 150);
+    }
   };
 
   const locationBroad = restaurant.address_components.find((component: any) =>
@@ -32,6 +39,7 @@ export default function BookmarkCard({ restaurant }: any) {
   return (
     <Link href={`/restos/${restaurant?.place_id}`}>
       <a className="border-[1px] rounded-xl shadow-lg hover:bg-[#f6f6f6] transition h-fit">
+        <DeleteBookmarkToast ref={deleteToastRef} />
         <div className="bg-cover w-full h-[200px] relative rounded-t-xl" style={{ backgroundImage: `url(${restaurant?.thumbnail})` }}>
           <button className="p-2 flex items-center justify-center bg-white rounded-full right-4 top-2 absolute z-20" onClick={bookmarkHandler}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-darkRed">

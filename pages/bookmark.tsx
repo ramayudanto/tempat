@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import Header from "../components/Head/Header";
 import { prisma } from "../lib/prisma";
 import Navbar from "../components/Navbar/Navbar";
@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import NoBookmark from "../public/NoBookmark.svg";
 import RestaurantCard from "../components/MainPage/RestaurantCard";
+import DeleteBookmarkToast from "../components/Toasts/DeleteBookmarkToast";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
