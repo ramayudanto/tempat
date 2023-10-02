@@ -15,6 +15,7 @@ const nextConfig = {
       "socialistmodernism.com",
       "uploads-ssl.webflow.com",
       "tempatapp.sgp1.cdn.digitaloceanspaces.com",
+      "tempat.app",
     ],
   },
   webpack(config) {

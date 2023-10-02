@@ -31,17 +31,17 @@ export default function SearchResult({ query }: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  useEffect(() => {
-    if (data.length === 0) return;
-    setHighestPrice(
-      Math.max(
-        ...data.map((item) => {
-          return Number(item.priceRange.match(/\d/g).join(""));
-        })
-      )
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  // useEffect(() => {
+  //   if (data.length === 0) return;
+  //   setHighestPrice(
+  //     Math.max(
+  //       ...data.map((item) => {
+  //         return Number(item.priceRange.match(/\d/g).join(""));
+  //       })
+  //     )
+  //   );
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data]);
 
   if (!isLoading) {
     return (

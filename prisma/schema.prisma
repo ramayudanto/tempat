@@ -20,13 +20,6 @@ model Rating {
   imageUrl String?
 }
 
-model Images {
-  id           Int         @id @default(autoincrement())
-  URL          String
-  restaurantId Int?
-  restaurant   RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-}
-
 model Collection {
   id             Int          @id @default(autoincrement())
   collectionName String       @unique
@@ -118,6 +111,7 @@ model Category {
   name String @unique
   icon String?
   header String?
+  description String?
   restaurants RestaurantV2[]
 }
 
@@ -159,7 +153,7 @@ model RestaurantV2 {
   geometry GeometryV2?
   categories Category[]
   Ratings Rating[]
-  Images Images[]
+  Image String[]
   Collections Collection[]
   bookmarkedBy User[]
   menu Menu? 

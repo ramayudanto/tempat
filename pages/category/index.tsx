@@ -41,13 +41,11 @@ export default function Categories({ categories, user }: any) {
           }
         })} */}
         {categories.map((category: any, i: any) => {
-          const { name } = category;
-          const svgSource = `/category/${decodeURI(replaceSpacesWithHyphens(name))}.svg`;
-
+          const { name, icon } = category;
           return (
             <Link href={`/category/${name}`} key={i}>
               <a className="border-[1px] rounded-md p-1 flex items-center space-x-3 py-4">
-                <Image src={svgSource} width={30} height={30} alt={name} loading="eager" />
+                <Image src={category.icon! || "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/category/Rice.svg"} width={30} height={30} alt={name} loading="eager" />
                 <p>{name}</p>
               </a>
             </Link>
