@@ -3,15 +3,16 @@ import React, { FormEvent, useEffect, useRef, useState } from "react";
 import SearchBar from "../SearchBar";
 import MostSearched from "./MostSearched";
 import RecentSearchQuery from "./RecentSearchQuery";
-import RecentSearchRestaurant from "./RecentSearchRestaurant";
 import SearchResult from "./SearchResult";
 import { decryptLocalStorage, encryptLocalStorage } from "../../lib/logic";
+import RecentSearchCard from "./RecentSearchCard";
 
 export default function Search() {
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
   const [recentSearchRestaurant, setRecentSearchRestaurant] = useState<any[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  console.log(recentSearchRestaurant);
 
   useEffect(() => {
     const query = JSON.parse(decryptLocalStorage("recentSearchQuery") || "[]");
@@ -74,7 +75,11 @@ export default function Search() {
           {recentSearchRestaurant.length !== 0 && (
             <>
               <p className="font-semibold mb-2">Terakhir kamu liat</p>
-              <RecentSearchRestaurant data={recentSearchRestaurant} />
+              <div className={`flex overflow-x-scroll gap-4`}>
+                {recentSearchRestaurant.map((restaurant: any, i: number) => {
+                  return <RecentSearchCard key={i} restaurant={restaurant} />;
+                })}
+              </div>
             </>
           )}
           <MostSearched />

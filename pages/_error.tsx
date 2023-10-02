@@ -306,8 +306,8 @@ export default function NotFound() {
             fill="#667085"
           />
         </svg>
-        <p className="font-semibold text-[#101828]">Wah, Halaman yang kamu cari tidak ada!</p>
-        <p className="text-lightGray">Mungkin kamu salah restoran. Yuk balik ke halaman utama!</p>
+        <p className="font-semibold text-[#101828]">Wah, Ada Error di Server Kita</p>
+        <p className="text-lightGray">Yuk balik ke halaman utama!</p>
       </div>
       <button
         className="bg-red-600 text-white rounded-lg py-2 px-4 font-semibold"
