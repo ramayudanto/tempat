@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Jumbotron({ search, setSearch }: { search: string; setSearch: any }) {
   return (
     <div
-      className="relative h-[171px] bg-center bg-center flex items-center"
+      className="relative h-[171px] bg-center flex items-center"
       style={{
         backgroundImage: `url("homepage-1.jpg")`,
         backgroundSize: "cover",
@@ -23,7 +23,7 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
           <p className="text-sm font-semibold">Jakarta</p>
         </button>
       </div>
-      <div className="border-[1px] mx-[16px] bg-white flex gap-x-[8px] items-center overflow-hidden mx-auto left-0 right-0 my-4 rounded-lg px-2 py-1 absolute -bottom-[18%]">
+      <div className="border-[1px] mx-[16px] bg-white flex gap-x-[8px] items-center overflow-hidden left-0 right-0 my-4 rounded-lg px-2 py-1 absolute -bottom-[18%]">
         <button>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

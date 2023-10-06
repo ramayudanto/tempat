@@ -10,7 +10,7 @@ export default function RestaurantCard({ restaurant }: any) {
   const session = false;
 
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
-  const locationBroad = restaurant.address_components.find((component: any) =>
+  const locationBroad = restaurant?.address_components.find((component: any) =>
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
   ) || { short_name: "Unknown", long_name: "Unknown" };
 

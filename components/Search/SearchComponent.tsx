@@ -21,13 +21,7 @@ export default function Search() {
     setRecentSearchRestaurant(restaurant);
   }, []);
 
-  const searchSubmitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    if (searchRef.current?.value! === "") {
-      router.push("/search");
-      return;
-    }
-
+  const insertRecentQuery = () => {
     if (!recentSearch.some((item: string) => item === searchRef.current?.value!)) {
       const recent = [searchRef.current?.value!, ...recentSearch];
       setRecentSearch(recent);
@@ -38,12 +32,22 @@ export default function Search() {
       setRecentSearch(recent);
       localStorage.setItem("recentSearchQuery", encryptLocalStorage(JSON.stringify(recent)));
     }
+  };
+
+  const searchSubmitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    if (searchRef.current?.value! === "") {
+      router.push("/search");
+      return;
+    }
+
+    insertRecentQuery();
 
     router.push(`/search?q=${searchRef.current?.value!}`, undefined, { shallow: true });
   };
 
   return (
-    <div className="pt-10 px-4 pb-48 overflow-hidden h-screen mx-auto bg-white max-w-[420px]">
+    <div className="pt-10 px-4 pb-48 overflow-x-hidden overflow-y-scroll h-screen mx-auto bg-white max-w-[420px]">
       {!router.query.q && <p className="text-3xl font-semibold text-darkGray">Cari</p>}
       <div className="flex items-center gap-x-2 mb-4">
         {router.query.q && (
@@ -69,7 +73,7 @@ export default function Search() {
           {recentSearch.length !== 0 && (
             <>
               <p className="font-semibold text-sm mb-2">Pencarian terakhir</p>
-              <RecentSearchQuery searchRef={searchRef} data={recentSearch} />
+              <RecentSearchQuery insert={insertRecentQuery} searchRef={searchRef} data={recentSearch} />
             </>
           )}
           {recentSearchRestaurant.length !== 0 && (

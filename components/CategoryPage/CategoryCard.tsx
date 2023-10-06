@@ -1,13 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
+import { getTodaysOpeningHours, openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
 import CategoryImage from "./CategoryImage";
 import { RestaurantV2 } from "@prisma/client";
 
 export default function CategoryCard({ restaurant, i, isLast, onclick }: { restaurant: any; i: any; isLast: any; onclick?: any }) {
-  const { gofood_name: name, categories: category, closeTime, openTime, rating, thumbnail, priceRange, place_id } = restaurant;
-  // console.log(restaurant);
+  const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id } = restaurant;
 
   return (
     <Link href={`/restos/${place_id}`}>
@@ -48,7 +47,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick }: { resta
             })}
           </div>
           <div className="flex justify-between mt-1">
-            <p className="text-darkRed text-xs">{openTimeLogic(restaurant.opening_hours)}</p>
+            <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
             <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
           </div>
         </div>

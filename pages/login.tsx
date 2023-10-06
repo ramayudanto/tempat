@@ -25,7 +25,7 @@ export default function login() {
       <Header title={"Login"} />
       <div className="max-w-[425px] mx-auto">
         <div className="h-[275px] relative">
-          <Image src={"/homepage-1.png"} layout="fill" alt="burger" objectFit="cover" priority />
+          <Image src={"/homepage-1.jpg"} layout="fill" alt="burger" objectFit="cover" priority />
         </div>
         <LoginPage />
       </div>

@@ -89,7 +89,7 @@ export const featureLogic = (feature: String) => {
 
 export const recentRestaurantHandler = (restaurant: any) => {
   const initialList = JSON.parse(decryptLocalStorage("recentSearchRestaurant") || "[]");
-  if (!initialList.some((item: any) => item.name === restaurant.gofood_name)) {
+  if (!initialList.some((item: any) => item.gofood_name === restaurant.gofood_name)) {
     const recent = [restaurant, ...initialList];
     localStorage.setItem("recentSearchRestaurant", encryptLocalStorage(JSON.stringify(recent)));
   } else {

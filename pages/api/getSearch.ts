@@ -45,6 +45,8 @@ export default async function handler(req: any, res: NextApiResponse) {
       },
       include: {
         categories: true,
+        opening_hours: true,
+        address_components: true,
       },
     });
     // const dataPlace = await prisma.restaurantV2.findMany({
