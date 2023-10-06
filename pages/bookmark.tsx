@@ -50,9 +50,9 @@ export default function Bookmark({ bookmarks, user }: any) {
       <Header title="Bookmark" />
       {/* <CategoryHero name="bookmark" /> */}
       <div className="pt-10 overflow-scroll relative mx-auto bg-white max-w-[420px] h-screen flex flex-col just px-4 pb-20">
-        <p className="font-semibold text-3xl mb-3 px-4 text-darkGray">Bookmark</p>
+        <p className="text-3xl font-semibold mb-6 text-darkGray">Bookmark</p>
         {userBookmark.length !== 0 ? (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6">
             {userBookmark.map((bookmark: any, i: any) => {
               return (
                 <BookmarkContext.Provider value={{ userBookmark, setUserBookmark }} key={i}>

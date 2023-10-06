@@ -5,7 +5,7 @@ import React from "react";
 export default function RecentSearch({ data, searchRef }: any) {
   const router = useRouter();
   return (
-    <div className="flex flex-wrap gap-2 mb-8">
+    <div className="flex flex-wrap gap-2 mb-6">
       {data.map((item: any, i: any) => {
         return (
           <p
@@ -14,7 +14,7 @@ export default function RecentSearch({ data, searchRef }: any) {
               searchRef.current.value = item;
               router.push(`/search?q=${item}`, undefined, { shallow: true });
             }}
-            className="rounded-full font-medium bg-darkGray bg-opacity-10 px-4 py-2 cursor-pointer"
+            className="rounded-full font-regular text-xs bg-darkGray bg-opacity-10 px-4 py-2 cursor-pointer"
           >
             {item}
           </p>

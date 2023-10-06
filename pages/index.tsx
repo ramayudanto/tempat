@@ -93,7 +93,11 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
         <CategoryList categories={categories} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Popular restaurants around you!"} search={null} />
+        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} search={null} />
+        <RestaurantRow restaurants={restaurant} title={"Yang baru minggu ini"} search={null} />
+        <RestaurantRow restaurants={restaurant} title={"Semua Tentang Kopi"} search={null} />
+        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} search={null} />
+        
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />

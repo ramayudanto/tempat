@@ -38,7 +38,7 @@ export default function BookmarkCard({ restaurant }: any) {
   ) || { short_name: "Unknown", long_name: "Unknown" };
   return (
     <Link href={`/restos/${restaurant?.place_id}`}>
-      <a className="border-[1px] rounded-xl shadow-lg hover:bg-[#f6f6f6] transition h-fit">
+      <a className="border-[1px] rounded-xl hover:bg-[#f6f6f6] transition">
         <DeleteBookmarkToast ref={deleteToastRef} />
         <div className="bg-cover w-full h-[200px] relative rounded-t-xl" style={{ backgroundImage: `url(${restaurant?.thumbnail})` }}>
           <button className="p-2 flex items-center justify-center bg-white rounded-full right-4 top-2 absolute z-20" onClick={bookmarkHandler}>

@@ -95,7 +95,7 @@ export default function SearchResult({ query }: any) {
   } else {
     return (
       <>
-        <p className="text-center">Loading</p>
+        <p className="text-center">sedang mencari...</p>
       </>
     );
   }

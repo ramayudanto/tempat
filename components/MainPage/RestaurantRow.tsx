@@ -20,9 +20,9 @@ export default function RestaurantRow({ restaurants, title, search }: { restaura
   return data.length == 0 ? (
     <SkeletonCardRow />
   ) : (
-    <div className="text-darkGray px-4 space-y-4 my-10">
+    <div className="text-darkGray px-4 space-y-4 pt-[36px]">
       <div className="flex justify-between mb-2 items-center">
-        <p className="font-semibold text-base">{title}</p>
+        <p className="font-semibold text-sm">{title}</p>
         <p
           className="text-customRed-500 font-semibold text-xs cursor-pointer"
           onClick={() => {
@@ -30,7 +30,7 @@ export default function RestaurantRow({ restaurants, title, search }: { restaura
             router.push(`/category/${search}`, undefined, { shallow: true });
           }}
         >
-          See all
+          {/* Lihat Semua */}
         </p>
       </div>
       <div className={`flex overflow-x-scroll gap-x-2 pl-4 -mx-4`}>

@@ -23,7 +23,7 @@ export default function User({ user, route }: any) {
               />
             </svg>
           )}
-          <p className={`${(route === "/account" || route === "/account/edit") && "text-darkRed font-medium"}`}>Profile</p>
+          <p className={`${(route === "/account" || route === "/account/edit") && "text-darkRed font-medium"}`}>Akun</p>
         </a>
       </Link>
     );
@@ -48,7 +48,7 @@ export default function User({ user, route }: any) {
             />
           </svg>
         )}
-        <p>Profile</p>
+        <p>Akun</p>
       </a>
     </Link>
   );

@@ -43,8 +43,8 @@ export default function Search() {
   };
 
   return (
-    <div className="pt-8 px-4 pb-48 overflow-hidden mx-auto bg-white max-w-[420px]">
-      {!router.query.q && <p className="font-semibold text-2xl mb-3">Cari</p>}
+    <div className="pt-10 px-4 pb-48 overflow-hidden h-screen mx-auto bg-white max-w-[420px]">
+      {!router.query.q && <p className="text-3xl font-semibold text-darkGray">Cari</p>}
       <div className="flex items-center gap-x-2 mb-4">
         {router.query.q && (
           <button
@@ -68,14 +68,14 @@ export default function Search() {
         <>
           {recentSearch.length !== 0 && (
             <>
-              <p className="font-semibold mb-2">Pencarian terakhir</p>
+              <p className="font-semibold text-sm mb-2">Pencarian terakhir</p>
               <RecentSearchQuery searchRef={searchRef} data={recentSearch} />
             </>
           )}
           {recentSearchRestaurant.length !== 0 && (
             <>
-              <p className="font-semibold mb-2">Terakhir kamu liat</p>
-              <div className={`flex overflow-x-scroll gap-4`}>
+              <p className="font-semibold text-sm mb-2">Terakhir kamu liat</p>
+              <div className={`flex overflow-x-scroll gap-2`}>
                 {recentSearchRestaurant.map((restaurant: any, i: number) => {
                   // return <RecentSearchCard key={i} restaurant={restaurant} />;
                   return <RestaurantCard key={i} restaurant={restaurant} />;
