@@ -24,7 +24,7 @@ export default function login() {
     <>
       <Header title={"Login"} />
       <div className="max-w-[425px] mx-auto">
-        <div className="h-[275px] relative">
+        <div className="h-[275px] relative mb-[-32px]">
           <Image src={"/homepage-1.jpg"} layout="fill" alt="burger" objectFit="cover" priority />
         </div>
         <LoginPage />
