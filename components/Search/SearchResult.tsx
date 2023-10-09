@@ -46,7 +46,7 @@ export default function SearchResult({ query }: any) {
   if (!isLoading) {
     return (
       <>
-        <div className="flex items-center gap-x-2 overflow-x-scroll mb-4">
+        {/* <div className="flex items-center gap-x-2 overflow-x-scroll mb-4">
           <svg
             width="28"
             height="28"
@@ -75,7 +75,7 @@ export default function SearchResult({ query }: any) {
           <p className="bg-darkGray bg-opacity-10 rounded-md py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm">Rating 4+</p>
           <p className="bg-darkGray bg-opacity-10 rounded-md py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm">Outdoor</p>
           <p className="bg-darkGray bg-opacity-10 rounded-md py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm">Halal</p>
-        </div>
+        </div> */}
         <div className="flex flex-col gap-y-3 pb-20">
           {data.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
