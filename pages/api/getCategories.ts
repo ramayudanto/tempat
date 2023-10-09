@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { firestore } from "../../lib/firebase";
+import { prisma } from "../../lib/prisma";
 
 export default async function handler(req: any, res: NextApiResponse) {
   if (req.method !== "GET") {
@@ -7,22 +8,33 @@ export default async function handler(req: any, res: NextApiResponse) {
     res.end();
     return;
   }
-  const { q } = req.query;
-  if (!q) {
+  const { category } = req.query;
+  if (!category) {
     res.status(404);
     res.end();
     return;
   }
   try {
-    const restaurantsRef = firestore.collection("resto1");
-    const snapshot = await restaurantsRef.where("category", "array-contains", q).get();
-
-    if (snapshot.empty) {
-      res.status(404).json({ error: "Restaurant not found" });
-      return;
-    }
-
-    const restaurantData = snapshot.docs.map((doc) => doc.data());
+    const restaurantData = await prisma.restaurantV2.findMany({
+      where: {
+        categories: {
+          some: {
+            name: category,
+          },
+        },
+      },
+      select: {
+        gofood_name: true,
+        address_components: true,
+        rating: true,
+        user_ratings_total: true,
+        categories: true,
+        price_level: true,
+        thumbnail: true,
+        opening_hours: true,
+        place_id: true,
+      },
+    });
     res.status(200).json(JSON.parse(JSON.stringify(shuffleArray(restaurantData))));
   } catch (e) {
     console.log(e);

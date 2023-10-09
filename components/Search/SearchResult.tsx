@@ -76,7 +76,7 @@ export default function SearchResult({ query }: any) {
           <p className="bg-darkGray bg-opacity-10 rounded-md py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm">Outdoor</p>
           <p className="bg-darkGray bg-opacity-10 rounded-md py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm">Halal</p>
         </div>
-        <div className="flex flex-col gap-y-3 lg:grid lg:grid-cols-5 lg:gap-2 pb-20">
+        <div className="flex flex-col gap-y-3 pb-20">
           {data.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
               return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={true} />;

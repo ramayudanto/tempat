@@ -4,15 +4,15 @@ import RestaurantCard from "./RestaurantCard";
 import SkeletonCardRow from "../Skeleton/SkeletonCardRow";
 import { RestaurantV2 } from "@prisma/client";
 
-export default function RestaurantRow({ restaurants, title, search }: { restaurants: RestaurantV2[] | any[]; title: string; search: string | null }) {
+export default function RestaurantRow({ restaurants, title, searchCategory }: { restaurants: RestaurantV2[] | any[]; title: string; searchCategory: string | null }) {
   const [data, setData] = useState<any[]>(restaurants || []);
   const router = useRouter();
   const fetchData = async () => {
-    const res = await (await fetch(`/api/getCategories?q=${search}`)).json();
+    const res = await (await fetch(`/api/getCategories?category=${searchCategory}`)).json();
     setData(res);
   };
   useEffect(() => {
-    if (!search) return;
+    if (!searchCategory) return;
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,8 +26,8 @@ export default function RestaurantRow({ restaurants, title, search }: { restaura
         <p
           className="text-customRed-500 font-semibold text-xs cursor-pointer"
           onClick={() => {
-            if (!search) return;
-            router.push(`/category/${search}`, undefined, { shallow: true });
+            if (!searchCategory) return;
+            router.push(`/category/${searchCategory}`, undefined, { shallow: true });
           }}
         >
           {/* Lihat Semua */}
