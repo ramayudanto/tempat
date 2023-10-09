@@ -13,7 +13,7 @@ const Toast = forwardRef(function Inside({ message }: any, ref: any) {
   }));
 
   return show ? (
-    <div className={`fixed top-10 flex items-center gap-x-3 right-0 left-0 z-[100] animate-fadeToast select-none rounded-md px-4 py-3 text-lg mx-4 font-medium tracking-wide text-white bg-white border-[1px] shadow-lg`}>
+    <div className={`fixed top-10 flex max-w-[420px] items-center gap-x-3 right-0 left-0 z-[100] animate-fadeToast select-none rounded-md px-4 py-3 text-lg mx-4 font-medium tracking-wide text-white bg-white border-[1px] shadow-lg`}>
       <div className="bg-black bg-opacity-10 rounded-full p-3">
         <svg viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
           <path

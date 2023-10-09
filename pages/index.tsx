@@ -78,7 +78,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
     const getData = setTimeout(async () => {
       setIsLoading(true);
       const data = await (await fetch(`/api/getSearch?q=${search}`)).json();
-      setSearchData(getMultipleRandom(data, 3));
+      setSearchData(getMultipleRandom(data, 10));
       setIsLoading(false);
     }, 500);
 

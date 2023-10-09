@@ -49,6 +49,59 @@ export default async function handler(req: any, res: NextApiResponse) {
         address_components: true,
       },
     });
+    // get all restaurant with a certain category based on the query
+    // so for example if the query is "burger" then we will get all restaurant that has "burger" category
+    const dataCategory = await prisma.restaurantV2.findMany({
+      where: {
+        categories: {
+          some: {
+            name: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        },
+      },
+      include: {
+        categories: true,
+        opening_hours: true,
+        address_components: true,
+      },
+    });
+    // get all restaurant with a certain place based on the query
+    // so for example if the query is "jakarta" then we will get all restaurant that has "jakarta" in their address
+    const dataPlace = await prisma.restaurantV2.findMany({
+      where: {
+        OR: [
+          {
+            address_components: {
+              every: {
+                long_name: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+          {
+            address_components: {
+              every: {
+                short_name: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        categories: true,
+        opening_hours: true,
+        address_components: true,
+      },
+    });
+
     // const dataPlace = await prisma.restaurantV2.findMany({
     //   where: {
     //     OR: [
@@ -108,7 +161,7 @@ export default async function handler(req: any, res: NextApiResponse) {
     //   },
     // });
     // const data = [...dataName, ...dataCategory, ...dataPlace];
-    const data = [...dataName];
+    const data = [...dataName, ...dataCategory, ...dataPlace];
     res.send(removeDuplicate(shuffle(data)));
     res.status(200);
     res.end();
