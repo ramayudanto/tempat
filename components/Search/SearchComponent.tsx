@@ -8,7 +8,7 @@ import { decryptLocalStorage, encryptLocalStorage } from "../../lib/logic";
 import RecentSearchCard from "./RecentSearchCard";
 import RestaurantCard from "../MainPage/RestaurantCard";
 
-export default function Search() {
+export default function Search({ fourCategories }: any) {
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
   const [recentSearchRestaurant, setRecentSearchRestaurant] = useState<any[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -49,7 +49,7 @@ export default function Search() {
   return (
     <div className="pt-10 px-4 pb-48 overflow-x-hidden overflow-y-scroll h-screen mx-auto bg-white max-w-[420px]">
       {!router.query.q && <p className="text-3xl font-semibold text-darkGray">Cari</p>}
-      <div className="flex items-center gap-x-2 mb-4">
+      <div className="flex gap-x-2 items-end mb-4">
         {router.query.q && (
           <button
             onClick={() => {
@@ -87,7 +87,7 @@ export default function Search() {
               </div>
             </>
           )}
-          <MostSearched />
+          <MostSearched fourCategories={fourCategories} />
         </>
       ) : (
         <SearchResult query={router.query.q} />
