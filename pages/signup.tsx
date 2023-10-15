@@ -121,13 +121,13 @@ export default function Signup() {
     <>
       <Header title={"Sign Up"} />
       <div className="max-w-[425px] mx-auto">
-        <div className="h-[275px] relative">
+        {/* <div className="h-[275px] relative">
           <Image src={"/homepage-1.png"} layout="fill" alt="burger" objectFit="cover" priority />
-        </div>
-        <div className="animate-loginFade h-screen px-4 bg-white rounded-t-2xl pt-4 flex flex-col gap-y-5">
+        </div> */}
+        <div className="h-screen px-4 bg-white pt-4 flex flex-col gap-y-5">
           <div className="text-center">
-            <p className="font-semibold text-xl text-darkGray">Sign Up</p>
-            <p className="text-darkGray text-opacity-70">Enter your email and pasword</p>
+            <p className="font-semibold text-xl text-darkGray">Daftar Akun</p>
+            <p className="text-darkGray text-sm">Agar kamu bisa simpan restoran favorit kamu!  </p>
           </div>
           <SignUpForm
             isPasswordValid={isPasswordValid}

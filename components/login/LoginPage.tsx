@@ -39,31 +39,31 @@ export default function LoginPage({ closeLogin }: any) {
       <Header title={"Login"} />
       <Toast message="Login successfull" color="green" ref={toastRef} />
       <Toast message="Wrong password" ref={errorToastRef} />
-      <div className="animate-loginFade px-4 py-6 bg-white rounded-t-2xl flex flex-col gap-y-5 relative z-10">
+      <div className="px-4 py-6 bg-white flex flex-col gap-y-5 relative z-10 h-full">
         <div className="text-center">
           <p className="font-semibold text-xl text-darkGray">Masuk</p>
           <p className="text-darkGray text-opacity-70">Isi email dan passwordmu</p>
         </div>
         <LoginForm passwordInputRef={passwordInputRef} emailInputRef={emailInputRef} onSubmit={emailSubmit} />
-        <div className="text-xs flex justify-between">
-          <p>Belum Punya akun?</p>
+        <div className="text-sm flex justify-between cursor-pointer">
+          <p>Belum punya akun?</p>
           <p
-            className="text-red-600 font-semibold"
+            className="text-red-600 text-sm font-semibold"
             onClick={() => {
               router.push("/signup");
             }}
           >
-            Buat Baru
+            Daftar Akun baru
           </p>
         </div>
         <div className="flex items-center justify-evenly my-5">
           <hr className="border-t-[2px] w-1/4" />
-          <p className="font-medium text-darkGray text-opacity-80"> atau gunakan</p>
+          <p className="font-medium text-darkGray text-opacity-80"> atau gunakan akun</p>
           <hr className="border-t-[2px] w-1/4" />
         </div>
         <div className="flex items-center justify-around">
           <button
-            className="px-3 py-1 border-[1px] rounded"
+            className="flex items-center px-3 py-1 border-[1px] rounded-2xl"
             onClick={() => {
               signIn("google");
             }}
@@ -98,6 +98,7 @@ export default function LoginPage({ closeLogin }: any) {
                 </clipPath>
               </defs>
             </svg>
+            <p className="text-sm text-darkGray cursor-pointer ">Sign In With Google</p>
           </button>
         </div>
       </div>
