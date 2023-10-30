@@ -7,7 +7,6 @@ import { RestaurantV2 } from "@prisma/client";
 
 export default function CategoryCard({ restaurant, i, isLast, onclick }: { restaurant: any; i: any; isLast: any; onclick?: any }) {
   const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id } = restaurant;
-
   return (
     <Link href={`/restos/${place_id}`}>
       <a

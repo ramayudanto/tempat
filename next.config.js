@@ -16,6 +16,7 @@ const nextConfig = {
       "uploads-ssl.webflow.com",
       "tempatapp.sgp1.cdn.digitaloceanspaces.com",
       "tempat.app",
+      "tempatapp.sgp1.digitaloceanspaces.com",
     ],
   },
   webpack(config) {
