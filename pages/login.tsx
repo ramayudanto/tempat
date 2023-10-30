@@ -23,10 +23,10 @@ export default function login() {
   return (
     <>
       <Header title={"Login"} />
-      <div className="max-w-[425px] mx-auto">
-        <div className="h-[275px] relative mb-[-32px]">
+      <div className="max-w-[425px] mx-auto h-screen">
+        {/* <div className="h-[275px] relative mb-[-32px]">
           <Image src={"/homepage-1.jpg"} layout="fill" alt="burger" objectFit="cover" priority />
-        </div>
+        </div> */}
         <LoginPage />
       </div>
     </>

@@ -10,7 +10,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick }: { resta
   return (
     <Link href={`/restos/${place_id}`}>
       <a
-        className={`p-2 bg-white ${i === 0 && "pt-2"} ${!isLast && "border-b-[1px]"}`}
+        className={`p-2 w-full bg-white max-w-[420px] mx-auto ${i === 0 && "pt-2"} ${!isLast && "border-b-[1px]"}`}
         onClick={() => {
           recentRestaurantHandler(restaurant);
         }}

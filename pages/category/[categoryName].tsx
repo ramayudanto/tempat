@@ -46,7 +46,7 @@ export default function Category({ category }: any) {
     <>
       <Header title={category.name} />
       {/* <CategoryTopBar /> */}
-      <div className="pb-32 overflow-hidden">
+      <div className="pb-32 overflow-hidden max-w-[420px] mx-auto bg-white">
         <CategoryHero category={category} />
         <div className="flex flex-col gap-y-0 rounded-t-xl">
           {restaurants.map((restaurant: any, i: any, row: any) => {

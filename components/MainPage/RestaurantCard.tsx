@@ -107,8 +107,8 @@ export default function RestaurantCard({ restaurant }: any) {
             })}
           </div>
 
-          <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
-          <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
+          <p className=" text-darkGray text-xs">{translatePriceRange(priceRange)}</p>
+          {/* <p className=" text-darkGray text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p> */}
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>

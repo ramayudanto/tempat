@@ -30,11 +30,11 @@ export default async function handler(req: any, res: NextApiResponse) {
     return;
   }
   const { q } = req.query;
-  // if (!q) {
-  //   res.status(404);
-  //   res.end();
-  //   return;
-  // }
+  if (!q) {
+    res.status(404);
+    res.end();
+    return;
+  }
   try {
     const dataName = await prisma.restaurantV2.findMany({
       where: {
@@ -49,67 +49,60 @@ export default async function handler(req: any, res: NextApiResponse) {
         address_components: true,
       },
     });
-    // const dataPlace = await prisma.restaurantV2.findMany({
-    //   where: {
-    //     OR: [
-    //       {
-    //         address_components: {
-    //           every: {
-    //             long_name: {
-    //               contains: q,
-    //               mode: "insensitive",
-    //             },
-    //           },
-    //         },
-    //       },
-    //       {
-    //         address_components: {
-    //           every: {
-    //             short_name: {
-    //               contains: q,
-    //               mode: "insensitive",
-    //             },
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   include: {
-    //     categories: true,
-    //   },
-    // });
-    // const dataCategory = await prisma.restaurantV2.findMany({
-    //   where: {
-    //     OR: [
-    //       {
-    //         categories: {
-    //           some: {
-    //             name: {
-    //               in: q,
-    //               mode: "insensitive",
-    //             },
-    //           },
-    //         },
-    //       },
-    //       {
-    //         categories: {
-    //           some: {
-    //             name: {
-    //               contains: q,
-    //               mode: "insensitive",
-    //             },
-    //           },
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   include: {
-    //     categories: true,
-    //   },
-    // });
-    // const data = [...dataName, ...dataCategory, ...dataPlace];
-    const data = [...dataName];
-    res.send(removeDuplicate(shuffle(data)));
+    // get all restaurant with a certain category based on the query
+    // so for example if the query is "burger" then we will get all restaurant that has "burger" category
+    const dataCategory = await prisma.restaurantV2.findMany({
+      where: {
+        categories: {
+          some: {
+            name: {
+              contains: q,
+              mode: "insensitive",
+            },
+          },
+        },
+      },
+      include: {
+        categories: true,
+        opening_hours: true,
+        address_components: true,
+      },
+    });
+    // get all restaurant with a certain place based on the query
+    // so for example if the query is "jakarta" then we will get all restaurant that has "jakarta" in their address
+    const dataPlace = await prisma.restaurantV2.findMany({
+      where: {
+        OR: [
+          {
+            address_components: {
+              some: {
+                long_name: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+          {
+            address_components: {
+              some: {
+                short_name: {
+                  contains: q,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        categories: true,
+        opening_hours: true,
+        address_components: true,
+      },
+    });
+    const data = [...dataName, ...dataCategory, ...dataPlace];
+    res.send(removeDuplicate(data));
     res.status(200);
     res.end();
   } catch (e) {

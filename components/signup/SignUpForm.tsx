@@ -5,24 +5,25 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
   const router = useRouter();
   return (
     <form className="w-full" onSubmit={onSubmit}>
-      <label htmlFor="name" className="font-medium mb-2">
-        Name
-      </label>
-      <input required id="name" type="text" className="border-[1px] mb-7 w-full rounded outline-none p-2" maxLength={20} placeholder="Enter your name" ref={nameInputRef} />
       <div className="mb-6">
         <label htmlFor="email" className="font-medium">
           Email
         </label>
-        <div className="flex">
-          <input id="email" required spellCheck={false} type="email" className="border-[1px] w-full rounded outline-none p-2" placeholder="Enter your email" ref={emailInputRef} />
-          <button onClick={test} className="w-[15%] bg-red-600 rounded text-xs text-white">
-            check
-          </button>
+        <div className="flex gap-x-2">
+          <input id="email" required spellCheck={false} type="email" className="border-[1px] w-full rounded outline-none p-2" placeholder="budi@gmail.com" ref={emailInputRef} />
+          {/* <button onClick={test} className="w-[15%] bg-darkGray rounded text-xs text-white">
+            Cek
+          </button> */}
         </div>
-        {isUserExist !== null && (isUserExist ? <p className="text-red-500 text-xs">Email already exist</p> : <p className="text-green text-xs">Email could be used</p>)}
+        {isUserExist !== null && (isUserExist ? <p className="text-red-500 text-xs">Email sudah terdaftar</p> : <p className="text-green text-xs">Email belum terdaftar</p>)}
       </div>
+      <label htmlFor="name" className="font-medium mb-2">
+        Nama
+      </label>
+      <input required id="name" type="text" className="border-[1px] mb-7 w-full rounded outline-none p-2" maxLength={20} placeholder="Budi" ref={nameInputRef} />
+      
       <div>
-        <label htmlFor="pass" className="font-medium mb-2">
+        <label htmlFor="pass" className="font-medium mb-2 darkGray">
           Password
         </label>
         <input
@@ -30,32 +31,38 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
           id="pass"
           type="password"
           className="border-[1px] w-full rounded outline-none p-2"
-          placeholder="Enter your password"
+          placeholder="**********"
           onChange={(e) => {
             isPasswordValid(e.currentTarget.value);
             setPassword(e.currentTarget.value);
           }}
         />
-        <ul className="list-disc mx-4 text-sm mt-1">
-          <li className={passwordState.length ? "text-green" : "text-red-500"}>Password must contain at least 8 character</li>
-          <li className={passwordState.uppercase ? "text-green" : "text-red-500"}>Password must contain uppercase letters</li>
-          <li className={passwordState.number ? "text-green" : "text-red-500"}>Password must contain number</li>
+        <ul className="list-disc mx-4 text-sm mt-1 text-darkGray">
+          <li className={passwordState.length ? "text-green" : "text-darkGray"}>Minimal 8 karakter</li>
+          <li className={passwordState.uppercase ? "text-green" : "text-darkGray"}>Menggunakan huruf besar</li>
+          <li className={passwordState.number ? "text-green" : "text-darkGray"}>Menggunakan angka</li>
         </ul>
       </div>
-      <div className="bg-white text-xs flex justify-between mt-5">
-        <p>Already have an account?</p>
+      <button type="submit" className="w-full py-4 mt-7 font-semibold text-white bg-customRed-600 rounded-full">
+        Buat Akun
+      </button>
+      <div className="flex items-center justify-evenly my-5">
+          <hr className="border-t-[2px] w-1/4" />
+          <p className="font-medium text-darkGray text-opacity-80"> atau</p>
+          <hr className="border-t-[2px] w-1/4" />
+        </div>
+      <div className="bg-white text-sm flex justify-between mt-5">
+        <p>Udah punya akun?</p>
         <p
-          className="text-red-600 font-semibold"
+          className="text-red-600 text-sm font-semibold cursor-pointer"
           onClick={() => {
             router.push("/login");
           }}
         >
-          Sign In
+          Masuk disini
         </p>
       </div>
-      <button type="submit" className="w-full py-4 mt-7 font-semibold text-white bg-customRed-600 rounded-full">
-        Sign Up
-      </button>
     </form>
+    
   );
 }

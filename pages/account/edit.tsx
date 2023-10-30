@@ -69,8 +69,8 @@ export default function Edit({ user }: any) {
   return (
     <>
       <Header title="Edit" />
-      <div className="pt-20 mx-4 space-y-16">
-        <p className="text-2xl font-semibold text-center">Edit Akun</p>
+      <div className="p-4 mx-auto space-y-16 max-w-[420px] bg-white h-screen">
+        <p className="text-2xl font-semibold">Edit Akun</p>
         <div className="flex flex-col items-center w-full gap-y-5">
           <p className={`mr-auto font-medium text-darkGray text-opacity-70`}>Foto</p>
           <div className="flex flex-col gap-y-2 items-center">
@@ -85,17 +85,17 @@ export default function Edit({ user }: any) {
             </button>
           </div>
           <form onSubmit={submitHandler} className="w-full space-y-5">
-            <div className="self-start w-full flex gap-x-2">
-              <label className="font-medium text-darkGray text-opacity-70">Username</label>
+            <div className="self-start w-full flex flex-col gap-x-2">
+              <label className="font-medium text-darkGray">Username</label>
               <input spellCheck={false} className="outline-none border-2 bg-white w-full p-2 rounded" type="text" placeholder={user.username || "not set"} required={!user.username} ref={usernameRef} />
             </div>
-            <div className="self-start w-full flex gap-x-2">
-              <label className="font-medium text-darkGray text-opacity-70">Nama</label>
+            <div className="self-start w-full flex flex-col gap-x-2">
+              <label className="font-medium text-darkGray">Nama</label>
               <input spellCheck={false} className="outline-none border-2 bg-white w-full p-2 rounded" type="text" placeholder={user.name || "not set"} required={!user.name} ref={nameRef} />
             </div>
-            <div className="self-start w-full flex gap-x-2">
-              <label className="font-medium text-darkGray text-opacity-70">Email</label>
-              <input className="border-2 bg-white w-full p-2 rounded text text-darkGray text-opacity-70" disabled type="text" value={user.email} />
+            <div className="self-start w-full flex flex-col gap-x-2">
+              <label className="font-medium text-darkGray">Email</label>
+              <input className="border-2 bg-white w-full p-2 rounded text text-darkGray cursor-not-allowed" disabled type="text" value={user.email} />
             </div>
 
             <button className="w-full py-3 rounded-full bg-darkRed text-white font-medium" type="submit">

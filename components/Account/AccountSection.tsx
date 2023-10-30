@@ -6,8 +6,8 @@ import { useState } from "react";
 export default function AccountSection({ user }: any) {
   const router = useRouter();
   return (
-    <div className="px-4 pt-10 space-y-16 bg-white max-w-[420px] h-screen mx-auto bg-white max-w-[420px]">
-      <div className="flex gap-x-4">
+    <div className="px-4 pt-10 bg-white max-w-[420px] h-screen mx-auto bg-white max-w-[420px]">
+      <div className="flex gap-x-4 mb-6 justify-between">
         <p className="text-3xl font-semibold text-darkGray">Akun</p>
         <button
           onClick={() => {

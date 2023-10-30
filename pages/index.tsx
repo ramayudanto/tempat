@@ -78,7 +78,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
     const getData = setTimeout(async () => {
       setIsLoading(true);
       const data = await (await fetch(`/api/getSearch?q=${search}`)).json();
-      setSearchData(getMultipleRandom(data, 3));
+      setSearchData(getMultipleRandom(data, 10));
       setIsLoading(false);
     }, 500);
 
@@ -93,11 +93,11 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
         <CategoryList categories={categories} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} search={null} />
-        <RestaurantRow restaurants={restaurant} title={"Yang baru minggu ini"} search={null} />
-        <RestaurantRow restaurants={restaurant} title={"Semua Tentang Kopi"} search={null} />
-        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} search={null} />
-        
+        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />
+        <RestaurantRow restaurants={restaurant} title={"Yang manis-manis"} searchCategory={"Dessert"} />
+        <RestaurantRow restaurants={restaurant} title={"Buat yang butuh cepet"} searchCategory={"Fast food"} />
+        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />
+
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />

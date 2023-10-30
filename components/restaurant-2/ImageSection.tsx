@@ -69,13 +69,13 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
 
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
-          className="p-[10px] bg-white rounded-full"
+          className="p-[12px] bg-white rounded-full"
           onClick={() => {
             router.back();
           }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 8H1M1 8L8 15M1 8L8 1" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M15 8H1M1 8L8 15M1 8L8 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
         <button className="p-[10px] bg-white rounded-full" onClick={bookmarkHandler}>
@@ -94,7 +94,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
         <div className="relative h-[400px]">
           <Image src={thumbnail} alt="test" layout="fill" objectFit="cover" loading="eager" />
         </div>
-        <div className="flex gap-x-1">
+        {/* <div className="flex gap-x-1">
           {[1, 2, 3, 4].map((item: any, i: any, row: any) => {
             if (i + 1 === row.length) {
               // LAST ELEMENT
@@ -118,7 +118,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
               );
             }
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export default function RestoFooter({ restaurant }: any) {
         <p className={`${openTimeLogic(getTodaysOpeningHours(restaurant.opening_hours)).includes("Open") ? "text-[#326212]" : "text-customRed-500"} font-semibold`}>{openTimeLogic(getTodaysOpeningHours(restaurant.opening_hours))}</p>
         <p className="text-xs text-lightGray font-medium">{getTodaysOpeningHours(restaurant.opening_hours)}</p>
       </div>
-      <button className="bg-customRed-600 text-white font-semibold px-16 rounded-lg">See Menu</button>
+      <button className="bg-customRed-600 text-white font-semibold px-16 rounded-lg">Lihat Menu</button>
     </div>
   );
 }
