@@ -1,6 +1,10 @@
 import Image from "next/image";
+import { useState } from "react";
+import MainpageModal from "../modal/MainPageModal";
+import { AnimatePresence } from "framer-motion";
 
 export default function Jumbotron({ search, setSearch }: { search: string; setSearch: any }) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <div
       className="relative h-[171px] bg-center flex items-center"
@@ -9,9 +13,19 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
         backgroundSize: "cover",
       }}
     >
+      {isModalOpen && (
+        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+          <MainpageModal closeModal={() => setIsModalOpen(false)} />
+        </AnimatePresence>
+      )}
       <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-10 flex flex-col items-start justify-center">
         <p>Cari restoran paling enak di</p>
-        <button className="flex items-center mt-1 gap-x-1 bg-red-50 text-red-500 px-2 p-1 rounded-full">
+        <button
+          className="flex items-center mt-1 gap-x-1 bg-red-50 text-red-500 px-2 p-1 rounded-full"
+          onClick={() => {
+            setIsModalOpen(true);
+          }}
+        >
           <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"

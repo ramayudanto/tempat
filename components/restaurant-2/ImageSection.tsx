@@ -5,9 +5,12 @@ import { useContext, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import AddBookmarkToast from "../../components/Toasts/AddBookmarkToast";
 import DeleteBookmarkToast from "../../components/Toasts/DeleteBookmarkToast";
+import BookmarkModal from "../modal/BookmarkModal";
+import { AnimatePresence } from "framer-motion";
 
 export default function ImageSection({ thumbnail, restaurant }: any) {
   const session = useSession();
+  const [isBookmarkModalOpen, setIsBookmarkModalOpen] = useState<boolean>(false);
   const containerStyle = {
     backgroundImage: 'url("/placeholder.png")',
     backgroundSize: "cover",
@@ -25,7 +28,10 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
   );
 
   const bookmarkHandler = async () => {
-    if (!session?.data?.user?.email) return;
+    if (!session?.data?.user?.email) {
+      setIsBookmarkModalOpen(true);
+      return;
+    }
     if (isBookmakred) {
       try {
         await fetch(`/api/deleteBookmark`, {
@@ -67,6 +73,16 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
     <div ref={aboutDivRef} className="relative">
       <AddBookmarkToast ref={addToastRef} />
       <DeleteBookmarkToast ref={deleteToastRef} />
+
+      {isBookmarkModalOpen && (
+        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+          <BookmarkModal
+            closeModal={() => {
+              setIsBookmarkModalOpen(false);
+            }}
+          />
+        </AnimatePresence>
+      )}
 
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
