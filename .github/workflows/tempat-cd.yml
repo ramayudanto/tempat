@@ -30,6 +30,7 @@ jobs:
             git pull origin main
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
+            npm install
             cp ../tempat-env/.env .
             npx prisma generate
             pm2 stop tempat

@@ -13,7 +13,6 @@ import MainPageSearch from "../components/Search/MainPageSearch";
 import { getMultipleRandom } from "../lib/logic";
 // import { Restaurant } from "@prisma/client";
 import { firestore } from "../lib/firebase";
-import useInsert from "../lib/useInsert";
 import Jumbotron from "../components/MainPage/Jumbotron";
 import CategoryList from "../components/MainPage/CategoryList";
 import { RestaurantV2 } from "@prisma/client";
@@ -56,7 +55,6 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
   const [searchData, setSearchData] = useState<RestaurantV2[] | any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const session = useSession();
-  // const users = useInsert();
 
   function getValueForToday(json: any) {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
