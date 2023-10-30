@@ -24,7 +24,8 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
     })[0]
   );
 
-  const bookmarkHandler = async (e: any) => {
+  const bookmarkHandler = async () => {
+    if (!session?.data?.user?.email) return;
     if (isBookmakred) {
       try {
         await fetch(`/api/deleteBookmark`, {
