@@ -13,11 +13,9 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
         backgroundSize: "cover",
       }}
     >
-      {isModalOpen && (
-        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-          <MainpageModal closeModal={() => setIsModalOpen(false)} />
-        </AnimatePresence>
-      )}
+      <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+        {isModalOpen && <MainpageModal closeModal={() => setIsModalOpen(false)} />}
+      </AnimatePresence>
       <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-10 flex flex-col items-start justify-center">
         <p>Cari restoran paling enak di</p>
         <button

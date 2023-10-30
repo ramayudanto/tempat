@@ -3,29 +3,27 @@ import Backdrop from "./Backdrop";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Modal({ closeModal }: any) {
+export default function BookmarkModal({ closeModal }: any) {
+  const dropIn = {
+    hidden: {
+      y: "100%",
+      opacity: 1,
+    },
+    visible: {
+      y: 0,
+      transition: {
+        duration: 0.3,
+      },
+      opacity: 1,
+    },
+    exit: {
+      y: "100%",
+      opacity: 1,
+    },
+  };
   return (
     <Backdrop onClick={closeModal}>
-      <motion.div
-        onClick={(e) => e.stopPropagation()}
-        className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6"
-        variants={{
-          hidden: {
-            y: "-10vh",
-            opacity: 1,
-          },
-          visible: {
-            y: 0,
-            transition: {
-              duration: 0.1,
-            },
-            opacity: 1,
-          },
-        }}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
+      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
         <div className="flex flex-col items-center gap-y-4">
           <p className=" font-semibold text-[#101828]">Simpan restoran favorit kamu!</p>
           <svg width="183" height="152" viewBox="0 0 183 152" fill="none" xmlns="http://www.w3.org/2000/svg">

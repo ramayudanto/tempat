@@ -74,15 +74,15 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
       <AddBookmarkToast ref={addToastRef} />
       <DeleteBookmarkToast ref={deleteToastRef} />
 
-      {isBookmarkModalOpen && (
-        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+      <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+        {isBookmarkModalOpen && (
           <BookmarkModal
             closeModal={() => {
               setIsBookmarkModalOpen(false);
             }}
           />
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
 
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
