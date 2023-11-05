@@ -4,7 +4,6 @@ import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { createContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Head/Header";
-import Navbar from "../../components/Navbar/Navbar";
 import DetailedInformation from "../../components/restaurant-2/DetailedInformation";
 import Gallery from "../../components/Gallery/Gallery";
 import ImageSection from "../../components/restaurant-2/ImageSection";
