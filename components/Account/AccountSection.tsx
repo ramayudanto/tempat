@@ -16,7 +16,7 @@ export default function AccountSection({ user }: any) {
 
     return result;
   }
-  console.log(user);
+  // console.log(user);
   const router = useRouter();
   return (
     <div className="mx-auto h-screen bg-white max-w-[420px]">
@@ -29,7 +29,7 @@ export default function AccountSection({ user }: any) {
       >
         <div className="py-5 px-4 shadow-md absolute bg-white right-0 left-0 mx-auto -bottom-[60%] rounded-lg space-y-8 w-[90%]">
           <div className="flex gap-x-3 text-[#5D6B98]">
-            <p className="p-3 rounded-full font-semibold bg-[#EFF1F5] uppercase flex-grow-0 flex-auto">{getFirstLetters(user.name)}</p>
+            <p className="w-10 h-10 f rounded-full font-semibold bg-[#EFF1F5] uppercase flex items-center justify-center">{getFirstLetters(user.name)}</p>
             <div>
               <p className="font-semibold text-[#404968]">{user.name}</p>
               {/* review user */}

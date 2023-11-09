@@ -91,11 +91,11 @@ export const recentRestaurantHandler = (restaurant: any) => {
   const initialList = JSON.parse(decryptLocalStorage("recentSearchRestaurant") || "[]");
   if (!initialList.some((item: any) => item.gofood_name === restaurant.gofood_name)) {
     const recent = [restaurant, ...initialList];
-    localStorage.setItem("recentSearchRestaurant", encryptLocalStorage(JSON.stringify(recent)));
+    localStorage.setItem("recentSearchRestaurant", encryptAES(JSON.stringify(recent)));
   } else {
     const filtered = initialList.filter((item: any) => item.gofood_name !== restaurant.gofood_name);
     const recent = [restaurant, ...filtered];
-    localStorage.setItem("recentSearchRestaurant", encryptLocalStorage(JSON.stringify(recent)));
+    localStorage.setItem("recentSearchRestaurant", encryptAES(JSON.stringify(recent)));
   }
 };
 
@@ -111,8 +111,11 @@ export const decryptLocalStorage = (key: string) => {
   const value = CryptoJS.AES.decrypt(String(encrypted), process.env.NEXT_PUBLIC_SECRET!).toString(CryptoJS.enc.Utf8);
   return value;
 };
+export const decryptAES = (encrypted: string) => {
+  return CryptoJS.AES.decrypt(String(encrypted), process.env.NEXT_PUBLIC_SECRET!).toString(CryptoJS.enc.Utf8);
+};
 
-export const encryptLocalStorage = (key: string) => {
+export const encryptAES = (key: string) => {
   return CryptoJS.AES.encrypt(key, process.env.NEXT_PUBLIC_SECRET!).toString();
 };
 

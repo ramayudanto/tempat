@@ -2,11 +2,12 @@ import { Rating } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import validator from "validator";
 
 import { prisma } from "../../../lib/prisma";
 import { authOptions } from "./[...nextauth]";
+import { decryptAES } from "../../../lib/logic";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -14,9 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.end();
     return;
   }
-  const { email, password, name } = req.body;
+  const { email, encryptedPassword, name } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !encryptedPassword) {
     res.status(400).json({ error: "Missing fields" });
     res.end();
     return;
@@ -44,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   //   }
 
   let isSuccess: boolean;
-
+  const password = decryptAES(encryptedPassword);
   bcrypt.hash(password, 10, async (err, hash) => {
     if (err) {
       console.log(err);

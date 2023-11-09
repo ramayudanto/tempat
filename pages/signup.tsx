@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import { encryptAES } from "../lib/logic";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -68,6 +69,7 @@ export default function Signup() {
 
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
+    const encryptedPassword = encryptAES(password);
     const valid = isPasswordValid(password);
     if (!valid) return;
     try {
@@ -78,7 +80,7 @@ export default function Signup() {
         },
         body: JSON.stringify({
           email: emailInputRef.current!.value,
-          password,
+          encryptedPassword,
           name: nameInputRef.current!.value,
         }),
       });
@@ -127,7 +129,7 @@ export default function Signup() {
         <div className="h-screen px-4 bg-white pt-4 flex flex-col gap-y-5">
           <div className="text-center">
             <p className="font-semibold text-xl text-darkGray">Daftar Akun</p>
-            <p className="text-darkGray text-sm">Agar kamu bisa simpan restoran favorit kamu!  </p>
+            <p className="text-darkGray text-sm">Agar kamu bisa simpan restoran favorit kamu! </p>
           </div>
           <SignUpForm
             isPasswordValid={isPasswordValid}

@@ -2,7 +2,7 @@ import { Rating } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import { prisma } from "../../../lib/prisma";
 import { authOptions } from "./[...nextauth]";

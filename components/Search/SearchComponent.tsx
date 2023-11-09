@@ -4,7 +4,7 @@ import SearchBar from "../SearchBar";
 import MostSearched from "./MostSearched";
 import RecentSearchQuery from "./RecentSearchQuery";
 import SearchResult from "./SearchResult";
-import { decryptLocalStorage, encryptLocalStorage } from "../../lib/logic";
+import { decryptLocalStorage, encryptAES } from "../../lib/logic";
 import RecentSearchCard from "./RecentSearchCard";
 import RestaurantCard from "../MainPage/RestaurantCard";
 
@@ -25,12 +25,12 @@ export default function Search({ fourCategories }: any) {
     if (!recentSearch.some((item: string) => item === searchRef.current?.value!)) {
       const recent = [searchRef.current?.value!, ...recentSearch];
       setRecentSearch(recent);
-      localStorage.setItem("recentSearchQuery", encryptLocalStorage(JSON.stringify(recent)));
+      localStorage.setItem("recentSearchQuery", encryptAES(JSON.stringify(recent)));
     } else {
       const filtered = recentSearch.filter((item: string) => item !== searchRef.current?.value!);
       const recent = [searchRef.current?.value!, ...filtered];
       setRecentSearch(recent);
-      localStorage.setItem("recentSearchQuery", encryptLocalStorage(JSON.stringify(recent)));
+      localStorage.setItem("recentSearchQuery", encryptAES(JSON.stringify(recent)));
     }
   };
 
