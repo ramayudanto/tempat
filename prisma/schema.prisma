@@ -7,42 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Rating {
-  id           String         @id
+  id           String        @id
   rate         Int
   comment      String?
   restaurantId Int?
+  userId       String?
+  postDate     DateTime      @default(now())
+  imageUrl     String?
   restaurant   RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
-  userId String?
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postDate DateTime @default(now())
-  imageUrl String?
+  user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Collection {
-  id             Int          @id @default(autoincrement())
-  collectionName String       @unique
+  id             Int            @id @default(autoincrement())
+  collectionName String         @unique
   description    String?
-  routeName      String?      @unique
-  Restaurant     RestaurantV2[]
+  routeName      String?        @unique
+  Restaurant     RestaurantV2[] @relation("CollectionToRestaurantV2")
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -56,17 +54,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  username String? @unique
+  id             String         @id @default(cuid())
+  name           String?
+  email          String?        @unique
+  emailVerified  DateTime?
+  image          String?
+  username       String?        @unique
   hashedPassword String?
-  accounts      Account[]
-  sessions      Session[]
-  rating Rating[]
-  bookmark RestaurantV2[]
+  accounts       Account[]
+  rating         Rating[]
+  sessions       Session[]
+  bookmark       RestaurantV2[] @relation("RestaurantV2ToUser")
 }
 
 model VerificationToken {
@@ -78,91 +76,91 @@ model VerificationToken {
 }
 
 model AddressComponentV2 {
-  id Int @id @default(autoincrement())
-  long_name String @unique
-  short_name String @unique
-  types String
-  restaurant RestaurantV2[]
+  id         Int            @id @default(autoincrement())
+  long_name  String         @unique
+  short_name String         @unique
+  types      String
+  restaurant RestaurantV2[] @relation("AddressComponentV2ToRestaurantV2")
 }
 
 model OpeningHoursV2 {
-  id Int @id @default(autoincrement())
-  monday String?
-  tuesday String?
-  wednesday String?
-  thursday String?
-  friday String?
-  saturday String?
-  sunday String?
-  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
-  restaurantId Int @unique
+  id           Int          @id @default(autoincrement())
+  monday       String?
+  tuesday      String?
+  wednesday    String?
+  thursday     String?
+  friday       String?
+  saturday     String?
+  sunday       String?
+  restaurantId Int          @unique
+  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }
 
 model GeometryV2 {
-  id Int @id @default(autoincrement())
-  lat Float?
-  lng Float?
-  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
-  restaurantId Int @unique
+  id           Int          @id @default(autoincrement())
+  lat          Float?
+  lng          Float?
+  restaurantId Int          @unique
+  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }
 
 model Category {
-  id Int @id @default(autoincrement())
-  name String @unique
-  icon String?
-  header String?
+  id          Int            @id @default(autoincrement())
+  name        String         @unique
+  icon        String?
+  header      String?
   description String?
-  restaurants RestaurantV2[]
+  restaurants RestaurantV2[] @relation("CategoryToRestaurantV2")
 }
 
 model RestaurantV2 {
-  id Int @id @default(autoincrement())
-  curbside_pickup Boolean?
-  delivery Boolean?
-  dine_in Boolean?
-  formatted_address String?
-  formatted_phone_number String?
-  gofood_name String?
-  icon String?
-  icon_mask_base_uri String?
-  international_phone_number String?
-  name String?
-  permanently_closed String?
-  place_id String? @unique
-  price_level Int?
-  rating Float?
-  reference String?
-  reservable Boolean?
-  serves_beer Boolean?
-  serves_breakfast Boolean?
-  serves_brunch Boolean?
-  serves_dinner Boolean?
-  serves_lunch Boolean?
-  serves_vegetarian_food Boolean?
-  serves_wine Boolean?
-  takeout Boolean?
-  thumbnail String?
-  types String[]
-  url String?
-  user_ratings_total Int?
-  vicinity String?
-  website String?
+  id                             Int                  @id @default(autoincrement())
+  delivery                       Boolean?
+  dine_in                        Boolean?
+  formatted_address              String?
+  formatted_phone_number         String?
+  gofood_name                    String?
+  icon                           String?
+  icon_mask_base_uri             String?
+  international_phone_number     String?
+  name                           String?
+  permanently_closed             String?
+  place_id                       String?              @unique
+  price_level                    Int?
+  rating                         Float?
+  reference                      String?
+  serves_breakfast               Boolean?
+  serves_brunch                  Boolean?
+  serves_dinner                  Boolean?
+  serves_lunch                   Boolean?
+  serves_vegetarian_food         Boolean?
+  takeout                        Boolean?
+  thumbnail                      String?
+  types                          String[]
+  url                            String?
+  user_ratings_total             Int?
+  vicinity                       String?
+  website                        String?
+  reservable                     Boolean?
+  serves_beer                    Boolean?
+  serves_wine                    Boolean?
   wheelchair_accessible_entrance Boolean?
-  address_components AddressComponentV2[]
-  opening_hours OpeningHoursV2?
-  geometry GeometryV2?
-  categories Category[]
-  Ratings Rating[]
-  Image String[]
-  Collections Collection[]
-  bookmarkedBy User[]
-  menu Menu? 
+  curbside_pickup                Boolean?
+  Image                          String[]
+  geometry                       GeometryV2?
+  menu                           Menu?
+  opening_hours                  OpeningHoursV2?
+  Ratings                        Rating[]
+  address_components             AddressComponentV2[] @relation("AddressComponentV2ToRestaurantV2")
+  categories                     Category[]           @relation("CategoryToRestaurantV2")
+  Collections                    Collection[]         @relation("CollectionToRestaurantV2")
+  bookmarkedBy                   User[]               @relation("RestaurantV2ToUser")
 }
 
-model Menu{
-  id Int @id @default(autoincrement())
-  image String?
-  menu_type String?
-  restaurant RestaurantV2 @relation(fields: [restaurantId], references: [id])
-  restaurantId Int @unique
+model Menu {
+  id           Int          @id @default(autoincrement())
+  image        String[]
+  menu_type    String?
+  restaurantId Int          @unique
+  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }

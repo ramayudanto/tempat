@@ -28,6 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       categories: true,
       opening_hours: true,
       bookmarkedBy: true,
+      menu: true,
     },
   });
 

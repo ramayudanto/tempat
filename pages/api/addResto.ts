@@ -15,8 +15,20 @@ export default async function handler(req: any, res: NextApiResponse) {
     res.end();
     return;
   }
+  const { category, thumbnail, place_id }: { category: string; thumbnail: string; place_id: string } = req.body;
+
+  // fetch to google api
+  const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_KEY!}&place_id=${place_id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
   try {
-    const restaurantDataCleaned = formatData([]);
+    const restaurantDataCleaned = formatData(data, category);
 
     restaurantDataCleaned.forEach(async (restaurant: any) => {
       await prisma.restaurantV2.create({
@@ -48,18 +60,18 @@ export default async function handler(req: any, res: NextApiResponse) {
               lng: restaurant.geometry.lng,
             },
           },
-          thumbnail: restaurant.thumbnail,
+          thumbnail,
           icon: restaurant.icon,
           icon_mask_base_uri: restaurant.icon_mask_base_uri,
           // connect or create category
-          // categories: {
-          //   connectOrCreate: restaurant.category.map((category: any) => {
-          //     return {
-          //       where: { name: category },
-          //       create: { name: category },
-          //     };
-          //   }),
-          // },
+          categories: {
+            connectOrCreate: restaurant.category.map((category: any) => {
+              return {
+                where: { name: category },
+                create: { name: category },
+              };
+            }),
+          },
           address_components: {
             connectOrCreate: restaurant.address_components.map((address: any) => ({
               where: {
@@ -98,7 +110,7 @@ export default async function handler(req: any, res: NextApiResponse) {
   }
 }
 
-export function formatData(jsonArray: any[]) {
+export function formatData(jsonArray: any[], category: string) {
   return jsonArray.map((item) => {
     const { opening_hours, geometry, address_components, ...rest } = item.result;
     const { location } = geometry;
@@ -126,7 +138,7 @@ export function formatData(jsonArray: any[]) {
       transformedHours[day] = hours === "Open 24 hours" ? "24" : hours;
     });
 
-    // const categories = transformStringToArray(category)
+    const categories = transformStringToArray(category);
 
     return {
       ...rest,
@@ -136,7 +148,7 @@ export function formatData(jsonArray: any[]) {
         lng,
       },
       address_components: formattedAddressComponentsFilter,
-      // categories,
+      categories,
     };
   });
 }

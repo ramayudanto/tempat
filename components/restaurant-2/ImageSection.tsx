@@ -27,6 +27,22 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
     })[0]
   );
 
+  function combineImage(arr1: any[]) {
+    const firstArrayElements = Math.min(arr1.length, 4);
+    const arr2 = [
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
+    ];
+    // Use the spread operator to take elements from the first array
+    // and concatenate with the appropriate number of elements from the second array
+    const combinedArray: any[] = [...arr1.slice(0, firstArrayElements), ...arr2.slice(0, 4 - firstArrayElements)];
+
+    return combinedArray;
+  }
+  // console.log(restaurant);
+
   const bookmarkHandler = async () => {
     if (!session?.data?.user?.email) {
       setIsBookmarkModalOpen(true);
@@ -111,31 +127,36 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
         <div className="relative h-[400px]">
           <Image src={thumbnail} alt="test" layout="fill" objectFit="cover" loading="eager" />
         </div>
-        {/* <div className="flex gap-x-1">
-          {[1, 2, 3, 4].map((item: any, i: any, row: any) => {
+        <div className="flex">
+          {combineImage(restaurant.Image).map((item: any, i: any, row: any) => {
             if (i + 1 === row.length) {
               // LAST ELEMENT
               return (
                 <div
-                  className="w-1/4 flex items-center justify-center h-[10vh] bg-center bg-black bg-opacity-30"
-                  key={item}
-                  style={containerStyle}
-                  onClick={() => {
-                    console.log("clicked");
+                  className="w-1/4 flex items-center justify-center h-[10vh] bg-center relative"
+                  key={i}
+                  style={{
+                    backgroundImage: `url(${item})`,
+                    backgroundSize: "cover",
                   }}
+                  // onClick={() => {
+                  //   console.log("clicked");
+                  // }}
                 >
-                  <p className="text-white text-xs font-semibold">See All</p>
+                  <div className="bg-black bg-opacity-40 flex items-center justify-center absolute w-full h-full">
+                    <p className="text-white text-xs font-semibold">See All</p>
+                  </div>
                 </div>
               );
             } else {
               return (
-                <div className="relative w-1/4 h-[10vh]" key={item}>
-                  <Image src={"https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"} alt="placeholder" layout="fill" objectFit="cover" />
+                <div className="relative w-1/4 h-[10vh]" key={i}>
+                  <Image src={item} alt="placeholder" layout="fill" objectFit="cover" />
                 </div>
               );
             }
           })}
-        </div> */}
+        </div>
       </div>
     </div>
   );

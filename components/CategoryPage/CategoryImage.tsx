@@ -14,7 +14,7 @@ export default function CategoryImage({ images }: any) {
       {[1, 2, 3, 4, 5, 6].map((i: any) => {
         return (
           <div className="w-[135px] h-[87px] relative" key={i}>
-            <Image src={"https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"} width={135} height={87} alt={i} key={i} layout="fixed" objectFit="cover" className="rounded" />
+            <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg"} width={135} height={87} alt={i} key={i} layout="fixed" objectFit="cover" className="rounded" />
           </div>
         );
       })}

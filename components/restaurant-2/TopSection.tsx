@@ -6,25 +6,6 @@ export default function TopSection({ restaurant }: any) {
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
   ) || { short_name: "Unknown", long_name: "Unknown" };
 
-  const session = useSession();
-
-  const testHandler = () => {
-    // fetch("/api/auth/credentialRegister", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ email: "dika@gmail", name: "akidd", password: "123456" }),
-    // });
-    signIn("credentials", {
-      email: "dikaaayy@gmail.com",
-      password: "123456789",
-      redirect: false,
-    }).then(() => {
-      // console.log(session);
-    });
-  };
-
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">

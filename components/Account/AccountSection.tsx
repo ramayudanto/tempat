@@ -23,7 +23,7 @@ export default function AccountSection({ user }: any) {
       <div
         className="h-[200px] relative"
         style={{
-          backgroundImage: `url("account-header.png")`,
+          backgroundImage: `url("https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/05_restaurant_%201%20(1).png")`,
           backgroundSize: "cover",
         }}
       >
