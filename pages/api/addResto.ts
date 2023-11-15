@@ -1,21 +1,21 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./auth/[...nextauth]";
 
-export default async function handler(req: any, res: NextApiResponse) {
-  const session = await getServerSession(req, res, authOptions);
-  //   if (req.method !== "POST") {
-  //     res.status(405);
-  //     res.end();
-  //     return;
-  //   }
-  if (session?.user?.email !== "andikayudhistira@mail.ugm.ac.id") {
-    res.status(401);
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    res.status(405);
     res.end();
     return;
   }
-  const { category, thumbnail, place_id }: { category: string; thumbnail: string; place_id: string } = req.body;
+
+  const { category, thumbnail, place_id, key }: { category: string; thumbnail: string; place_id: string; key: string } = req.body;
+
+  if (key !== process.env.NEXT_PUBLIC_ADD_RESTO!) {
+    res.status(401);
+    res.send("Wrong key");
+    res.end();
+    return;
+  }
 
   // fetch to google api
   const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_KEY!}&place_id=${place_id}`, {
@@ -60,7 +60,7 @@ export default async function handler(req: any, res: NextApiResponse) {
               lng: restaurant.geometry.lng,
             },
           },
-          thumbnail,
+          thumbnail: thumbnail || null,
           icon: restaurant.icon,
           icon_mask_base_uri: restaurant.icon_mask_base_uri,
           // connect or create category
@@ -102,7 +102,7 @@ export default async function handler(req: any, res: NextApiResponse) {
         },
       });
     });
-    res.json({ success: true, session, data: "sukses" });
+    res.json({ success: true, data: "sukses" });
   } catch (e) {
     console.log(e);
     res.status(500).json({ success: false, data: "gagal" });

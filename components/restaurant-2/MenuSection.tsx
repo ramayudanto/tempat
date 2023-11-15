@@ -11,14 +11,18 @@ export default function MenuSection({ restaurant }: any) {
       {/* <p className="text-[#333] text-xs text-opacity-60" ref={menuRef}>
         Full Menu
       </p> */}
-      {!restaurant.menu && (
-        <div className="w-[200px] h-[200px] mx-auto">
-          <div className="relative w-full h-full">
-            <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg"} alt={"menu"} layout="fill" objectFit="cover" className="rounded" />
+      {!restaurant.menu ? (
+        <>
+          <div className="w-[200px] h-[200px] mx-auto">
+            <div className="relative w-full h-full">
+              <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg"} alt={"menu"} layout="fill" objectFit="cover" className="rounded" />
+            </div>
           </div>
-        </div>
+          <p className="text-center text-sm">Menu masih belum tersedia</p>
+        </>
+      ) : (
+        <></>
       )}
-      <p className="text-center text-sm">Menu masih belum tersedia</p>
       {/* <button className="bg-red-50 flex text-red-600 py-2 px-4 font-semibold rounded-lg mx-auto">
         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
