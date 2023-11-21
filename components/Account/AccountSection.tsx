@@ -1,6 +1,7 @@
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import posthog from "posthog-js";
 import { useState } from "react";
 
 export default function AccountSection({ user }: any) {
@@ -83,6 +84,8 @@ export default function AccountSection({ user }: any) {
       <p
         onClick={() => {
           signOut();
+          posthog.capture("logout");
+          posthog.reset();
         }}
         className="bg-red-600 mt-6 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"
       >

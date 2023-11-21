@@ -16,6 +16,8 @@ import { firestore } from "../lib/firebase";
 import Jumbotron from "../components/MainPage/Jumbotron";
 import CategoryList from "../components/MainPage/CategoryList";
 import { RestaurantV2 } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import posthog from "posthog-js";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -54,7 +56,11 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<RestaurantV2[] | any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const session = useSession();
+  const session = useSession();
+
+  if (session) {
+    posthog.identify(session.data?.user?.email!);
+  }
 
   function getValueForToday(json: any) {
     const daysOfWeek = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
