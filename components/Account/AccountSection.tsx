@@ -16,7 +16,6 @@ export default function AccountSection({ user }: any) {
 
     return result;
   }
-  // console.log(user);
   const router = useRouter();
   return (
     <div className="mx-auto h-screen bg-white max-w-[420px]">

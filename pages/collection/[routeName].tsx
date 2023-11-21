@@ -15,7 +15,6 @@ export const getServerSideProps = async (context: any) => {
 
 export default function Restaurant({ restaurant }: any) {
   const { name, information } = restaurant;
-  // console.log(restaurant);
   return (
     <>
       {/* <Header title={name} />

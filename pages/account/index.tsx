@@ -8,7 +8,6 @@ import Navbar from "../../components/Navbar/Navbar";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
-  console.log(session);
   // const { routeName } = context.params;
   if (!session) {
     return {

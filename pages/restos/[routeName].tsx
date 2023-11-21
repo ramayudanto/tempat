@@ -15,6 +15,8 @@ import { useInView } from "react-intersection-observer";
 import RestoFacility from "../../components/restaurant-2/RestoFacility";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { prisma } from "../../lib/prisma";
+import Menu from "../../components/MenuSection/Menu";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -40,7 +42,6 @@ export const ActiveSectionContext = createContext(null as any);
 
 export default function Restaurant({ restaurant }: any) {
   // const [reviews, setReviews] = useState<Rating[]>(rating);
-  const [isGalleryOpen, setIsGalleryOpen] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const [activeSection, setActiveSection] = useState<string>("");
@@ -55,6 +56,7 @@ export default function Restaurant({ restaurant }: any) {
   const facilityDivRef = useRef<any>(null);
   const reviewDivRef = useRef<any>(null);
   const othersDivRef = useRef<any>(null);
+  const router = useRouter();
 
   const handleScroll = () => {
     const scrollY = window.scrollY || window.pageYOffset;
@@ -75,7 +77,7 @@ export default function Restaurant({ restaurant }: any) {
     if (othersInView) setActiveSection("others");
   }, [aboutInView, menuInView, facilityInView, reviewInView, othersInView]);
 
-  if (!isGalleryOpen) {
+  if (router.query.view === undefined) {
     return (
       <>
         <Header title={restaurant?.gofood_name} />
@@ -97,7 +99,11 @@ export default function Restaurant({ restaurant }: any) {
         {!isActive && <RestoFooter restaurant={restaurant} />}
       </>
     );
+  } else if (router.query.view === "gallery") {
+    return <Gallery restaurant={restaurant} />;
+  } else if (router.query.view === "menu") {
+    return <Menu restaurant={restaurant} />;
   } else {
-    return <Gallery setIsGalleryOpen={setIsGalleryOpen} restaurant={restaurant} />;
+    <></>;
   }
 }

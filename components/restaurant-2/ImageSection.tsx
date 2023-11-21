@@ -133,15 +133,16 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
               // LAST ELEMENT
               return (
                 <div
-                  className="w-1/4 flex items-center justify-center h-[10vh] bg-center relative"
+                  className="w-1/4 cursor-pointer flex items-center justify-center h-[10vh] bg-center relative"
                   key={i}
                   style={{
                     backgroundImage: `url(${item})`,
                     backgroundSize: "cover",
                   }}
-                  // onClick={() => {
-                  //   console.log("clicked");
-                  // }}
+                  onClick={() => {
+                    const path = router.asPath;
+                    router.push(`${path}?view=gallery`, undefined, { shallow: true });
+                  }}
                 >
                   <div className="bg-black bg-opacity-40 flex items-center justify-center absolute w-full h-full">
                     <p className="text-white text-xs font-semibold">See All</p>

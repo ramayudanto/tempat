@@ -5,7 +5,7 @@ export default function Header({ title }: any) {
   return (
     <Head>
       <title>{titleConcat}</title>
-      <link rel="icon" href="./logo.svg" />
+      <link rel="icon" href="/logo.svg" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
     </Head>
   );
