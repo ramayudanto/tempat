@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import CategoryCard from "../CategoryPage/CategoryCard";
 import FilterPage from "./Filter/FilterPage";
+import { useRouter } from "next/router";
 
 export const FilterContext = createContext(null as any);
 
@@ -10,6 +11,8 @@ export default function SearchResult({ query }: any) {
   const [filter, setFilter] = useState<any>({});
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [highestPrice, setHighestPrice] = useState<Number>(0);
+  const router = useRouter();
+  const routePath = router.asPath.split("/")[1];
 
   const fetchData = async () => {
     const res = await (await fetch(`/api/getSearch?q=${query}`)).json();
@@ -79,9 +82,9 @@ export default function SearchResult({ query }: any) {
         <div className="flex flex-col gap-y-3 pb-20">
           {data.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
-              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={true} />;
+              return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={true} />;
             } else {
-              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={false} />;
+              return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={false} />;
             }
           })}
         </div>

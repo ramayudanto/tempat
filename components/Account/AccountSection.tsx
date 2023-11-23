@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import posthog from "posthog-js";
 import { useState } from "react";
+import { captureEvent } from "../../lib/posthog";
 
 export default function AccountSection({ user }: any) {
   function getFirstLetters(inputString: string) {
@@ -38,6 +39,7 @@ export default function AccountSection({ user }: any) {
           </div>
           <button
             onClick={() => {
+              captureEvent("Edit account button");
               router.push("/account/edit", undefined, { shallow: true });
             }}
             className="text-red-600 font-semibold bg-red-50 rounded-lg w-full py-2"
@@ -84,7 +86,7 @@ export default function AccountSection({ user }: any) {
       <p
         onClick={() => {
           signOut();
-          posthog.capture("logout");
+          posthog.capture("logout button");
           posthog.reset();
         }}
         className="bg-red-600 mt-6 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"

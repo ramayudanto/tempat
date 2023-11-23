@@ -18,6 +18,7 @@ import CategoryList from "../components/MainPage/CategoryList";
 import { RestaurantV2 } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import posthog from "posthog-js";
+import { captureEvent } from "../lib/posthog";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -84,6 +85,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
       const data = await (await fetch(`/api/getSearch?q=${search}`)).json();
       setSearchData(getMultipleRandom(data, 10));
       setIsLoading(false);
+      captureEvent("search", { origin: "home", "search query": search });
     }, 500);
 
     return () => clearTimeout(getData);

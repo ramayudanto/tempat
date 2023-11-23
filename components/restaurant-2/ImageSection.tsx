@@ -7,6 +7,7 @@ import AddBookmarkToast from "../../components/Toasts/AddBookmarkToast";
 import DeleteBookmarkToast from "../../components/Toasts/DeleteBookmarkToast";
 import BookmarkModal from "../modal/BookmarkModal";
 import { AnimatePresence } from "framer-motion";
+import { captureEvent } from "../../lib/posthog";
 
 export default function ImageSection({ thumbnail, restaurant }: any) {
   const session = useSession();
@@ -59,6 +60,9 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             place_id: restaurant?.place_id,
           }),
         });
+        captureEvent("add bookmark", {
+          "restaurant name": restaurant?.gofood_name || restaurant?.name,
+        });
         deleteToastRef.current!.show();
         setIsBookmarked(false);
       } catch (err) {
@@ -74,6 +78,10 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
           body: JSON.stringify({
             place_id: restaurant?.place_id,
           }),
+        });
+        captureEvent("remove bookmark", {
+          "restaurant name": restaurant?.gofood_name || restaurant?.name,
+          origin: "restaurant page",
         });
         addToastRef.current!.show();
         setIsBookmarked(true);
@@ -140,6 +148,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
                     backgroundSize: "cover",
                   }}
                   onClick={() => {
+                    captureEvent("View Gallery See All button");
                     const path = router.asPath;
                     router.push(`${path}?view=gallery`, undefined, { shallow: true });
                   }}

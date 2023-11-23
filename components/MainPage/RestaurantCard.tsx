@@ -4,6 +4,7 @@ import { getTodaysOpeningHours, openTimeLogic, recentRestaurantHandler, translat
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BookmarkButton from "./BookmarkButton";
+import { captureEvent } from "../../lib/posthog";
 
 export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
@@ -56,6 +57,7 @@ export default function RestaurantCard({ restaurant }: any) {
         className="rounded-lg border-[1px] flex-none max-w-[140px] "
         onClick={() => {
           recentRestaurantHandler(restaurant);
+          captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: "home page" });
         }}
       >
         <div className="bg-cover bg-center h-[135px] relative rounded-t-lg" style={{ backgroundImage: `url(${thumbnail})` }}>

@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { prisma } from "../../lib/prisma";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { firestore } from "../../lib/firebase";
+import { useRouter } from "next/router";
 
 export const getServerSideProps = async (context: any) => {
   const { categoryName } = context.params;
@@ -42,6 +43,8 @@ export const getServerSideProps = async (context: any) => {
 
 export default function Category({ category }: any) {
   const { restaurants } = category;
+  const router = useRouter();
+  const routePath = router.asPath.split("/")[1];
   return (
     <>
       <Header title={category.name} />
@@ -51,9 +54,9 @@ export default function Category({ category }: any) {
         <div className="flex flex-col gap-y-0 rounded-t-xl">
           {restaurants.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
-              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={true} />;
+              return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={true} />;
             } else {
-              return <CategoryCard i={i} key={i} restaurant={restaurant} isLast={false} />;
+              return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={false} />;
             }
           })}
         </div>

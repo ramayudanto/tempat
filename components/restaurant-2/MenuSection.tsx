@@ -3,6 +3,7 @@ import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 import Image from "next/image";
 import { Menu } from "@prisma/client";
 import { useRouter } from "next/router";
+import { captureEvent } from "../../lib/posthog";
 
 export default function MenuSection({ restaurant }: any) {
   const { menuDivRef } = useContext(ActiveSectionContext);
@@ -50,6 +51,7 @@ export default function MenuSection({ restaurant }: any) {
           <p
             className=" text-[#952525] cursor-pointer text-center text-xs font-medium leading-[18px]"
             onClick={() => {
+              captureEvent("See Full Menu button");
               const path = router.asPath;
               router.push(`${path}?view=menu`, undefined, { shallow: true });
             }}

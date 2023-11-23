@@ -5,6 +5,7 @@ import { getTodaysOpeningHours, openTimeLogic, priceLogic, translatePriceRange, 
 import { BookmarkContext } from "../../pages/bookmark";
 // import CategoryImage from "../CategoryPage/CategoryImage";
 import DeleteBookmarkToast from "../Toasts/DeleteBookmarkToast";
+import { captureEvent } from "../../lib/posthog";
 
 export default function BookmarkCard({ restaurant }: any) {
   // const [isBookmakred, setIsBookmarked] = useState<boolean>(true);
@@ -26,6 +27,10 @@ export default function BookmarkCard({ restaurant }: any) {
     // if code 200 make a toast
     if (res.status === 200) {
       deleteToastRef.current!.show();
+      captureEvent("remove bookmark", {
+        "restaurant name": restaurant?.gofood_name || restaurant?.name,
+        origin: "user's bookmark page",
+      });
       const newBookmark = userBookmark.filter((item: any) => item.gofood_name !== restaurant?.gofood_name);
       setTimeout(() => {
         setUserBookmark(newBookmark);

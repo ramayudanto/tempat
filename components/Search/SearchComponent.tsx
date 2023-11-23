@@ -7,6 +7,7 @@ import SearchResult from "./SearchResult";
 import { decryptLocalStorage, encryptAES } from "../../lib/logic";
 import RecentSearchCard from "./RecentSearchCard";
 import RestaurantCard from "../MainPage/RestaurantCard";
+import { captureEvent } from "../../lib/posthog";
 
 export default function Search({ fourCategories }: any) {
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
@@ -42,7 +43,7 @@ export default function Search({ fourCategories }: any) {
     }
 
     insertRecentQuery();
-
+    captureEvent("search", { origin: "search page", "search query": searchRef.current?.value! });
     router.push(`/search?q=${searchRef.current?.value!}`, undefined, { shallow: true });
   };
 

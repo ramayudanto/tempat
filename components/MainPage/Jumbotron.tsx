@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import MainpageModal from "../modal/MainPageModal";
 import { AnimatePresence } from "framer-motion";
+import { captureEvent } from "../../lib/posthog";
 
 export default function Jumbotron({ search, setSearch }: { search: string; setSearch: any }) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -22,6 +23,7 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
           className="flex items-center mt-1 gap-x-1 bg-red-50 text-red-500 px-2 p-1 rounded-full"
           onClick={() => {
             setIsModalOpen(true);
+            captureEvent("change location button");
           }}
         >
           <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">

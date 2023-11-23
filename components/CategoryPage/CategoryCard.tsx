@@ -4,8 +4,9 @@ import React from "react";
 import { getTodaysOpeningHours, openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
 import CategoryImage from "./CategoryImage";
 import { RestaurantV2 } from "@prisma/client";
+import { captureEvent } from "../../lib/posthog";
 
-export default function CategoryCard({ restaurant, i, isLast, onclick }: { restaurant: any; i: any; isLast: any; onclick?: any }) {
+export default function CategoryCard({ restaurant, i, isLast, onclick, routePath }: { restaurant: any; i: any; isLast: any; onclick?: any; routePath?: any }) {
   const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id } = restaurant;
   return (
     <Link href={`/restos/${place_id}`}>
@@ -13,6 +14,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick }: { resta
         className={`p-2 w-full bg-white max-w-[420px] mx-auto ${i === 0 && "pt-2"} ${!isLast && "border-b-[1px]"}`}
         onClick={() => {
           recentRestaurantHandler(restaurant);
+          captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: `${routePath} page` });
         }}
       >
         <div className="w-full mb-3">
