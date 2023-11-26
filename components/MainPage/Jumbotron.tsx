@@ -3,9 +3,13 @@ import { useState } from "react";
 import MainpageModal from "../modal/MainPageModal";
 import { AnimatePresence } from "framer-motion";
 import { captureEvent } from "../../lib/posthog";
+import { useRouter } from "next/router";
 
 export default function Jumbotron({ search, setSearch }: { search: string; setSearch: any }) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const routePath = router.asPath.split("/")[1];
+  console.log(routePath);
   return (
     <div
       className="relative h-[171px] bg-center flex items-center"

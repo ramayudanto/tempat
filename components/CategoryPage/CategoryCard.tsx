@@ -14,7 +14,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
         className={`p-2 w-full bg-white max-w-[420px] mx-auto ${i === 0 && "pt-2"} ${!isLast && "border-b-[1px]"}`}
         onClick={() => {
           recentRestaurantHandler(restaurant);
-          captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: `${routePath} page` });
+          captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: `${routePath || "home"} page` });
         }}
       >
         <div className="w-full mb-3">

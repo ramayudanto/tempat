@@ -27,6 +27,7 @@ export default function Categories({ categories, user }: any) {
   function replaceSpacesWithHyphens(inputString: string) {
     return inputString.replace(/ /g, "-");
   }
+
   return (
     <>
       <Header title={"Categories"} />
