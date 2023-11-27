@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { FormEvent, useEffect, useState } from "react";
-import { getTodaysOpeningHours, openTimeLogic, recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
+import { isRestaurantOpen, recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import BookmarkButton from "./BookmarkButton";
@@ -15,42 +15,6 @@ export default function RestaurantCard({ restaurant }: any) {
     component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
   ) || { short_name: "Unknown", long_name: "Unknown" };
 
-  // const [isBookmakred, setIsBookmarked] = useState<boolean>(
-  //   userBookmark.map((item: any) => {
-  //     if (item.email === session?.email) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   })[0]
-  // );
-
-  // const bookmarkHandler = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   if (isBookmakred) {
-  //     fetch(`/api/deleteBookmark`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         routeName,
-  //       }),
-  //     });
-  //     setIsBookmarked(false);
-  //   } else {
-  //     fetch(`/api/setBookmark`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         routeName,
-  //       }),
-  //     });
-  //     setIsBookmarked(true);
-  //   }
-  // };
   return (
     <Link href={`/restos/${restaurant.place_id}`}>
       <a
@@ -92,25 +56,29 @@ export default function RestaurantCard({ restaurant }: any) {
             <p className="text-xs text-lightGray font-light">{translateToK(totalRate)} Review</p>
           </div>
           <div className="flex gap-x-1 overflow-hidden">
-            {category.map((item: any, i: any, row: any) => {
-              if (i + 1 === row.length) {
-                return (
-                  <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
-                    {item.name}
-                  </p>
-                );
-              } else {
-                return (
-                  <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
-                    {item.name},
-                  </p>
-                );
-              }
-            })}
+            {category.length !== 0 ? (
+              category.map((item: any, i: any, row: any) => {
+                if (i + 1 === row.length) {
+                  return (
+                    <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
+                      {item.name}
+                    </p>
+                  );
+                } else {
+                  return (
+                    <p className="text-darkGray flex-none text-opacity-70 text-xs" key={i}>
+                      {item.name},
+                    </p>
+                  );
+                }
+              })
+            ) : (
+              <p className="text-darkGray flex-none text-opacity-70 text-xs">Unknown</p>
+            )}
           </div>
 
           <p className=" text-darkGray text-xs">{translatePriceRange(priceRange)}</p>
-          {/* <p className=" text-darkGray text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p> */}
+          <p className=" self-stretch text-[#952525] text-xs not-italic font-normal leading-[normal]">{isRestaurantOpen(opening_hours)}</p>
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>

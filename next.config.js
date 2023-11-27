@@ -17,6 +17,7 @@ const nextConfig = {
       "tempatapp.sgp1.cdn.digitaloceanspaces.com",
       "tempat.app",
       "tempatapp.sgp1.digitaloceanspaces.com",
+      "instagram.fcgk30-1.fna.fbcdn.net",
     ],
   },
   webpack(config) {

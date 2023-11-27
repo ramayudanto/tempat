@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import CategoryCard from "../CategoryPage/CategoryCard";
 import FilterPage from "./Filter/FilterPage";
 import { useRouter } from "next/router";
+import { captureEvent } from "../../lib/posthog";
 
 export const FilterContext = createContext(null as any);
 
@@ -17,6 +18,7 @@ export default function SearchResult({ query }: any) {
   const fetchData = async () => {
     const res = await (await fetch(`/api/getSearch?q=${query}`)).json();
     setData(res);
+    captureEvent("search", { origin: "search page", "search query": query });
     setIsLoading(false);
   };
 

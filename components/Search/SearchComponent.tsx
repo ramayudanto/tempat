@@ -8,13 +8,16 @@ import { decryptLocalStorage, encryptAES } from "../../lib/logic";
 import RecentSearchCard from "./RecentSearchCard";
 import RestaurantCard from "../MainPage/RestaurantCard";
 import { captureEvent } from "../../lib/posthog";
+import useDebounce from "../../lib/useDebounce";
 
 export default function Search({ fourCategories }: any) {
   const [recentSearch, setRecentSearch] = useState<any[]>([]);
   const [recentSearchRestaurant, setRecentSearchRestaurant] = useState<any[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
-
+  const debouncedText = useDebounce(searchQuery, 600);
+  console.log(recentSearch);
   useEffect(() => {
     const query = JSON.parse(decryptLocalStorage("recentSearchQuery") || "[]");
     const restaurant = JSON.parse(decryptLocalStorage("recentSearchRestaurant") || "[]");
@@ -22,41 +25,35 @@ export default function Search({ fourCategories }: any) {
     setRecentSearchRestaurant(restaurant);
   }, []);
 
-  const insertRecentQuery = () => {
-    if (!recentSearch.some((item: string) => item === searchRef.current?.value!)) {
-      const recent = [searchRef.current?.value!, ...recentSearch];
-      setRecentSearch(recent);
-      localStorage.setItem("recentSearchQuery", encryptAES(JSON.stringify(recent)));
-    } else {
-      const filtered = recentSearch.filter((item: string) => item !== searchRef.current?.value!);
-      const recent = [searchRef.current?.value!, ...filtered];
-      setRecentSearch(recent);
-      localStorage.setItem("recentSearchQuery", encryptAES(JSON.stringify(recent)));
+  const insertRecentQuery = (query: string) => {
+    const trimmedQuery = query.trim();
+    let recent = recentSearch.filter((item: string) => item !== trimmedQuery);
+    recent = [trimmedQuery, ...recent];
+    if (recent.length > 6) {
+      recent.pop();
     }
+    setRecentSearch(recent);
+    localStorage.setItem("recentSearchQuery", encryptAES(JSON.stringify(recent)));
   };
 
-  const searchSubmitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    if (searchRef.current?.value! === "") {
-      router.push("/search");
+  useEffect(() => {
+    if (debouncedText === "") {
+      router.push("/search", undefined, { shallow: true });
       return;
     }
-
-    insertRecentQuery();
-    captureEvent("search", { origin: "search page", "search query": searchRef.current?.value! });
-    router.push(`/search?q=${searchRef.current?.value!}`, undefined, { shallow: true });
-  };
+    insertRecentQuery(debouncedText);
+    router.push(`/search?q=${debouncedText}`, undefined, { shallow: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedText]);
 
   return (
-    <div className="w-screen pt-10 px-4 pb-4 overflow-x-hidden overflow-y-scroll h-screen mx-auto bg-white max-w-[420px]">
-      {!router.query.q && <p className="text-3xl font-semibold text-darkGray mb-6">Cari</p>}
+    <div className="w-screen transition-all pt-10 px-4 pb-24 overflow-x-hidden overflow-y-scroll h-screen mx-auto bg-white max-w-[420px]">
+      {!searchQuery && <p className="text-3xl font-semibold text-darkGray mb-6">Cari</p>}
       <div className="flex gap-x-2  items-center mb-4 ">
-        {router.query.q && (
+        {searchQuery && (
           <button
             onClick={() => {
-              router.push("/search", undefined, { shallow: true });
-              searchRef.current!.focus();
-              searchRef.current!.value = "";
+              setSearchQuery("");
             }}
           >
             <svg viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[36px] h-[36px] p-2 bg-darkRed rounded-full shrink-0">
@@ -67,14 +64,14 @@ export default function Search({ fourCategories }: any) {
             </svg>
           </button>
         )}
-        <SearchBar q={router.query.q} handler={searchSubmitHandler} searchRef={searchRef} />
+        <SearchBar setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
       </div>
-      {!router.query.q ? (
+      {!searchQuery ? (
         <>
           {recentSearch.length !== 0 && (
             <>
               <p className="font-semibold text-sm mb-2">Pencarian terakhir</p>
-              <RecentSearchQuery insert={insertRecentQuery} searchRef={searchRef} data={recentSearch} />
+              <RecentSearchQuery insert={insertRecentQuery} setSearchQuery={setSearchQuery} data={recentSearch} />
             </>
           )}
           {recentSearchRestaurant.length !== 0 && (
