@@ -17,7 +17,6 @@ export default function Search({ fourCategories }: any) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const router = useRouter();
   const debouncedText = useDebounce(searchQuery, 600);
-  console.log(recentSearch);
   useEffect(() => {
     const query = JSON.parse(decryptLocalStorage("recentSearchQuery") || "[]");
     const restaurant = JSON.parse(decryptLocalStorage("recentSearchRestaurant") || "[]");
