@@ -41,7 +41,14 @@ export default function MenuSection({ restaurant }: any) {
           <div className="flex gap-x-3">
             {menu.image.map((item: string, i: number) => {
               return (
-                <div className="relative w-[96.207px] h-[150px] rounded-md overflow-hidden" key={i}>
+                <div
+                  className="relative w-[96.207px] h-[150px] rounded-md overflow-hidden"
+                  key={i}
+                  onClick={() => {
+                    const path = router.asPath;
+                    router.push(`${path}?view=menu`, undefined, { shallow: true });
+                  }}
+                >
                   <Image src={item} alt={restaurant.name} layout="fill" objectFit="contain" />
                 </div>
               );
