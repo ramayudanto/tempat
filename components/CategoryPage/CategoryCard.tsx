@@ -7,7 +7,7 @@ import { RestaurantV2 } from "@prisma/client";
 import { captureEvent } from "../../lib/posthog";
 
 export default function CategoryCard({ restaurant, i, isLast, onclick, routePath }: { restaurant: any; i: any; isLast: any; onclick?: any; routePath?: any }) {
-  const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id } = restaurant;
+  const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id, Image } = restaurant;
   return (
     <Link href={`/restos/${place_id}`}>
       <a
@@ -48,12 +48,12 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
             })}
           </div>
           <div className="flex justify-between mt-1">
-            <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
+            {/* <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p> */}
             <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
           </div>
         </div>
 
-        <CategoryImage images={[thumbnail]} />
+        <CategoryImage images={[thumbnail, ...Image]} />
       </a>
     </Link>
   );

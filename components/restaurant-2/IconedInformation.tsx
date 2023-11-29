@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { getTodaysOpeningHours, openTimeLogic, translateOpeningHours, translatePriceRange } from "../../lib/logic";
+import { getTodaysOpeningHours, openTimeLogic, translatePriceRange } from "../../lib/logic";
 import Image from "next/image";
 import Link from "next/link";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 
 export default function IconedInformation({ restaurant }: any) {
   const { opening_hours, priceRange, categories } = restaurant;
-  const open = translateOpeningHours(restaurant.opening_hours);
+  // const open = translateOpeningHours(restaurant.opening_hours);
   const [isOpenHourOpen, setIsOpenHourOpen] = useState<boolean>(false);
   const { aboutRef } = useContext(ActiveSectionContext);
 
@@ -17,7 +17,7 @@ export default function IconedInformation({ restaurant }: any) {
           <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"></path>
         </svg>
         <p ref={aboutRef}>{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
-        {openTimeLogic(getTodaysOpeningHours(opening_hours)) !== "Open 24 Hour" && (
+        {/* {openTimeLogic(getTodaysOpeningHours(opening_hours)) !== "Open 24 Hour" && (
           <>
             {openTimeLogic(getTodaysOpeningHours(opening_hours)) === "Closed" && <p>|</p>}
             <div
@@ -46,7 +46,7 @@ export default function IconedInformation({ restaurant }: any) {
               )}
             </div>
           </>
-        )}
+        )} */}
       </div>
       <div className="flex gap-x-2 text-lightGray text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="CurrentColor" viewBox="0 0 256 256" className="fill-lightGray">

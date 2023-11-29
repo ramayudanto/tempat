@@ -19,6 +19,7 @@ import { RestaurantV2 } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import posthog from "posthog-js";
 import { captureEvent } from "../lib/posthog";
+import useDebounce from "../lib/useDebounce";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -58,6 +59,7 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
   const [searchData, setSearchData] = useState<RestaurantV2[] | any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const session = useSession();
+  const debouncedSearch = useDebounce(search, 500);
 
   if (session) {
     posthog.identify(session.data?.user?.email!);
@@ -76,20 +78,19 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
   }
 
   useEffect(() => {
-    if (search === "") {
+    setIsLoading(true);
+    if (debouncedSearch === "") {
       setSearchData([]);
       return;
     }
-    const getData = setTimeout(async () => {
-      setIsLoading(true);
-      const data = await (await fetch(`/api/getSearch?q=${search}`)).json();
+    const getData = async () => {
+      const data = await (await fetch(`/api/getSearch?q=${debouncedSearch}`)).json();
       setSearchData(getMultipleRandom(data, 10));
       setIsLoading(false);
-      captureEvent("search", { origin: "home", "search query": search });
-    }, 500);
-
-    return () => clearTimeout(getData);
-  }, [search]);
+      captureEvent("search", { origin: "home", "search query": debouncedSearch });
+    };
+    getData();
+  }, [debouncedSearch]);
 
   return (
     <>

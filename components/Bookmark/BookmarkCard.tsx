@@ -94,7 +94,7 @@ export default function BookmarkCard({ restaurant }: any) {
             })}
           </div>
           <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(restaurant?.priceRange)}</p>
-          <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(restaurant?.opening_hours))}</p>
+          {/* <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(restaurant?.opening_hours))}</p> */}
         </div>
       </a>
     </Link>

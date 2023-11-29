@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function RecentSearch({ data, searchRef, insert }: any) {
+export default function RecentSearch({ data, setSearchQuery, insert }: any) {
   const router = useRouter();
   return (
     <div className="flex flex-wrap gap-2 mb-6">
@@ -11,8 +11,8 @@ export default function RecentSearch({ data, searchRef, insert }: any) {
           <p
             key={i}
             onClick={() => {
-              searchRef.current.value = item;
-              insert();
+              setSearchQuery(item);
+              insert(item);
               router.push(`/search?q=${item}`, undefined, { shallow: true });
             }}
             className="rounded-full font-regular text-xs bg-darkGray bg-opacity-10 px-4 py-2 cursor-pointer"

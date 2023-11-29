@@ -9,7 +9,8 @@ import { useRouter } from "next/router";
 export default function Gallery({ restaurant }: any) {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(-1);
   const [isSlideshowOpened, setIsSlideshowOpened] = useState<boolean>(false);
-  const { Image: image } = restaurant;
+  const { Image: image, thumbnail } = restaurant;
+  const combinedImage = [thumbnail, ...image];
   const router = useRouter();
   return (
     <>
@@ -21,7 +22,7 @@ export default function Gallery({ restaurant }: any) {
               setIsSlideshowOpened(false);
               setCurrentImageIndex(-1);
             }}
-            image={image}
+            image={combinedImage}
             currentImageIndex={currentImageIndex}
             setCurrentImageIndex={setCurrentImageIndex}
           />
@@ -42,7 +43,7 @@ export default function Gallery({ restaurant }: any) {
           <p className="text-lg font-semibold text-darkGray">Gallery</p>
         </div>
         <div className="mx-4 mt-5 grid grid-cols-2 gap-x-5 gap-y-6">
-          {image.map((item: any, i: any) => {
+          {combinedImage.map((item: any, i: any) => {
             return (
               <Image
                 className="rounded-md"

@@ -42,7 +42,6 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
 
     return combinedArray;
   }
-  // console.log(restaurant);
 
   const bookmarkHandler = async () => {
     if (!session?.data?.user?.email) {
@@ -160,7 +159,14 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
               );
             } else {
               return (
-                <div className="relative w-1/4 h-[10vh]" key={i}>
+                <div
+                  className="relative w-1/4 h-[10vh]"
+                  key={i}
+                  onClick={() => {
+                    const path = router.asPath;
+                    router.push(`${path}?view=gallery`, undefined, { shallow: true });
+                  }}
+                >
                   <Image src={item} alt="placeholder" layout="fill" objectFit="cover" />
                 </div>
               );
