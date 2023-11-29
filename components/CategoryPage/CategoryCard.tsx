@@ -53,7 +53,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
           </div>
         </div>
 
-        <CategoryImage images={Image} />
+        <CategoryImage images={[thumbnail, ...Image]} />
       </a>
     </Link>
   );
