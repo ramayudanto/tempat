@@ -52,7 +52,7 @@ export default function RestaurantCard({ restaurant }: any) {
               </svg>
               <p className="text-xs text-green">{rating}</p>
             </div>
-            <p className="text-lightGray font-light">|</p>
+            <p className="text-lightGray text-opacity-70 text-xs font-light">|</p>
             <p className="text-xs text-lightGray font-light">{translateToK(totalRate)} Review</p>
           </div>
           <div className="flex gap-x-1 overflow-hidden">
@@ -77,8 +77,8 @@ export default function RestaurantCard({ restaurant }: any) {
             )}
           </div>
 
-          <p className=" text-darkGray text-xs">{translatePriceRange(priceRange)}</p>
-          <p className=" self-stretch text-[#952525] text-xs not-italic font-normal leading-[normal]">{isRestaurantOpen(opening_hours)}</p>
+          <p className=" text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
+          <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(opening_hours)}</p>
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>

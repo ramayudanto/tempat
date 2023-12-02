@@ -34,7 +34,7 @@ export default function AccountSection({ user }: any) {
             <div>
               <p className="font-semibold text-[#404968]">{user.name}</p>
               {/* review user */}
-              <p>Kamu belum punya review :(</p>
+              <p>{user.email}</p>
             </div>
           </div>
           <button

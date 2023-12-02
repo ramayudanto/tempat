@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 
         if (!passwordMatch) return null;
 
-        await saveSession(req.body.csrfToken, user.id);
+        // await saveSession(req.body.csrfToken, user.id);
         return user;
       },
     }),
@@ -65,13 +65,35 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   // callbacks: {
-  //   jwt(params) {
-  //     // update token
-  //     if (params.user?.role) {
-  //       params.token.role = params.user.role;
+  //   async redirect({url, baseUrl}){
+  //     return baseUrl
+  //   },
+  //   async jwt({ token, account, profile }) {
+  //     // Persist the OAuth access_token and or the user id to the token right after signin
+  //     if (account) {
+  //       token.accessToken = account.access_token;
+  //       token.id = profile?.email;
   //     }
-  //     // return final_token
-  //     return params.token;
+  //     return token;
+  //   },
+  //   async session({ session, token, user }) {
+  //     // Send properties to the client, like an access_token and user id from a provider.
+  //     session.accessToken = token.accessToken;
+  //     session.user.email = token.id;
+  //     return session;
+  //   },
+  // },
+  // events: {
+  //   signOut: async ({ token, session }: any) => {
+  //     console.log(token);
+  //     await prisma.session.delete({
+  //       where: {
+  //         sessionToken: token,
+  //       },
+  //     });
+  //     // Set token/session to {}, that would update the clientside token/session as well
+  //     token = {};
+  //     session = {};
   //   },
   // },
 };

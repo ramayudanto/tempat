@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import posthog from "posthog-js";
 import { captureEvent } from "../lib/posthog";
 import useDebounce from "../lib/useDebounce";
+import MostSearched from "../components/Search/MostSearched";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -49,17 +50,24 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     skip: skipCategory,
   });
 
+  const fourCategories = await prisma.category.findMany({
+    where: {
+      OR: [{ name: "Jepang" }, { name: "Burger" }, { name: "Kopi" }, { name: "Barat" }],
+    },
+  });
+
   const shuffledCategory = category.sort(() => 0.5 - Math.random());
 
-  return { props: { restaurant: JSON.parse(JSON.stringify(restoran)), categories: shuffledCategory, user: session || null, restoran } };
+  return { props: { restaurant: JSON.parse(JSON.stringify(restoran)), categories: shuffledCategory, user: session || null, restoran, fourCategories } };
 };
 
-export default function Home({ restaurant, categories, user, restoran }: any) {
+export default function Home({ restaurant, categories, user, restoran, fourCategories }: any) {
   const [search, setSearch] = useState<string>("");
   const [searchData, setSearchData] = useState<RestaurantV2[] | any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const session = useSession();
   const debouncedSearch = useDebounce(search, 500);
+  // console.log(restaurant);
 
   if (session) {
     posthog.identify(session.data?.user?.email!);
@@ -101,6 +109,9 @@ export default function Home({ restaurant, categories, user, restoran }: any) {
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
         <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />
+        <div className="px-4">
+          <MostSearched fourCategories={fourCategories} />
+        </div>
         <RestaurantRow restaurants={restaurant} title={"Yang manis-manis"} searchCategory={"Dessert"} />
         <RestaurantRow restaurants={restaurant} title={"Buat yang butuh cepet"} searchCategory={"Fast food"} />
         <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />

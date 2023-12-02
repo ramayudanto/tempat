@@ -5,6 +5,7 @@ import { prisma } from "../../lib/prisma";
 import Header from "../../components/Head/Header";
 import AccountSection from "../../components/Account/AccountSection";
 import Navbar from "../../components/Navbar/Navbar";
+import { getToken } from "next-auth/jwt";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -17,6 +18,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     };
   }
+  const token = await getToken({ req, secret: process.env.NEXT_PUBLIC_SECRET! });
+  console.log(token);
   const user = await prisma.user.findUnique({
     where: {
       email: session.user?.email!,
