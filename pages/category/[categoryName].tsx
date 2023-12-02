@@ -51,7 +51,7 @@ export default function Category({ category }: any) {
       {/* <CategoryTopBar /> */}
       <div className="pb-32 overflow-hidden max-w-[420px] mx-auto bg-white">
         <CategoryHero category={category} />
-        <div className="flex flex-col gap-y-0 rounded-t-xl">
+        <div className="flex flex-col gap-y-4 rounded-t-xl px-4 pt-2">
           {restaurants.map((restaurant: any, i: any, row: any) => {
             if (i + 1 === row.length) {
               return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={true} />;

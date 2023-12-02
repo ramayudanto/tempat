@@ -11,7 +11,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
   return (
     <Link href={`/restos/${place_id}`}>
       <a
-        className={`p-2 w-full bg-white max-w-[420px] mx-auto ${i === 0 && "pt-2"} ${!isLast && "border-b-[1px]"}`}
+        className={`w-full bg-white max-w-[420px] mx-auto ${i === 0 && "pb-6"} ${!isLast && "pb-6 border-b-[1px]"}`}
         onClick={() => {
           recentRestaurantHandler(restaurant);
           captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: `${routePath || "home"} page` });
@@ -49,7 +49,7 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
           </div>
           <div className="flex justify-between mt-1">
             {/* <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p> */}
-            <p className="font-semibold text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
+            <p className="font-semibold text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
           </div>
         </div>
 
