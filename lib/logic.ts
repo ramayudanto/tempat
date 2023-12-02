@@ -96,9 +96,24 @@ export function translateToK(number: number) {
 }
 
 export function translatePriceRange(number: number) {
-  if (!number) return "$";
+  if (!number) return "-";
   const symbols = ["$", "$$", "$$$"];
-  return symbols[number - 1];
+  if (number === 0) {
+    return ">25/org";
+  } else if (number === 1) {
+    return "25K - 75K/org";
+  } else if (number === 2) {
+    return "75K - 150K/org";
+  } else if (number === 3) {
+    return "150K - 250K/org";
+  } else if (number === 4) {
+    return "250K - 400K/org";
+  } else if (number === 5) {
+    return ">400K/org";
+  } else {
+    return number;
+  }
+  // return symbols[number - 1];
 }
 
 export function translateOpeningHours(data: any) {
@@ -140,7 +155,7 @@ export function isRestaurantOpen(hours: OpeningHours): string {
 
   // If the place is open 24/7, return "Open"
   if (hours[today] === "24") {
-    return "Open";
+    return "Buka";
   }
 
   try {
@@ -153,19 +168,19 @@ export function isRestaurantOpen(hours: OpeningHours): string {
 
     // If the current time is after yesterday's closing time and before today's first opening time, the place is closed
     if (now >= closeYesterday && now < periodsToday[0][0]) {
-      return "Closed";
+      return "Tutup";
     }
 
     // Check each period today to see if the current time falls within it
     for (let i = 0; i < periodsToday.length; i++) {
       const [openToday, closeToday] = periodsToday[i];
       if (now >= openToday && now < closeToday) {
-        return "Open";
+        return "Buka";
       }
     }
 
     // If the current time doesn't fall within any of today's periods, the place is closed
-    return "Closed";
+    return "Tutup";
   } catch (e) {
     return "Unavailable";
   }

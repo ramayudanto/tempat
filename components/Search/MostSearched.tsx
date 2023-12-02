@@ -3,14 +3,14 @@ import Link from "next/link";
 export default function MostSearched({ fourCategories }: any) {
   return (
     <div className="mt-6 w-full">
-      <p className="font-semibold text-sm mb-2">Makanan yang lagi banyak dicari</p>
+      <p className="font-semibold text-sm mb-2">Kategori yang lagi banyak dicari</p>
       <div className="grid gap-2 grid-cols-2">
         {fourCategories.map((item: any, i: any) => {
           return (
             <Link href={`/category/${item.name}`} key={i} legacyBehavior>
-              <a className="rounded-lg text-white tracking-wider text-xs font-medium relative h-28 bg-left bg-cover" style={{ backgroundImage: `url(${item.header})` }}>
+              <a className="rounded-lg text-white tracking-wider text-xs font-medium relative h-28 bg-left bg-cover overflow-hidden" style={{ backgroundImage: `url(${item.header})` }}>
                 <div className="absolute bg-black w-full h-full bg-opacity-40 flex">
-                  <p className="m-auto">{item.name}</p>
+                  <p className="m-auto font-bold">{item.name}</p>
                 </div>
               </a>
             </Link>
