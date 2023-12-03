@@ -159,8 +159,8 @@ model RestaurantV2 {
 
 model Menu {
   id           Int          @id @default(autoincrement())
-  image        String[]
   menu_type    String?
   restaurantId Int          @unique
+  image        String[]
   restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }

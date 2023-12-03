@@ -24,6 +24,7 @@ export default function RestaurantCard({ restaurant }: any) {
           captureEvent("view restaurant", { "restaurant name": restaurant.gofood_name || restaurant.name, category: restaurant.categories, origin: "home page" });
         }}
       >
+
         <div className="bg-cover bg-center h-[135px] relative rounded-t-lg" style={{ backgroundImage: `url(${thumbnail})` }}>
           {session && <BookmarkButton isBookmarked={isBookmakred} bookmarkHandler={() => {}} />}
           {/* <div className="flex px-[0.5rem] py-1 font-semibold items-center justify-center text-xs bg-white opacity-75 absolute bottom-2 right-3 rounded-full">
@@ -32,7 +33,7 @@ export default function RestaurantCard({ restaurant }: any) {
         </div>
 
         <div className="p-2 space-y-2">
-          <p className="font-semibold text-sm">{truncate(gofood_name, 24)}</p>
+          <p className="font-semibold text-darkGray text-xs">{truncate(gofood_name, 36)}</p>
           <div className="flex gap-x-2">
             <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

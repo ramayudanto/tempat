@@ -105,17 +105,17 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
       <Header title="Home" />
       <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px]">
         <Jumbotron search={search} setSearch={setSearch} />
-        <CategoryList categories={categories} />
-
+        {/* <CategoryList categories={categories} /> */}
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
-        <div className="px-4">
+        <div className="px-4 pt-3">
           <MostSearched fourCategories={fourCategories} />
         </div>
+        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
+        {/* RestoOfTheDayCard <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
         <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
         <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
-        <RestaurantRow restaurants={restaurant} title={"arigato gozaimasu"} searchCategory={"Jepang"} />
+        <RestaurantRow restaurants={restaurant} title={"Irasshaimase. Cek kuliner jepang yuk!"} searchCategory={"Jepang"} />
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
