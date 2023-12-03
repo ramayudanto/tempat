@@ -8,7 +8,7 @@ export default function RestoFacility({ restaurant }: any) {
 
   return (
     <div className="pb-24 space-y-4" ref={facilityDivRef}>
-      <p className="text-[#333] text-sm font-semibold">More Info</p>
+      <p className="text-[#333] text-sm font-semibold">Info Lainnya</p>
       <div className="grid grid-cols-2 gap-3">
         {serves_beer !== undefined && (
           <div className="flex gap-x-4">

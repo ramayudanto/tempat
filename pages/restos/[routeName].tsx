@@ -85,7 +85,7 @@ export default function Restaurant({ restaurant }: any) {
           {isActive && <RestoTopbar />}
           <div className="max-w-[420px] mx-auto bg-slate-500">
             <ImageSection restaurant={restaurant} thumbnail={restaurant?.thumbnail} />
-            <div className=" bg-white rounded-t-2xl pt-5 px-4">
+            <div className=" bg-white pt-5 px-4">
               <TopSection restaurant={restaurant} />
               <hr className="border-y-2 my-4" />
               <DetailedInformation restaurant={restaurant} />

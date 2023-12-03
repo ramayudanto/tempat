@@ -108,14 +108,14 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
         <CategoryList categories={categories} />
 
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
-        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />
+        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
         <div className="px-4">
           <MostSearched fourCategories={fourCategories} />
         </div>
-        <RestaurantRow restaurants={restaurant} title={"Yang manis-manis"} searchCategory={"Dessert"} />
-        <RestaurantRow restaurants={restaurant} title={"Buat yang butuh cepet"} searchCategory={"Fast food"} />
-        <RestaurantRow restaurants={restaurant} title={"Lagi hits di Jakarta"} searchCategory={null} />
-
+        <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
+        <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
+        <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
+        <RestaurantRow restaurants={restaurant} title={"arigato gozaimasu"} searchCategory={"Jepang"} />
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}
         {/* <RestaurantRow user={user} search="Japanese" title={"Japanese"} />
