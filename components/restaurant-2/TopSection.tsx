@@ -7,7 +7,7 @@ export default function TopSection({ restaurant }: any) {
   ) || { short_name: "Unknown", long_name: "Unknown" };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div className="flex items-center justify-between">
         <p className="font-semibold text-darkGray text-xl">{restaurant.gofood_name}</p>
         <div className="bg-green flex items-center px-3 py-2 rounded gap-x-1">
@@ -46,7 +46,7 @@ export default function TopSection({ restaurant }: any) {
           }
         })} */}
       </div>
-      <div className="flex font-semibold gap-x-6">
+      {/* <div className="flex font-semibold gap-x-6">
         <button className="bg-customRed-600 flex justify-center gap-x-2 text-white w-1/2 py-2 rounded-lg text-sm">
           <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-[2px]">
             <path
@@ -71,7 +71,7 @@ export default function TopSection({ restaurant }: any) {
           </svg>
           Review
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

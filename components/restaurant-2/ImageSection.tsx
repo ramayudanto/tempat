@@ -109,7 +109,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
 
       <div className="flex justify-between absolute top-5 z-20 w-[90%] left-0 right-0 mx-auto">
         <button
-          className="p-[12px] bg-white rounded-full"
+          className="p-[12px] bg-white rounded-full drop-shadow-xl"
           onClick={() => {
             router.back();
           }}
@@ -118,7 +118,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             <path d="M15 8H1M1 8L8 15M1 8L8 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
-        <button className="p-[10px] bg-white rounded-full" onClick={bookmarkHandler}>
+        <button className="p-[10px] bg-white rounded-full drop-shadow-xl" onClick={bookmarkHandler}>
           {isBookmakred ? (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-darkRed">
               <path fillRule="evenodd" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" clipRule="evenodd" />
@@ -153,7 +153,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
                   }}
                 >
                   <div className="bg-black bg-opacity-40 flex items-center justify-center absolute w-full h-full">
-                    <p className="text-white text-xs font-semibold">See All</p>
+                    <p className="text-white text-xs font-semibold">Lihat Semua</p>
                   </div>
                 </div>
               );
