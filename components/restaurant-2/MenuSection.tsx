@@ -38,18 +38,18 @@ export default function MenuSection({ restaurant }: any) {
         </>
       ) : (
         <>
-          <div className="flex gap-x-3">
+          <div className="flex gap-x-3 overflow-hidden" >
             {menu.image.map((item: string, i: number) => {
               return (
                 <div
-                  className="relative w-[96.207px] h-[150px] rounded-md overflow-hidden"
+                  className="relative min-w-[96px] h-[150px] rounded-md overflow-hidden border-[1px] border-gray-200"
                   key={i}
                   onClick={() => {
                     const path = router.asPath;
                     router.push(`${path}?view=menu`, undefined, { shallow: true });
                   }}
                 >
-                  <Image src={item} alt={restaurant.name} layout="fill" objectFit="contain" />
+                  <Image src={item} alt={restaurant.name} layout="fill" objectFit="cover" />
                 </div>
               );
             })}
