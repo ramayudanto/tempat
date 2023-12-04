@@ -42,11 +42,11 @@ export default function Menu({ restaurant }: any) {
           </button>
           <p className="text-lg font-semibold text-darkGray">Menu</p>
         </div>
-        <div className="grid grid-cols-2 justify-items-center gap-x-4 gap-y-6">
+        <div className="grid grid-cols-1 justify-items-center gap-x-4 gap-y-6 pb-4 cursor-pointer">
           {menu.image.map((item: string, i: number) => {
             return (
               <div
-                className="relative w-full h-[200px] shrink-0 rounded-md overflow-hidden"
+                className="relative w-full min-h-[350px] h-auto max-h-full shrink-0 rounded-md overflow-hidden border-[1px] border-gray-200"
                 key={i}
                 onClick={() => {
                   setIsSlideshowOpened(true);
