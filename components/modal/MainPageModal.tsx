@@ -22,7 +22,7 @@ export default function MainPageModal({ closeModal }: any) {
   };
   return (
     <Backdrop onClick={closeModal}>
-      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl py-6 px-4 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6" variants={dropIn} initial="hidden" animate="visible" exit="exit">
+      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl py-6 px-4 bg-white w-full max-w-[420px] fixed bottom-0 space-y-6" variants={dropIn} initial="hidden" animate="visible" exit="exit">
         <div className="font-semibold text-2xl text-[#333333] flex gap-x-2 items-center">
           <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
