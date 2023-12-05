@@ -112,8 +112,7 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
         </div>
         <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
-        {/* RestoOfTheDayCard  */}
-        {/* <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
+        {/* RestoOfTheDayCard <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
         <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
         <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
         <RestaurantRow restaurants={restaurant} title={"Irasshaimase. Cek kuliner jepang yuk!"} searchCategory={"Jepang"} />
