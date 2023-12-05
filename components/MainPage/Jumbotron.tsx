@@ -16,14 +16,25 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
       style={{
         backgroundImage: `url("homepage-1.jpg")`,
         backgroundSize: "cover",
+        
       }}
     >
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {isModalOpen && <MainpageModal closeModal={() => setIsModalOpen(false)} />}
       </AnimatePresence>
-      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-10 flex flex-col items-start justify-center">
-        <p>Cari restoran paling enak di</p>
-        <button
+      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-[16px] flex flex-col items-start justify-center">
+        <p>Cari restoran paling enak <br /> di sekitar 
+        
+        <span 
+        className="ml-2 text-sm font-semibold bg-red-50 text-red-500 px-2 p-1 rounded-full"
+        onClick={() => {
+          setIsModalOpen(true);
+          captureEvent("change location button");
+        }}
+        >
+        Jakarta
+        </span></p>
+        {/* <button
           className="flex items-center mt-1 gap-x-1 bg-red-50 text-red-500 px-2 p-1 rounded-full"
           onClick={() => {
             setIsModalOpen(true);
@@ -39,7 +50,7 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
             />
           </svg>
           <p className="text-sm font-semibold">Jakarta</p>
-        </button>
+        </button> */}
       </div>
       <div className="border-[1px] mx-[16px] bg-white flex gap-x-[8px] items-center overflow-hidden left-0 right-0 my-4 rounded-lg px-2 py-1 absolute -bottom-[18%]">
         <button>

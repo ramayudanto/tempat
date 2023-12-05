@@ -15,7 +15,7 @@ export default function Bookmark({ route }: any) {
           </svg>
         )}
 
-        <p>Bookmark</p>
+        <p>Simpan</p>
       </a>
     </Link>
   );

@@ -11,7 +11,19 @@ export default function MenuSection({ restaurant }: any) {
   const { menu }: { menu: Menu } = restaurant;
   return (
     <div className="h-full space-y-4" ref={menuDivRef}>
-      <p className="text-[#333] text-sm font-semibold">Menu</p>
+      <div className="flex gap-x-4 items-end"> 
+        <p className="text-[#333] text-sm font-semibold">Menu</p> 
+        <p
+            className=" text-[#952525] cursor-pointer text-center text-xs font-medium leading-[18px]"
+            onClick={() => {
+            captureEvent("See Full Menu button");
+            const path = router.asPath;
+            router.push(`${path}?view=menu`, undefined, { shallow: true });
+           }}
+          >
+            Lihat semua
+        </p>
+      </div>
       {/* <p className="text-[#333] text-xs text-opacity-60" ref={menuRef}>
         Full Menu
       </p> */}
@@ -54,17 +66,6 @@ export default function MenuSection({ restaurant }: any) {
               );
             })}
           </div>
-          <hr className="border-y-1" />
-          <p
-            className=" text-[#952525] cursor-pointer text-center text-xs font-medium leading-[18px]"
-            onClick={() => {
-              captureEvent("See Full Menu button");
-              const path = router.asPath;
-              router.push(`${path}?view=menu`, undefined, { shallow: true });
-            }}
-          >
-            Lihat menu full
-          </p>
         </>
       )}
     </div>

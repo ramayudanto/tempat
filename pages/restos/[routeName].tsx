@@ -87,11 +87,11 @@ export default function Restaurant({ restaurant }: any) {
             <ImageSection restaurant={restaurant} thumbnail={restaurant?.thumbnail} />
             <div className=" bg-white pt-5 px-4">
               <TopSection restaurant={restaurant} />
-              <hr className="border-y-2 my-4" />
+              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
               <DetailedInformation restaurant={restaurant} />
-              <hr className="border-y-2 my-4" />
+              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
               <MenuSection restaurant={restaurant} />
-              <hr className="border-y-2 my-4" />
+              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
               <RestoFacility restaurant={restaurant} />
             </div>
           </div>
