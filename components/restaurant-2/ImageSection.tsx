@@ -31,10 +31,10 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
   function combineImage(arr1: any[]) {
     const firstArrayElements = Math.min(arr1.length, 4);
     const arr2 = [
-      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
-      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
-      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
-      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg",
+      "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg",
     ];
     // Use the spread operator to take elements from the first array
     // and concatenate with the appropriate number of elements from the second array
