@@ -14,7 +14,7 @@ export default function MenuSection({ restaurant }: any) {
       <div className="flex gap-x-4 items-end"> 
         <p className="text-[#333] text-sm font-semibold">Menu</p> 
         <p
-            className=" text-[#952525] cursor-pointer text-center text-xs font-medium leading-[18px]"
+            className=" text-gray-500 cursor-pointer text-center text-xs font-medium leading-[18px]"
             onClick={() => {
             captureEvent("See Full Menu button");
             const path = router.asPath;
@@ -31,7 +31,7 @@ export default function MenuSection({ restaurant }: any) {
         <>
           <div className="w-[200px] h-[200px] mx-auto">
             <div className="relative w-full h-full">
-              <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty%20state%20photo.svg"} alt={"menu"} layout="fill" objectFit="cover" className="rounded" />
+              <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/menu2-empty-state.svg"} alt={"menu"} layout="fill" objectFit="cover" className="rounded" />
             </div>
           </div>
           <p className="text-center text-sm">Menu masih belum tersedia</p>
