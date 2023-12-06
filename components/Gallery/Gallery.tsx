@@ -61,6 +61,7 @@ export default function Gallery({ restaurant }: any) {
             return (
               <img
                 src={item}
+                key={i}
                 alt={restaurant.name}
                 className="relative w-full h-[175px] rounded-md ring-1 ring-gray-200"
                 onClick={() => {
