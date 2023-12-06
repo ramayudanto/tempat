@@ -1,25 +1,26 @@
 import React, { useContext, useState } from "react";
-import { getTodaysOpeningHours, openTimeLogic, translatePriceRange } from "../../lib/logic";
+import { getTodaysOpeningHours, isRestaurantOpen, openTimeLogic, translateOpeningHours, translatePriceRange } from "../../lib/logic";
 import Image from "next/image";
 import Link from "next/link";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 
 export default function IconedInformation({ restaurant }: any) {
   const { opening_hours, priceRange, categories } = restaurant;
-  // const open = translateOpeningHours(restaurant.opening_hours);
+  const open = translateOpeningHours(restaurant.opening_hours);
   const [isOpenHourOpen, setIsOpenHourOpen] = useState<boolean>(false);
   const { aboutRef } = useContext(ActiveSectionContext);
-
   return (
     <div className="space-y-4">
       <div className="flex gap-x-2 text-lightGray text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="CurrentColor" viewBox="0 0 256 256" className="fill-lightGray mt-[1px]">
           <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"></path>
         </svg>
-        <p ref={aboutRef}>{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p>
-        {/* {openTimeLogic(getTodaysOpeningHours(opening_hours)) !== "Open 24 Hour" && (
+        <p ref={aboutRef}>
+          {getTodaysOpeningHours(open)[0].open_time} - {getTodaysOpeningHours(open)[0].close_time}
+        </p>
+        {isRestaurantOpen(opening_hours) !== "Open 24 Hour" && (
           <>
-            {openTimeLogic(getTodaysOpeningHours(opening_hours)) === "Closed" && <p>|</p>}
+            {isRestaurantOpen(opening_hours) === "Tutup" && <p>|</p>}
             <div
               className="my-auto relative"
               onClick={() => {
@@ -34,19 +35,27 @@ export default function IconedInformation({ restaurant }: any) {
                 />
               </svg>
               {isOpenHourOpen && (
-                <div className="absolute top-5 border-[1px] p-2 w-max -left-[80px] rounded space-y-1 bg-white shadow-xl">
+                <div className="absolute top-5 border-[1px] w-max p-2 -left-[50px] rounded space-y-1 bg-white shadow-xl">
                   {open.map((item: any, i: number) => {
                     return (
-                      <p className="capitalize" key={i}>
-                        {item.day} | {item.open_time} - {item.close_time}
-                      </p>
+                      <div className="flex gap-x-1" key={i}>
+                        <p className="capitalize">{item.day}</p>
+                        <p>|</p>
+                        {item.times.map((hours: any, i: number) => {
+                          return (
+                            <p key={i}>
+                              {hours.open_time} - {hours.close_time}
+                            </p>
+                          );
+                        })}
+                      </div>
                     );
                   })}
                 </div>
               )}
             </div>
           </>
-        )} */}
+        )}
       </div>
       <div className="flex gap-x-2 text-lightGray text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="CurrentColor" viewBox="0 0 256 256" className="fill-lightGray">
