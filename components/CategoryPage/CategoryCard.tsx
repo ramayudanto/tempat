@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { getTodaysOpeningHours, openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
+import { getTodaysOpeningHours, isRestaurantOpen, openTimeLogic, priceLogic, recentRestaurantHandler, translatePriceRange, truncate } from "../../lib/logic";
 import CategoryImage from "./CategoryImage";
 import { RestaurantV2 } from "@prisma/client";
 import { captureEvent } from "../../lib/posthog";
 
 export default function CategoryCard({ restaurant, i, isLast, onclick, routePath }: { restaurant: any; i: any; isLast: any; onclick?: any; routePath?: any }) {
-  const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, priceRange, place_id, Image } = restaurant;
+  const { gofood_name: name, categories: category, closeTime, opening_hours, rating, thumbnail, price_level, place_id, Image } = restaurant;
   return (
     <Link href={`/restos/${place_id}`}>
       <a
@@ -48,8 +48,8 @@ export default function CategoryCard({ restaurant, i, isLast, onclick, routePath
             })}
           </div>
           <div className="flex justify-between mt-1">
-            {/* <p className="text-darkRed text-xs">{openTimeLogic(getTodaysOpeningHours(opening_hours))}</p> */}
-            <p className="font-semibold text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
+            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(opening_hours)}</p>
+            <p className="text-darkGray text-opacity-70 text-xs">{translatePriceRange(price_level)}</p>
           </div>
         </div>
 
