@@ -21,6 +21,7 @@ import posthog from "posthog-js";
 import { captureEvent } from "../lib/posthog";
 import useDebounce from "../lib/useDebounce";
 import MostSearched from "../components/Search/MostSearched";
+import RestoOfTheDay from "../components/MainPage/RestoOfTheDay";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -111,6 +112,9 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
           <MostSearched fourCategories={fourCategories} />
         </div>
         <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
+        <div className="px-4 mt-5">
+          <RestoOfTheDay />
+        </div>
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
         {/* RestoOfTheDayCard <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
         <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
