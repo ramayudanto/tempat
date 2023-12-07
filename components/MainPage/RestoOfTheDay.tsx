@@ -139,7 +139,7 @@ export default function RestoOfTheDay() {
   return (
     <Link href={`/restos/${demie.place_id}`}>
       <a
-        className="border-2"
+        className=""
         onClick={() => {
           recentRestaurantHandler(demie);
           captureEvent("view restaurant", { "restaurant name": demie.gofood_name || demie.name, category: demie.categories, origin: "home page" });
@@ -152,7 +152,7 @@ export default function RestoOfTheDay() {
           </div> */}
         </div>
 
-        <div className="p-3 space-y-2">
+        <div className="p-3 space-y-2 bg-[#F2F4F7] overflow-hidden rounded-b-lg">
           <div className="flex gap-x-2">
             <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
