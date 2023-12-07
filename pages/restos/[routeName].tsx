@@ -18,6 +18,9 @@ import { prisma } from "../../lib/prisma";
 import Menu from "../../components/MenuSection/Menu";
 import { useRouter } from "next/router";
 import { translateOpeningHours } from "../../lib/logic";
+import LoginPrompt from "../../components/restaurant-2/LoginPrompt";
+import RestoUSP from "../../components/restaurant-2/RestoUSP";
+import Divider from "../../components/design-system/Divider";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -41,7 +44,8 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 export const ReviewContext = createContext(null as any);
 export const ActiveSectionContext = createContext(null as any);
 
-export default function Restaurant({ restaurant }: any) {
+export default function Restaurant({ restaurant,user }: any) {
+  console.log(user)
   // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isActive, setIsActive] = useState<boolean>(false);
   // console.log(translateOpeningHours(restaurant.opening_hours));
@@ -89,11 +93,19 @@ export default function Restaurant({ restaurant }: any) {
             <ImageSection restaurant={restaurant} thumbnail={restaurant?.thumbnail} />
             <div className=" bg-white pt-5 px-4">
               <TopSection restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              {  !user && 
+              <>
+              <Divider />
+              <LoginPrompt />
+              </>
+              }
+              <Divider />
+              <RestoUSP />
+              <Divider />
               <DetailedInformation restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              <Divider />
               <MenuSection restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              <Divider />
               <RestoFacility restaurant={restaurant} />
             </div>
           </div>
