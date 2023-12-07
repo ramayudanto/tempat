@@ -17,6 +17,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { prisma } from "../../lib/prisma";
 import Menu from "../../components/MenuSection/Menu";
 import { useRouter } from "next/router";
+import { translateOpeningHours } from "../../lib/logic";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -43,6 +44,7 @@ export const ActiveSectionContext = createContext(null as any);
 export default function Restaurant({ restaurant }: any) {
   // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isActive, setIsActive] = useState<boolean>(false);
+  // console.log(translateOpeningHours(restaurant.opening_hours));
 
   const [activeSection, setActiveSection] = useState<string>("");
   const [aboutRef, aboutInView] = useInView();

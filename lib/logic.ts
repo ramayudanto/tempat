@@ -99,7 +99,7 @@ export function translatePriceRange(number: number) {
   if (!number) return "-";
   const symbols = ["$", "$$", "$$$"];
   if (number === 0) {
-    return ">25/org";
+    return ">25K/org";
   } else if (number === 1) {
     return "25K - 75K/org";
   } else if (number === 2) {
@@ -111,7 +111,7 @@ export function translatePriceRange(number: number) {
   } else if (number === 5) {
     return ">400K/org";
   } else {
-    return number;
+    return "-";
   }
   // return symbols[number - 1];
 }
@@ -121,14 +121,18 @@ export function translateOpeningHours(data: any) {
   const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   const output = daysOfWeek.map((day) => {
-    const timeRange = data[day].split(" – ");
-    const openTime = timeRange[0];
-    const closeTime = timeRange[1];
+    const timeRanges = data[day].split(", ");
+    const times = timeRanges.map((timeRange: string) => {
+      const [openTime, closeTime] = timeRange.split(" – ");
+      return {
+        open_time: openTime,
+        close_time: closeTime,
+      };
+    });
 
     return {
       day: day,
-      open_time: openTime,
-      close_time: closeTime,
+      times: times,
     };
   });
 
@@ -234,5 +238,8 @@ export function getTodaysOpeningHours(schedule: any) {
   const today = new Date().getDay(); // Get the current day (0 for Sunday, 1 for Monday, etc.)
   const todayName = daysOfWeek[today]; // Get the day name from the array
 
-  return schedule[todayName];
+  // Find today's schedule in the transformed schedule
+  const todaysSchedule = schedule.find((item: any) => item.day === todayName);
+
+  return todaysSchedule ? todaysSchedule.times : [];
 }
