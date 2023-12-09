@@ -131,7 +131,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
         </button>
       </div>
       <div className="">
-        <div className="relative h-[400px]">
+        <div className="relative h-[400px] border-b-[1px]">
           <Image src={thumbnail} alt="test" layout="fill" objectFit="cover" loading="eager" />
         </div>
         <div className="flex">
@@ -140,7 +140,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
               // LAST ELEMENT
               return (
                 <div
-                  className="w-1/4 cursor-pointer flex items-center justify-center h-[10vh] bg-center relative"
+                  className="w-1/4 cursor-pointer flex items-center justify-center h-[10vh] bg-center relative border"
                   key={i}
                   style={{
                     backgroundImage: `url(${item})`,
@@ -160,7 +160,7 @@ export default function ImageSection({ thumbnail, restaurant }: any) {
             } else {
               return (
                 <div
-                  className="relative w-1/4 h-[10vh]"
+                  className="relative w-1/4 h-[10vh] border"
                   key={i}
                   onClick={() => {
                     const path = router.asPath;

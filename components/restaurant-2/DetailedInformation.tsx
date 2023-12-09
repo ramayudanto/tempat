@@ -7,7 +7,7 @@ import { ActiveSectionContext } from "../../pages/restos/[routeName]";
 export default function DetailedInformation({ restaurant }: any) {
   return (
     <div className="space-y-4">
-      <p className="text-[#333] font-semibold text-sm">Tentang Restoran</p>
+      <p className="text-[#333] font-semibold text-lg">Tentang Restoran</p>
       {/* <div className="w-full h-[25vh] relative overflow-hidden rounded">
         <Image src={restaurant.thumbnail} alt={restaurant.gofood_name} layout="fill" objectFit="cover" />
       </div> */}

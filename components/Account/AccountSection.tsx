@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import posthog from "posthog-js";
 import { useState } from "react";
 import { captureEvent } from "../../lib/posthog";
+import Divider from "../design-system/Divider";
 
 export default function AccountSection({ user }: any) {
   function getFirstLetters(inputString: string) {
@@ -48,7 +49,9 @@ export default function AccountSection({ user }: any) {
           </button>
         </div>
       </div>
-      <div className="mt-36 border-y-8 border-[#F2F4F7] py-6 text-[#404968] px-4 space-y-4">
+      
+      <div className="mt-[128px] py-6 text-[#404968] px-4 space-y-6">
+        <Divider />
         <p className="font-semibold ml-1">Aktivitas</p>
         <div className="rounded-xl border-[1px] border-[#EFF1F]">
           <div
@@ -82,6 +85,7 @@ export default function AccountSection({ user }: any) {
             </div>
           </div>
         </div>
+        <Divider />
       </div>
       <p
         onClick={() => {
@@ -89,7 +93,7 @@ export default function AccountSection({ user }: any) {
           posthog.capture("logout button");
           posthog.reset();
         }}
-        className="bg-red-600 mt-6 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"
+        className="bg-red-600 mt-4 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"
       >
         Keluar
       </p>

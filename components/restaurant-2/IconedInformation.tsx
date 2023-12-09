@@ -3,6 +3,8 @@ import { getTodaysOpeningHours, isRestaurantOpen, openTimeLogic, translateOpenin
 import Image from "next/image";
 import Link from "next/link";
 import { ActiveSectionContext } from "../../pages/restos/[routeName]";
+import Divider from "../design-system/Divider";
+import RestoMap from "./RestoMap";
 
 export default function IconedInformation({ restaurant }: any) {
   const { opening_hours, price_level, categories } = restaurant;
@@ -78,6 +80,10 @@ export default function IconedInformation({ restaurant }: any) {
           })}
         </div>
       </div>
+      <Divider />
+      <p className="text-[#333] font-semibold text-lg">Alamat Restoran</p>
+      <RestoMap restaurant={restaurant} />
+      
       <div className="flex text-lightGray justify-between items-center text-sm">
         <div className="flex gap-x-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="CurrentColor" viewBox="0 0 256 256" className="fill-lightGray">

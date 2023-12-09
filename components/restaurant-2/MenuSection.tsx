@@ -12,17 +12,7 @@ export default function MenuSection({ restaurant }: any) {
   return (
     <div className="h-full space-y-4" ref={menuDivRef}>
       <div className="flex gap-x-4 items-end"> 
-        <p className="text-[#333] text-sm font-semibold">Menu</p> 
-        <p
-            className=" text-gray-500 cursor-pointer text-center text-xs font-medium leading-[18px]"
-            onClick={() => {
-            captureEvent("See Full Menu button");
-            const path = router.asPath;
-            router.push(`${path}?view=menu`, undefined, { shallow: true });
-           }}
-          >
-            Lihat semua
-        </p>
+        <p className="text-[#333] text-lg font-semibold">Menu</p> 
       </div>
       {/* <p className="text-[#333] text-xs text-opacity-60" ref={menuRef}>
         Full Menu
@@ -34,7 +24,7 @@ export default function MenuSection({ restaurant }: any) {
               <Image src={"https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/menu2-empty-state.svg"} alt={"menu"} layout="fill" objectFit="cover" className="rounded" />
             </div>
           </div>
-          <p className="text-center text-sm">Menu masih belum tersedia</p>
+          <p className="text-gray-700 text-center text-sm font-medium leading-[18px]">Menu masih belum tersedia</p>
           {/* <button className="bg-red-50 flex text-red-600 py-2 px-4 font-semibold rounded-lg mx-auto">
               <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -66,6 +56,16 @@ export default function MenuSection({ restaurant }: any) {
               );
             })}
           </div>
+          <p
+            className=" text-gray-700 cursor-pointer text-center text-sm font-medium leading-[18px]"
+            onClick={() => {
+            captureEvent("See Full Menu button");
+            const path = router.asPath;
+            router.push(`${path}?view=menu`, undefined, { shallow: true });
+           }}
+          >
+            Lihat semua menu
+        </p>
         </>
       )}
     </div>
