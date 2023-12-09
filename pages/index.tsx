@@ -22,6 +22,7 @@ import { captureEvent } from "../lib/posthog";
 import useDebounce from "../lib/useDebounce";
 import MostSearched from "../components/Search/MostSearched";
 import RestoOfTheDay from "../components/MainPage/RestoOfTheDay";
+import RibbonCard from "../components/design-system/RibbonCard";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -104,15 +105,15 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
   return (
     <>
       <Header title="Home" />
-      <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px]">
-        <Jumbotron search={search} setSearch={setSearch} />
+      <Jumbotron search={search} setSearch={setSearch} />
         {/* <CategoryList categories={categories} /> */}
         {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+      <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px] space-y-8">
         <div className="px-4 pt-3">
           <MostSearched fourCategories={fourCategories} />
         </div>
         <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
-        <div className="px-4 mt-5">
+        <div className="px-4 py-8 bg-slate-100 ">
           <RestoOfTheDay />
         </div>
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
