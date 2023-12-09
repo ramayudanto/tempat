@@ -5,6 +5,7 @@ export default function RestoMap(
     {restaurant: any}
 ) {
   return (
+  <a href={`https://www.google.com/maps/place/?q=place_id:${restaurant.place_id}`} target='_blank'>
     <img
     src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant?.geometry.lat},${restaurant?.geometry.lng}
     &zoom=16
@@ -16,5 +17,6 @@ export default function RestoMap(
     className="rounded-lg"
     alt="-6.238472,106.815903"
   />
+  </a>
   )
 }

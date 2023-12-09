@@ -113,11 +113,8 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
           <MostSearched fourCategories={fourCategories} />
         </div>
         <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
-        <div className="px-4 py-8 bg-slate-100 ">
-          <RestoOfTheDay />
-        </div>
+        <RestoOfTheDay />
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
-        {/* RestoOfTheDayCard <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
         <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
         <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
         <RestaurantRow restaurants={restaurant} title={"Irasshaimase. Cek kuliner jepang yuk!"} searchCategory={"Jepang"} />
