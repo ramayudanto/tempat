@@ -81,8 +81,10 @@ export default function IconedInformation({ restaurant }: any) {
         </div>
       </div>
       <Divider />
+      <div className="flex flex-col gap-y-4">
       <p className="text-[#333] font-semibold text-lg">Alamat Restoran</p>
       <RestoMap restaurant={restaurant} />
+      </div>
       <div className="flex text-lightGray justify-between items-center text-sm">
         <div className="flex gap-x-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="CurrentColor" viewBox="0 0 256 256" className="fill-lightGray">
