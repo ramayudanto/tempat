@@ -18,6 +18,11 @@ import { prisma } from "../../lib/prisma";
 import Menu from "../../components/MenuSection/Menu";
 import { useRouter } from "next/router";
 import { translateOpeningHours } from "../../lib/logic";
+import LoginPrompt from "../../components/restaurant-2/LoginPrompt";
+import RestoUSP from "../../components/restaurant-2/RestoUSP";
+import Divider from "../../components/design-system/Divider";
+import ClaimResto from "../../components/restaurant-2/ClaimResto";
+import RestoMap from "../../components/restaurant-2/RestoMap";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -32,6 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       opening_hours: true,
       bookmarkedBy: true,
       menu: true,
+      geometry: true,
     },
   });
 
@@ -41,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
 export const ReviewContext = createContext(null as any);
 export const ActiveSectionContext = createContext(null as any);
 
-export default function Restaurant({ restaurant }: any) {
+export default function Restaurant({ restaurant,user }: any) {
   // const [reviews, setReviews] = useState<Rating[]>(rating);
   const [isActive, setIsActive] = useState<boolean>(false);
   // console.log(translateOpeningHours(restaurant.opening_hours));
@@ -85,15 +91,23 @@ export default function Restaurant({ restaurant }: any) {
         <Header title={restaurant?.gofood_name} />
         <ActiveSectionContext.Provider value={{ menuRef, aboutRef, facilityRef, reviewRef, othersRef, activeSection, menuDivRef, aboutDivRef, facilityDivRef, reviewDivRef, othersDivRef }}>
           {isActive && <RestoTopbar />}
-          <div className="max-w-[420px] mx-auto bg-slate-500">
+          <div className="max-w-[420px] mx-auto bg-slate-200">
             <ImageSection restaurant={restaurant} thumbnail={restaurant?.thumbnail} />
-            <div className=" bg-white pt-5 px-4">
+            <div className=" bg-white pt-5 px-4 flex flex-col gap-y-6">
               <TopSection restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              { !user &&  <>
+              <Divider />
+              <LoginPrompt /> </>
+              }
+              <Divider />
+              {/* <ClaimResto />
+              <Divider /> */}
+              {/* <RestoUSP />
+              <Divider /> */}
               <DetailedInformation restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              <Divider />
               <MenuSection restaurant={restaurant} />
-              <hr className="border-y-2 my-6 mx-[-16px] border-gray-100" />
+              <Divider />
               <RestoFacility restaurant={restaurant} />
             </div>
           </div>

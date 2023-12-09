@@ -19,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     };
   }
   const token = await getToken({ req, secret: process.env.NEXT_PUBLIC_SECRET! });
-  console.log(token);
   const user = await prisma.user.findUnique({
     where: {
       email: session.user?.email!,
