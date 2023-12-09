@@ -5,7 +5,7 @@ export default function RestoMap(
     {restaurant: any}
 ) {
   return (
-  <a href={`https://www.google.com/maps/place/?q=place_id:${restaurant.place_id}`} target='_blank'>
+  <a href={`https://www.google.com/maps/place/?q=place_id:${restaurant.place_id}`}>
     <img
     src={`https://maps.googleapis.com/maps/api/staticmap?center=${restaurant?.geometry.lat},${restaurant?.geometry.lng}
     &zoom=16

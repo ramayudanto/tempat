@@ -12,7 +12,7 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
   console.log(routePath);
   return (
     <div
-      className="relative h-[171px] bg-center flex items-center"
+      className="relative h-[171px] bg-center flex items-center mx-auto max-w-[420px]"
       style={{
         backgroundImage: `url("homepage-1.jpg")`,
         backgroundSize: "cover",
@@ -22,11 +22,11 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {isModalOpen && <MainpageModal closeModal={() => setIsModalOpen(false)} />}
       </AnimatePresence>
-      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-[16px] flex flex-col items-start justify-center">
+      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-[16px] flex flex-col items-start justify-center cursor-default">
         <p>Cari restoran paling enak <br /> di sekitar 
         
         <span 
-        className="ml-2 text-sm font-semibold bg-red-50 text-red-500 px-2 p-1 rounded-full"
+        className="ml-2 text-sm font-semibold bg-red-50 text-red-500 px-2 p-1 rounded-full cursor-pointer"
         onClick={() => {
           setIsModalOpen(true);
           captureEvent("change location button");
