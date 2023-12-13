@@ -22,7 +22,7 @@ export default async function handler(req: any, res: NextApiResponse) {
       },
       include: {
         categories: true,
-        opening_hours: true,
+        OpeningHoursV2: true,
         address_components: true,
       },
     });
