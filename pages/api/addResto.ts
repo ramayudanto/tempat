@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         formatted_address: restaurant.formatted_address,
         formatted_phone_number: restaurant.formatted_phone_number,
         international_phone_number: restaurant.international_phone_number,
-        opening_hours: {
+        OpeningHoursV2: {
           create: {
             monday: restaurant.opening_hours.monday,
             tuesday: restaurant.opening_hours.tuesday,
@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         user_ratings_total: restaurant.user_ratings_total,
         vicinity: restaurant.vicinity,
         website: restaurant.website,
-        geometry: {
+        GeometryV2: {
           create: {
             lat: restaurant.geometry.lat,
             lng: restaurant.geometry.lng,

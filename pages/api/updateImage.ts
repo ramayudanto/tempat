@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         Image: {
           push: resto_image,
         },
-        menu: {
+        Menu: {
           upsert: {
             create: {
               image: menu_image,

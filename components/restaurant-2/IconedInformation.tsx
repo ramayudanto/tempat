@@ -7,8 +7,8 @@ import Divider from "../design-system/Divider";
 import RestoMap from "./RestoMap";
 
 export default function IconedInformation({ restaurant }: any) {
-  const { opening_hours, price_level, categories } = restaurant;
-  const open = translateOpeningHours(restaurant.opening_hours);
+  const { OpeningHoursV2: opening_hours, price_level, categories } = restaurant;
+  const open = translateOpeningHours(opening_hours);
   const [isOpenHourOpen, setIsOpenHourOpen] = useState<boolean>(false);
   const { aboutRef } = useContext(ActiveSectionContext);
   return (
@@ -82,8 +82,8 @@ export default function IconedInformation({ restaurant }: any) {
       </div>
       <Divider />
       <div className="flex flex-col gap-y-4">
-      <p className="text-[#333] font-semibold text-lg">Alamat Restoran</p>
-      <RestoMap restaurant={restaurant} />
+        <p className="text-[#333] font-semibold text-lg">Alamat Restoran</p>
+        <RestoMap restaurant={restaurant} />
       </div>
       <div className="flex text-lightGray justify-between items-center text-sm">
         <div className="flex gap-x-2">

@@ -38,11 +38,11 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     include: {
       address_components: true,
       categories: true,
-      opening_hours: true,
+      OpeningHoursV2: true,
       bookmarkedBy: true,
-      menu: true,
-      geometry: true,
-      Ratings: {
+      Menu: true,
+      GeometryV2: true,
+      Rating: {
         include: {
           user: true,
         },
@@ -57,7 +57,7 @@ export const ReviewContext = createContext(null as any);
 export const ActiveSectionContext = createContext(null as any);
 
 export default function Restaurant({ restaurant, user }: any) {
-  const [reviews, setReviews] = useState<Rating[] | null>(restaurant.Ratings || null);
+  const [reviews, setReviews] = useState<Rating[] | null>(restaurant.Rating || null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [rating, setRating] = useState<any>({ ratingCount: restaurant.ratingCount, ratingSum: restaurant.ratingSum });
 

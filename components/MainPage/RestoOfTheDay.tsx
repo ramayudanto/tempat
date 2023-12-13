@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { isRestaurantOpen, recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
+import { recentRestaurantHandler, translatePriceRange, translateToK, truncate } from "../../lib/logic";
 import { captureEvent } from "../../lib/posthog";
 import RibbonCard from "../design-system/RibbonCard";
 import { useEffect, useState } from "react";
@@ -90,8 +90,6 @@ export default function RestoOfTheDay() {
                   <p className="text-lightGray flex-none text-xs">|</p>
                   <p className=" text-lightGray text-xs">{translatePriceRange(restaurant.price_level)}</p>
                 </div>
-                {/* <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen().toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(restaurant.opening_hours)}</p> */}
-                {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
               </div>
             </div>
           </div>

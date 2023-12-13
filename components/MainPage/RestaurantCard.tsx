@@ -7,7 +7,7 @@ import BookmarkButton from "./BookmarkButton";
 import { captureEvent } from "../../lib/posthog";
 
 export default function RestaurantCard({ restaurant }: any) {
-  const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
+  const { featureImage, gofood_name, price_level: priceRange, OpeningHoursV2: opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
   // console.log(restaurant.ratingCount);
 

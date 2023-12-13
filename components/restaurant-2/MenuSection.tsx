@@ -8,7 +8,7 @@ import { captureEvent } from "../../lib/posthog";
 export default function MenuSection({ restaurant }: any) {
   const { menuDivRef } = useContext(ActiveSectionContext);
   const router = useRouter();
-  const { menu }: { menu: Menu } = restaurant;
+  const { Menu } = restaurant;
   return (
     <div className="h-full space-y-4" ref={menuDivRef}>
       <div className="flex gap-x-4 items-end">
@@ -17,7 +17,7 @@ export default function MenuSection({ restaurant }: any) {
       {/* <p className="text-[#333] text-xs text-opacity-60" ref={menuRef}>
         Full Menu
       </p> */}
-      {!restaurant.menu ? (
+      {!restaurant.Menu ? (
         <>
           <div className="w-[200px] h-[200px] mx-auto">
             <div className="relative w-full h-full">
@@ -41,7 +41,7 @@ export default function MenuSection({ restaurant }: any) {
       ) : (
         <>
           <div className="flex gap-x-3 overflow-hidden">
-            {menu.image.map((item: string, i: number) => {
+            {Menu.image.map((item: string, i: number) => {
               return (
                 <div
                   className="relative min-w-[96px] h-[150px] rounded-md overflow-hidden border-[1px] border-gray-200"

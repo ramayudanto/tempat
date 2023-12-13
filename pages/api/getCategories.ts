@@ -32,7 +32,7 @@ export default async function handler(req: any, res: NextApiResponse) {
         categories: true,
         price_level: true,
         thumbnail: true,
-        opening_hours: true,
+        OpeningHoursV2: true,
         place_id: true,
         ratingCount: true,
         ratingSum: true,

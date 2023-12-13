@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       categories: true,
       price_level: true,
       thumbnail: true,
-      opening_hours: true,
+      OpeningHoursV2: true,
       place_id: true,
       ratingCount: true,
       ratingSum: true,
