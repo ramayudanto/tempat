@@ -19,6 +19,9 @@ export const getServerSideProps = async (context: any) => {
     },
     include: {
       restaurants: {
+        where: {
+          isPublic: true,
+        },
         include: {
           categories: true,
           address_components: true,

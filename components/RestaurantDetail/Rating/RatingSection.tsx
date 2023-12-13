@@ -5,10 +5,12 @@ import RatingCard from "./RatingCard";
 import Verify from "../../verify/Verify";
 import { useRouter } from "next/router";
 import { Rating } from "@prisma/client";
+import { AnimatePresence } from "framer-motion";
+import ReviewModal from "../../modal/ReviewModal";
 
 export default function RatingSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isVerifyOpen, setVerifyIsOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { reviews, user, restaurant } = useContext(ReviewContext);
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
@@ -16,6 +18,15 @@ export default function RatingSection() {
   const router = useRouter();
   return (
     <>
+      <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+        {isModalOpen && (
+          <ReviewModal
+            closeModal={() => {
+              setIsModalOpen(false);
+            }}
+          />
+        )}
+      </AnimatePresence>
       <div className="mb-24 text-darkGray">
         <div className="flex justify-between items-center">
           <p className="font-semibold">What people say</p>
@@ -34,7 +45,7 @@ export default function RatingSection() {
         <p
           onClick={() => {
             if (!user) {
-              router.push("/login");
+              setIsModalOpen(true);
             } else {
               setIsOpen(true);
             }
@@ -44,7 +55,7 @@ export default function RatingSection() {
           Write a review
         </p>
       </div>
-      {/* {isVerifyOpen && (
+      {/* {isModalOpen && setIsModalOpen
         <Verify
           close={() => {
             setVerifyIsOpen(false);
