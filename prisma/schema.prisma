@@ -15,16 +15,17 @@ model Rating {
   userId       String?
   postDate     DateTime      @default(now())
   imageUrl     String?
-  restaurant   RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  RestaurantV2 RestaurantV2? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
   user         User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Collection {
-  id             Int            @id @default(autoincrement())
-  collectionName String         @unique
-  description    String?
-  routeName      String?        @unique
-  Restaurant     RestaurantV2[] @relation("CollectionToRestaurantV2")
+  id          Int            @id @default(autoincrement())
+  description String?
+  header      String?
+  icon        String?
+  name        String         @unique
+  Restaurant  RestaurantV2[] @relation("CollectionToRestaurantV2")
 }
 
 model Account {
@@ -93,7 +94,7 @@ model OpeningHoursV2 {
   saturday     String?
   sunday       String?
   restaurantId Int          @unique
-  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  RestaurantV2 RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }
 
 model GeometryV2 {
@@ -101,7 +102,7 @@ model GeometryV2 {
   lat          Float?
   lng          Float?
   restaurantId Int          @unique
-  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  RestaurantV2 RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }
 
 model Category {
@@ -147,10 +148,13 @@ model RestaurantV2 {
   wheelchair_accessible_entrance Boolean?
   curbside_pickup                Boolean?
   Image                          String[]
-  geometry                       GeometryV2?
-  menu                           Menu?
-  opening_hours                  OpeningHoursV2?
-  Ratings                        Rating[]
+  isPublic                       Boolean              @default(true)
+  ratingCount                    Int                  @default(0)
+  ratingSum                      Float                @default(0)
+  GeometryV2                     GeometryV2?
+  Menu                           Menu?
+  OpeningHoursV2                 OpeningHoursV2?
+  Rating                         Rating[]
   address_components             AddressComponentV2[] @relation("AddressComponentV2ToRestaurantV2")
   categories                     Category[]           @relation("CategoryToRestaurantV2")
   Collections                    Collection[]         @relation("CollectionToRestaurantV2")
@@ -162,5 +166,5 @@ model Menu {
   menu_type    String?
   restaurantId Int          @unique
   image        String[]
-  restaurant   RestaurantV2 @relation(fields: [restaurantId], references: [id])
+  RestaurantV2 RestaurantV2 @relation(fields: [restaurantId], references: [id])
 }

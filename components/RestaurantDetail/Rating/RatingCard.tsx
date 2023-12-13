@@ -8,10 +8,10 @@ export default function RatingCard({ item }: any) {
       <div className="flex items-center space-x-7 mb-2 justify-between">
         <div className="flex items-center gap-x-2 justify-center min-w-max">
           <div className="w-10 h-10 relative rounded-full overflow-hidden self-start">
-            <Image src={user?.image} layout="fill" alt={user.name} objectFit="cover" />
+            <Image src={user?.image} layout="fill" alt={user?.name} objectFit="cover" />
           </div>
           <div className="flex flex-col -space-y-1">
-            <p className="font-semibold text-darkGray">{user.name}</p>
+            <p className="font-semibold text-darkGray">{user?.name}</p>
             <p className="text-darkGray text-opacity-70">0 follower</p>
           </div>
         </div>
@@ -25,8 +25,8 @@ export default function RatingCard({ item }: any) {
           </svg>
         </div>
       </div>
-      <p className="ml-2 mb-2">{truncate(comment, 80)}</p>
-      {item.imageUrl && (
+      <p className={`ml-2 mb-2 ${!comment.length && "italic text-sm"}`}>{!comment.length ? "User tidak memberikan komentar" : truncate(comment, 80)}</p>
+      {item.imageUrl !== "null" && (
         <div className="w-full h-48 rounded overflow-hidden relative">
           <Image src={item?.imageUrl} layout="fill" alt={"review photo"} objectFit="cover" />
         </div>

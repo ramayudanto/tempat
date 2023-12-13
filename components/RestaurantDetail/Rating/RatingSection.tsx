@@ -6,17 +6,17 @@ import Verify from "../../verify/Verify";
 import { useRouter } from "next/router";
 import { Rating } from "@prisma/client";
 
-export default function RatingSection({ user, divRef, restaurant }: any) {
+export default function RatingSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVerifyOpen, setVerifyIsOpen] = useState<boolean>(false);
-  const { reviews } = useContext(ReviewContext);
+  const { reviews, user, restaurant } = useContext(ReviewContext);
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
   const router = useRouter();
   return (
     <>
-      <div className="mx-5 mb-96 text-darkGray" ref={divRef}>
+      <div className="mb-24 text-darkGray">
         <div className="flex justify-between items-center">
           <p className="font-semibold">What people say</p>
           <p className="text-darkRed text-xs font-medium cursor-pointer">See all</p>
@@ -36,11 +36,7 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
             if (!user) {
               router.push("/login");
             } else {
-              if (user.name) {
-                setIsOpen(true);
-              } else {
-                setVerifyIsOpen(true);
-              }
+              setIsOpen(true);
             }
           }}
           className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
@@ -48,13 +44,13 @@ export default function RatingSection({ user, divRef, restaurant }: any) {
           Write a review
         </p>
       </div>
-      {isVerifyOpen && (
+      {/* {isVerifyOpen && (
         <Verify
           close={() => {
             setVerifyIsOpen(false);
           }}
         />
-      )}
+      )} */}
       {isOpen && (
         <>
           <CreateRating

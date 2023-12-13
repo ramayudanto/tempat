@@ -9,6 +9,7 @@ import { captureEvent } from "../../lib/posthog";
 export default function RestaurantCard({ restaurant }: any) {
   const { featureImage, gofood_name, price_level: priceRange, opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
+  // console.log(restaurant.ratingCount);
 
   const [isBookmakred, setIsBookmarked] = useState<boolean>(false);
   const locationBroad = restaurant?.address_components.find((component: any) =>
@@ -50,10 +51,10 @@ export default function RestaurantCard({ restaurant }: any) {
                   fill="#22AF39"
                 />
               </svg>
-              <p className="text-xs text-green">{rating}</p>
+              <p className="text-xs text-green">{restaurant.ratingCount === 0 ? rating : (restaurant.ratingSum / restaurant.ratingCount).toFixed(1)}</p>
             </div>
             <p className="text-lightGray text-opacity-70 text-xs font-light">|</p>
-            <p className="text-xs text-lightGray font-light">{translateToK(totalRate)} Review</p>
+            <p className="text-xs text-lightGray font-light">{restaurant.ratingCount === 0 ? translateToK(totalRate) : translateToK(restaurant.ratingCount)} Review</p>
           </div>
           <div className="flex gap-x-1 overflow-hidden">
             {category.length !== 0 ? (

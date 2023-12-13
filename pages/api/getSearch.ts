@@ -42,6 +42,7 @@ export default async function handler(req: any, res: NextApiResponse) {
           contains: q,
           mode: "insensitive",
         },
+        isPublic: true,
       },
       include: {
         categories: true,
@@ -61,6 +62,7 @@ export default async function handler(req: any, res: NextApiResponse) {
             },
           },
         },
+        isPublic: true,
       },
       include: {
         categories: true,
@@ -94,6 +96,7 @@ export default async function handler(req: any, res: NextApiResponse) {
             },
           },
         ],
+        isPublic: true,
       },
       include: {
         categories: true,

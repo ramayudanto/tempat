@@ -22,6 +22,7 @@ export default async function handler(req: any, res: NextApiResponse) {
             name: category,
           },
         },
+        isPublic: true,
       },
       select: {
         gofood_name: true,
@@ -33,6 +34,8 @@ export default async function handler(req: any, res: NextApiResponse) {
         thumbnail: true,
         opening_hours: true,
         place_id: true,
+        ratingCount: true,
+        ratingSum: true,
       },
     });
     res.status(200).json(JSON.parse(JSON.stringify(shuffleArray(restaurantData))));

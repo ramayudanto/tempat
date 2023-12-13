@@ -32,6 +32,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const skipResto = Math.floor(Math.random() * countResto);
   const skipCategory = Math.floor(Math.random() * 11) + 1;
   const restoran = await prisma.restaurantV2.findMany({
+    where: {
+      isPublic: true,
+    },
     select: {
       gofood_name: true,
       address_components: true,
@@ -42,6 +45,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       thumbnail: true,
       opening_hours: true,
       place_id: true,
+      ratingCount: true,
+      ratingSum: true,
     },
     take: 10,
     skip: skipResto,
@@ -106,8 +111,8 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
     <>
       <Header title="Home" />
       <Jumbotron search={search} setSearch={setSearch} />
-        {/* <CategoryList categories={categories} /> */}
-        {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+      {/* <CategoryList categories={categories} /> */}
+      {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
       <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px] space-y-8">
         <div className="px-4 pt-3">
           <MostSearched fourCategories={fourCategories} />

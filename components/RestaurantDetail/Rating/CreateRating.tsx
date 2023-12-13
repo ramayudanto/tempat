@@ -3,41 +3,51 @@ import Toast from "../../Toasts/Toast";
 import RatingForm from "./RatingForm";
 import Backdrop from "../../login/Backdrop";
 import { ReviewContext } from "../../../pages/restos/[routeName]";
-import { submitRate } from "../../../lib/firebase";
+import { getUrl } from "../../../lib/s3-bucket";
 
 const stars = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
-export default function CreateRating({ cancel, restaurant, user: session }: any) {
+export default function CreateRating({ cancel, restaurant }: any) {
   const { id: restaurantId, name, locationBroad } = restaurant;
   const [currentRate, setCurrentRate] = useState(null);
   const [imageUpload, setImageUpload] = useState<any>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const toastRef = useRef<any>(null);
-  const { setReviews } = useContext(ReviewContext);
+  const { setReviews, user: session, rating, setRating } = useContext(ReviewContext);
 
   const submitRating = async (e: FormEvent) => {
     e.preventDefault();
     if (!currentRate) return;
     toastRef.current!.show();
-    // await fetch("https://dummyjson.com/products/1").then(() => {
-    //   setCurrentRate(null);
-    //   // commentRef.current!.value = "";
-    // });
+    const image = await getUrl(imageUpload, restaurant.place_id);
     const body = {
       restaurantId,
       rate: Number(currentRate),
       comment: commentRef.current!.value,
       postDate: new Date().toISOString(),
+      image,
     };
-    const image = await submitRate(imageUpload, body);
+    const res = await fetch("/api/postReview", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    // if 200 then add to state
+    if (res.status !== 200) return;
+    setRating((prev: any) => ({
+      ratingCount: prev.ratingCount + 1,
+      ratingSum: prev.ratingSum + Number(currentRate),
+    }));
     setReviews((prev: any) => [
       ...prev,
       {
         rate: Number(currentRate),
         comment: commentRef.current!.value,
         user: {
-          image: session?.image,
-          name: session?.name,
+          image: session?.user.image,
+          name: session?.user.name,
         },
         postDate: new Date().toISOString(),
         imageUrl: image,
@@ -53,7 +63,7 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
   return (
     <Backdrop onClick={cancel}>
       <div
-        className="fixed z-[60] h-fit overflow-scroll animate-loginFade bg-white pb-8 bottom-0 w-screen rounded-t-2xl pt-4"
+        className="fixed z-[60] h-fit max-w-[420px] overflow-scroll animate-loginFade bg-white pb-8 bottom-0 rounded-t-2xl pt-4"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -102,7 +112,7 @@ export default function CreateRating({ cancel, restaurant, user: session }: any)
               })}
             </div>
           </div>
-          <RatingForm commentRef={commentRef} imageUpload={imageUpload} setImageUpload={setImageUpload} submitRating={submitRating} session={session} />
+          <RatingForm commentRef={commentRef} imageUpload={imageUpload} setImageUpload={setImageUpload} submitRating={submitRating} />
           {/* <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} /> */}
         </div>
         <Toast message={"Review posted!"} ref={toastRef} />

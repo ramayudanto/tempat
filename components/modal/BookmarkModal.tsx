@@ -87,9 +87,9 @@ export default function BookmarkModal({ closeModal }: any) {
               d="M116.364 98.5185L99.3974 86.3992L82.4303 98.5185V59.7367C82.4303 58.451 82.941 57.2179 83.8502 56.3088C84.7593 55.3997 85.9923 54.8889 87.278 54.8889H111.517C112.802 54.8889 114.035 55.3997 114.945 56.3088C115.854 57.2179 116.364 58.451 116.364 59.7367V98.5185Z"
               fill="#FDFCEE"
               stroke="#472B29"
-              stroke-width="2.49312"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2.49312"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <p className="text-[#475467] text-sm text-center">Koleksi menu-menu lezat yang kamu nikmati dan jaga agar kenangan kulinermu tetap hidup!</p>
