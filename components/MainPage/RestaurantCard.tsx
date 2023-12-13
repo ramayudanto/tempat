@@ -7,7 +7,7 @@ import BookmarkButton from "./BookmarkButton";
 import { captureEvent } from "../../lib/posthog";
 
 export default function RestaurantCard({ restaurant }: any) {
-  const { featureImage, gofood_name, price_level: priceRange, OpeningHoursV2: opening_hours, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
+  const { featureImage, gofood_name, price_level: priceRange, opening_hours, OpeningHoursV2, categories: category, thumbnail, rating, routeName, userBookmark, user_ratings_total: totalRate } = restaurant;
   const session = false;
   // console.log(restaurant.ratingCount);
 
@@ -79,7 +79,11 @@ export default function RestaurantCard({ restaurant }: any) {
           </div>
 
           <p className=" text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
-          <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(opening_hours)}</p>
+          {!opening_hours ? (
+            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(OpeningHoursV2).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(OpeningHoursV2)}</p>
+          ) : (
+            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(opening_hours)}</p>
+          )}
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>
