@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { Rating } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import ReviewModal from "../../modal/ReviewModal";
+import Divider from "../../design-system/Divider";
 
 export default function RatingSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -28,11 +29,10 @@ export default function RatingSection() {
         )}
       </AnimatePresence>
       <div className="mb-24 text-darkGray">
-        <div className="flex justify-between items-center">
-          <p className="font-semibold">What people say</p>
-          <p className="text-darkRed text-xs font-medium cursor-pointer">See all</p>
+        <div className="flex justify-between items-center mb-6">
+          <p className="font-semibold">Apa kata orang</p>
+          <p className="text-red-600 text-xs font-medium cursor-pointer">Lihat semua Review</p>
         </div>
-        <p className="text-sm my-3">RECENT REVIEWS</p>
         <div className="flex space-x-4 overflow-x-scroll">
           {reviews
             .sort((a: any, b: any) => {
@@ -50,9 +50,9 @@ export default function RatingSection() {
               setIsOpen(true);
             }
           }}
-          className={`text-darkRed cursor-pointer text-center border-t-2 mt-10 pt-2`}
+          className={`text-red-600 cursor-pointer text-center border-t-2 mt-10 pt-2`}
         >
-          Write a review
+          Tulis Review Yuk!
         </p>
       </div>
       {/* {isModalOpen && setIsModalOpen

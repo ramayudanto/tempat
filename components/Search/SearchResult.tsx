@@ -51,8 +51,11 @@ export default function SearchResult({ query }: any) {
   if (!isLoading) {
     if (data.length === 0) {
       return (
-        <div className="flex flex-col items-center justify-center h-full">
-          <p className="text-center text-2xl">Tidak ada hasil</p>
+        <div className="flex flex-col gap-y-1 items-center justify-center h-full">
+          <div className="h-[64px] w-[64px] bg-gray-300 rounded-full"></div>
+          <div className="h-[24px]" ></div>
+          <p className="text-center text-lg font-semibold"> Restoran tidak ditemukan</p>
+          <p className="text-center text-sm text-slate-500"> Silahkan cari dengan kata kunci lainnya</p>
         </div>
       );
     } else {

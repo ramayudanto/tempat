@@ -2,6 +2,7 @@ import React from "react";
 import Backdrop from "./Backdrop";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Divider from "../design-system/Divider";
 
 export default function ReviewModal({ closeModal }: any) {
   const dropIn = {
@@ -24,9 +25,8 @@ export default function ReviewModal({ closeModal }: any) {
   return (
     <Backdrop onClick={closeModal}>
       <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
-        <div className="flex flex-col items-center gap-y-4">
-          <p className=" font-semibold text-[#101828]">Tulis ulasanmu untuk restoran ini!</p>
-          <svg width="149" height="166" viewBox="0 0 149 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="flex flex-col w-full gap-y-4 items-center">
+        <svg width="64" height="64" viewBox="0 0 149 166" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
@@ -40,16 +40,21 @@ export default function ReviewModal({ closeModal }: any) {
               </linearGradient>
             </defs>
           </svg>
-          {/* <p className="text-[#475467] text-sm text-center">Tulis ulasanmu untuk restoran ini!</p> */}
-        </div>
-        <div className="font-semibold">
+          <div className="flex flex-col items-center align-middle pt-2">
+            <p className="font-semibold text-[#101828]">Yuk masuk atau bikin akun!</p>
+            <p className="text-sm text-[#475467] text-center">Setelah itu, baru bisa menulis review ya </p>
+          </div>
+
+          <div className="font-semibold w-full">
           <Link legacyBehavior href="/signup">
-            <a className="bg-red-600 text-white rounded-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
+            <a className="bg-red-600 text-white rounded-full w-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
           </Link>
           <Link legacyBehavior href="/login">
             <a className="bg-red-50 text-red-600 rounded-full px-4 py-2 mt-4 block text-center">Masuk</a>
           </Link>
         </div>
+        </div>
+
       </motion.div>
     </Backdrop>
   );
