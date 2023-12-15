@@ -7,15 +7,15 @@ export default function RatingCard({ item }: any) {
     <div className="border-[1px] p-3 rounded-lg self-start">
       <div className="flex items-center space-x-7 mb-2 justify-between">
         <div className="flex items-center gap-x-2 justify-center min-w-max">
-          <div className="w-10 h-10 relative rounded-full overflow-hidden self-start">
+          <div className="w-8 h-8 relative rounded-full overflow-hidden self-start">
             <Image src={user?.image} layout="fill" alt={user?.name} objectFit="cover" />
           </div>
-          <div className="flex flex-col -space-y-1">
-            <p className="font-semibold text-darkGray">{user?.name}</p>
-            <p className="text-darkGray text-opacity-70">0 follower</p>
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-semibold text-darkGray">{user?.name}</p>
+            <p className="text-sm text-darkGray text-opacity-70">0 follower</p>
           </div>
         </div>
-        <div className="bg-green px-3 py-2 rounded flex font-semibold text-white items-center space-x-1">
+        <div className="bg-green min-w-[24px] px-2 py-1 rounded flex font-semibold text-white text-sm items-center space-x-1">
           <p className="text-sm">{rate}</p>
           <svg width="10" height="10" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -25,10 +25,11 @@ export default function RatingCard({ item }: any) {
           </svg>
         </div>
       </div>
-      <p className={`ml-2 mb-2 ${!comment.length && "italic text-sm"}`}>{!comment.length ? "User tidak memberikan komentar" : truncate(comment, 80)}</p>
+      <p className={`text-sm ${!comment.length && "text-xs text-gray-300"}`}>{!comment.length ? "User tidak memberikan komentar" : truncate(comment, 80)}</p>
       {item.imageUrl !== "null" && (
         <div className="w-full h-48 rounded overflow-hidden relative">
-          <Image src={item?.imageUrl} layout="fill" alt={"review photo"} objectFit="cover" />
+          <img src={item?.imageUrl} className="h-full w-[500px] object-cover" alt="" />
+          {/* <Image src={item?.imageUrl} layout="fill" alt={"review photo"} objectFit="cover" /> */}
         </div>
       )}
     </div>
