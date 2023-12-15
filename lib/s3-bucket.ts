@@ -1,5 +1,4 @@
 import { S3Client, PutObjectCommand, ObjectCannedACL, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import mime from "mime-types";
 import { v4 as uuidv4 } from "uuid";
 
 // Set up the client for DigitalOcean Spaces
@@ -18,18 +17,14 @@ export async function getUrl(imageFile: File, place_id: string) {
   }
   const key = `resto/${place_id}/rating/${uuidv4()}-${imageFile.name}`;
 
-  // Get content type based on file extension
-  const contentType = mime.lookup(imageFile.name) || undefined;
-
   // Upload the file to DigitalOcean Spaces with content type auto-detection and public-read ACL
   const params = {
     Bucket: process.env.NEXT_PUBLIC_SPACES_BUCKET_NAME!,
     Key: key,
     Body: imageFile,
-    ContentType: contentType,
+    ContentType: imageFile.type,
     ACL: ObjectCannedACL.public_read,
   };
-
   try {
     await s3.send(new PutObjectCommand(params));
 
