@@ -154,7 +154,7 @@ export function isRestaurantOpen(hours: OpeningHours): string {
 
   // return unavailable if there are no opening hours
   if (!hours[today]) {
-    return "Unavailable";
+    return "tdk tersedia";
   }
 
   // If the place is open 24/7, return "Open"
@@ -186,7 +186,7 @@ export function isRestaurantOpen(hours: OpeningHours): string {
     // If the current time doesn't fall within any of today's periods, the place is closed
     return "Tutup";
   } catch (e) {
-    return "Unavailable";
+    return "tdk tersedia";
   }
 }
 

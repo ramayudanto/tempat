@@ -51,11 +51,11 @@ export default function SearchResult({ query }: any) {
   if (!isLoading) {
     if (data.length === 0) {
       return (
-        <div className="flex flex-col gap-y-1 items-center justify-center h-full">
-          <div className="h-[64px] w-[64px] bg-gray-300 rounded-full"></div>
+        <div className="flex flex-col gap-y-1 items-center justify-center h-[400px]">
+          <img src="https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg" alt="empty-state" className="rounded-lg h-[64px]" />
           <div className="h-[24px]" ></div>
-          <p className="text-center text-lg font-semibold"> Restoran tidak ditemukan</p>
-          <p className="text-center text-sm text-slate-500"> Silahkan cari dengan kata kunci lainnya</p>
+          <p className="text-center text-sm font-semibold"> Restoran tidak ditemukan</p>
+          <p className="text-center text-xs text-slate-500"> Silahkan cari dengan kata kunci lainnya</p>
         </div>
       );
     } else {

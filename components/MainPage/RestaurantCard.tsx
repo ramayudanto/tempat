@@ -80,9 +80,9 @@ export default function RestaurantCard({ restaurant }: any) {
 
           <p className=" text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
           {!opening_hours ? (
-            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(OpeningHoursV2).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(OpeningHoursV2)}</p>
+            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(OpeningHoursV2).toLowerCase() === "buka" ? "text-green" : "text-slate-500"}`}>{isRestaurantOpen(OpeningHoursV2)}</p>
           ) : (
-            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-[#952525]"}`}>{isRestaurantOpen(opening_hours)}</p>
+            <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-slate-500"}`}>{isRestaurantOpen(opening_hours)}</p>
           )}
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>

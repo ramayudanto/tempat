@@ -117,7 +117,7 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
         <div className="px-4 pt-3">
           <MostSearched fourCategories={fourCategories} />
         </div>
-        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
+        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu"} searchCategory={null} />
         <RestoOfTheDay />
         <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
         <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
