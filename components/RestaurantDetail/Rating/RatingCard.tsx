@@ -8,7 +8,7 @@ export default function RatingCard({ item }: any) {
       <div className="flex items-center space-x-7 mb-2 justify-between">
         <div className="flex items-center gap-x-2 justify-center min-w-max">
           <div className="w-8 h-8 relative rounded-full overflow-hidden self-start">
-            <Image src={user?.image} layout="fill" alt={user?.name} objectFit="cover" />
+            <Image src={user?.image || "https://tempatapp.sgp1.cdn.digitaloceanspaces.com/asset/empty-state-svg.svg"} layout="fill" alt={user?.name} objectFit="cover" />
           </div>
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-semibold text-darkGray">{user?.name}</p>

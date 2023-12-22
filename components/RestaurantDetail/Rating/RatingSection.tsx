@@ -8,6 +8,7 @@ import { Rating } from "@prisma/client";
 import { AnimatePresence } from "framer-motion";
 import ReviewModal from "../../modal/ReviewModal";
 import Divider from "../../design-system/Divider";
+import { captureEvent } from "../../../lib/posthog";
 
 export default function RatingSection() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,7 +32,16 @@ export default function RatingSection() {
       <div className="mb-24 text-darkGray">
         <div className="flex justify-between items-center mb-6">
           <p className="font-semibold">Apa kata orang</p>
-          <p className="text-red-600 text-xs font-medium cursor-pointer">Lihat semua Review</p>
+          <p
+            className="text-red-600 text-xs font-medium cursor-pointer"
+            onClick={() => {
+              captureEvent("See Full Review button");
+              const path = router.asPath;
+              router.push(`${path}?view=review`, undefined, { shallow: true });
+            }}
+          >
+            Lihat semua Review
+          </p>
         </div>
         <div className="flex space-x-4 overflow-x-scroll">
           {reviews

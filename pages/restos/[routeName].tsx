@@ -17,15 +17,11 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { prisma } from "../../lib/prisma";
 import Menu from "../../components/MenuSection/Menu";
 import { useRouter } from "next/router";
-import { translateOpeningHours } from "../../lib/logic";
 import LoginPrompt from "../../components/restaurant-2/LoginPrompt";
-import RestoUSP from "../../components/restaurant-2/RestoUSP";
 import Divider from "../../components/design-system/Divider";
-import ClaimResto from "../../components/restaurant-2/ClaimResto";
-import RestoMap from "../../components/restaurant-2/RestoMap";
 import { Rating } from "@prisma/client";
 import RatingSection from "../../components/RestaurantDetail/Rating/RatingSection";
-import { getPictures } from "../../lib/s3-bucket";
+import FullReviewPage from "../../components/RestaurantDetail/Rating/RatingPage/FullReviewPage";
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const session = await getServerSession(context.req, context.res, authOptions);
@@ -44,7 +40,18 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
       GeometryV2: true,
       Rating: {
         include: {
-          user: true,
+          user: {
+            select: {
+              name: true,
+              image: true,
+              id: true,
+              email: true,
+              username: true,
+            },
+          },
+        },
+        orderBy: {
+          postDate: "desc",
         },
       },
     },
@@ -133,6 +140,8 @@ export default function Restaurant({ restaurant, user }: any) {
     return <Gallery restaurant={restaurant} />;
   } else if (router.query.view === "menu") {
     return <Menu restaurant={restaurant} />;
+  } else if (router.query.view === "review") {
+    return <FullReviewPage restaurant={restaurant} reviews={reviews} />;
   } else {
     <></>;
   }

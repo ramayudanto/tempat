@@ -44,14 +44,6 @@ export default function App({ Component, pageProps: { session, ...pageProps } }:
       <SessionProvider session={session}>
         <CoordinateContext.Provider value={{ latitude, longitude, setLatitude, setLongitude }}>
           <Component {...pageProps} />
-          <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_MEASUREMENT_ID2}`} />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${process.env.NEXT_PUBLIC_MEASUREMENT_ID2}');`}
-          </Script>
         </CoordinateContext.Provider>
       </SessionProvider>
     </PostHogProvider>
