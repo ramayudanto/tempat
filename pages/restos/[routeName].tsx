@@ -141,7 +141,7 @@ export default function Restaurant({ restaurant, user }: any) {
   } else if (router.query.view === "menu") {
     return <Menu restaurant={restaurant} />;
   } else if (router.query.view === "review") {
-    return <FullReviewPage restaurant={restaurant} reviews={reviews} />;
+    return <FullReviewPage restaurant={restaurant} reviews={reviews} setReviews={setReviews} />;
   } else {
     <></>;
   }

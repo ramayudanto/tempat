@@ -41,7 +41,6 @@ export default function CreateRating({ cancel, restaurant }: any) {
       ratingSum: prev.ratingSum + Number(currentRate),
     }));
     setReviews((prev: any) => [
-      ...prev,
       {
         rate: Number(currentRate),
         comment: commentRef.current!.value,
@@ -52,6 +51,7 @@ export default function CreateRating({ cancel, restaurant }: any) {
         postDate: new Date().toISOString(),
         imageUrl: image,
       },
+      ...prev,
     ]);
     setTimeout(() => {
       cancel();

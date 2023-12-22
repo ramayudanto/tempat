@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import Backdrop from "../../../modal/Backdrop";
 import DeleteConfirmation from "./DeleteConfirmation";
 
-export default function RatingCardModal({ closeModal, isOwner }: any) {
+export default function RatingCardModal({ closeModal, isOwner, review, setReviews, reviews }: any) {
   const [isConfirmationModalOpened, setIsConfirmationModalOpened] = useState<boolean>(false);
   const dropIn = {
     hidden: {
@@ -28,9 +27,13 @@ export default function RatingCardModal({ closeModal, isOwner }: any) {
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {isConfirmationModalOpened && (
           <DeleteConfirmation
+            review={review}
             closeModal={() => {
               setIsConfirmationModalOpened(false);
             }}
+            closeParentModal={closeModal}
+            setReviews={setReviews}
+            reviews={reviews}
           />
         )}
       </AnimatePresence>

@@ -2,7 +2,7 @@ import Header from "../../../Head/Header";
 import { useRouter } from "next/router";
 import RatingPageCard from "./RatingPageCard";
 
-export default function FullReviewPage({ restaurant, reviews }: any) {
+export default function FullReviewPage({ restaurant, reviews, setReviews }: any) {
   const router = useRouter();
   return (
     <>
@@ -26,7 +26,7 @@ export default function FullReviewPage({ restaurant, reviews }: any) {
         </div>
         <div className="flex flex-col -mx-4">
           {reviews.map((review: any, i: number) => {
-            return <RatingPageCard key={i} review={review} />;
+            return <RatingPageCard key={i} review={review} reviews={reviews} setReviews={setReviews} />;
           })}
         </div>
       </div>

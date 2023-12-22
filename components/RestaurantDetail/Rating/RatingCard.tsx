@@ -26,7 +26,7 @@ export default function RatingCard({ item }: any) {
         </div>
       </div>
       <p className={`text-xs ${!comment.length && "text-xs text-gray-300"}`}>{!comment.length ? "User tidak memberikan komentar" : truncate(comment, 200)}</p>
-      {item.imageUrl !== "null" && (
+      {item.imageUrl !== "null" && item.imageUrl !== null && (
         <div className="w-full h-[216px] aspect-square rounded overflow-hidden relative">
           <img src={item?.imageUrl} className="h-full object-cover" alt="" />
           {/* <Image src={item?.imageUrl} layout="fill" alt={"review photo"} objectFit="cover" /> */}

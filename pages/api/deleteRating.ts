@@ -21,38 +21,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!rating) {
       return res.status(404).json({ message: "Rating not found" });
     }
-    // return 401 if user is not rating owner
-    if (rating.userId !== session.user) {
-      return res.status(401).json({ message: "Unauthorized" });
+
+    const user = await prisma.user.findUnique({
+      where: { id: rating.userId! },
+    });
+    if (user?.email !== session.user?.email) {
+      res.status(401).json({ message: "Not Owner" });
+      res.end();
+      return;
     }
 
-    //   // Delete the rating
-    //   await prisma.rating.delete({
-    //     where: { id: ratingId },
-    //   });
+    // Delete the rating
+    await prisma.rating.delete({
+      where: { id: ratingId },
+    });
 
-    //   // Update the restaurant's rating sum and count
-    //   await prisma.restaurantV2.update({
-    //     where: {
-    //       id: rating.restaurantId!,
-    //     },
+    // Update the restaurant's rating sum and count
+    await prisma.restaurantV2.update({
+      where: {
+        id: rating.restaurantId!,
+      },
 
-    //     //   where: { id: rating.restaurantId },
-    //     data: {
-    //       ratingSum: {
-    //         decrement: rating.rate,
-    //       },
-    //       ratingCount: {
-    //         decrement: 1,
-    //       },
-    //     },
-    //   });
+      //   where: { id: rating.restaurantId },
+      data: {
+        ratingSum: {
+          decrement: rating.rate,
+        },
+        ratingCount: {
+          decrement: 1,
+        },
+      },
+    });
 
     res.status(200).json({ message: "Rating deleted successfully" });
   } else {
     res.setHeader("Allow", ["DELETE"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-
-  //   res.status(200).json({ message: "Rating deleted successfully", session });
 }

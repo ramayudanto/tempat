@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Backdrop from "../../../modal/Backdrop";
 
-export default function RatingCardModal({ closeModal }: any) {
+export default function RatingCardModal({ closeModal, closeParentModal, review, reviews, setReviews }: any) {
   const dropIn = {
     hidden: {
       opacity: 1,
@@ -10,7 +10,7 @@ export default function RatingCardModal({ closeModal }: any) {
     visible: {
       y: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.1,
       },
       opacity: 1,
     },
@@ -18,9 +18,42 @@ export default function RatingCardModal({ closeModal }: any) {
       opacity: 1,
     },
   };
+  const handleDelete = async () => {
+    const res = await fetch("/api/deleteRating", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ratingId: review.id,
+      }),
+    });
+    if (res.ok) {
+      closeParentModal();
+      closeModal();
+      // update reviews with setReviews
+      const newReviews = reviews.filter((item: any) => item.id !== review.id);
+      setReviews(newReviews);
+    }
+  };
+
   return (
-    <motion.div onClick={(e) => e.stopPropagation()} className="rounded-2xl px-6 py-8 bg-white z-[999] w-[80%] max-w-[420px] fixed space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
-      <p>test</p>
+    <motion.div
+      className="fixed top-0 bg-black z-40 flex h-screen w-screen bg-opacity-50 max-w-[420px] mx-auto left-0 right-0 items-center justify-center"
+      onClick={closeModal}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div onClick={(e) => e.stopPropagation()} className="w-3/4 bg-white h-1/5 rounded-3xl space-y-3 p-3 flex flex-col" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
+        <p className="font-medium">Apakah anda yakin untuk menghapus review?</p>
+        <button className="bg-red-600 rounded-lg py-2 text-white" onClick={handleDelete}>
+          Ya
+        </button>
+        <button className="bg-red-50 rounded-lg py-2 text-red-600" onClick={closeModal}>
+          Tidak
+        </button>
+      </motion.div>
     </motion.div>
   );
 }

@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import RatingCardModal from "./RatingCardModal";
 import { useState } from "react";
 
-export default function RatingPageCard({ review }: any) {
+export default function RatingPageCard({ review, setReviews, reviews }: any) {
   //   console.log(rate);
   const { rate, comment, user, postDate } = review;
   const session = useSession();
@@ -24,6 +24,9 @@ export default function RatingPageCard({ review }: any) {
               setIsReviewModalOpened(false);
             }}
             isOwner={session?.data?.user?.email === user?.email}
+            review={review}
+            setReviews={setReviews}
+            reviews={reviews}
           />
         )}
       </AnimatePresence>
