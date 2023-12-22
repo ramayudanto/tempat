@@ -60,9 +60,9 @@ export default function RatingSection() {
               setIsOpen(true);
             }
           }}
-          className={`text-red-600 cursor-pointer text-center border-t-2 mt-10 pt-2`}
+          className={`text-gray-600 cursor-pointer text-xs text-center border-t-2 mt-10 pt-2`}
         >
-          Tulis Review Yuk!
+          Tulis review yuk!
         </p>
       </div>
       {/* {isModalOpen && setIsModalOpen

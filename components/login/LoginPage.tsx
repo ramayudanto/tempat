@@ -37,8 +37,8 @@ export default function LoginPage({ closeLogin }: any) {
   return (
     <>
       <Header title={"Login"} />
-      <Toast message="Login successfull" color="green" ref={toastRef} />
-      <Toast message="Wrong password" ref={errorToastRef} />
+      <Toast message="Berhasil masuk!" color="green" ref={toastRef} />
+      <Toast message="Salah Password" ref={errorToastRef} />
       <div className="px-4 py-6 bg-white flex flex-col gap-y-5 relative z-10 h-full">
         <div className="text-center">
           <p className="font-semibold text-xl text-darkGray">Masuk</p>
