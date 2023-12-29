@@ -119,9 +119,9 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
         </div>
         <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu"} searchCategory={null} />
         <RestoOfTheDay />
-        <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
-        <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
         <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
+        <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
+        <RestaurantRow restaurants={restaurant} title={"Dimsum & Bubur buat kamu"} searchCategory={"Chinese"} />
         <RestaurantRow restaurants={restaurant} title={"Irasshaimase. Cek kuliner jepang yuk!"} searchCategory={"Jepang"} />
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}

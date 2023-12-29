@@ -18,7 +18,7 @@ export default function Home({ route }: any) {
             />
           </svg>
         )}
-        <p>Home</p>
+        <p>Beranda</p>
       </a>
     </Link>
   );

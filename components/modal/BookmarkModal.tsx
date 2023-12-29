@@ -23,7 +23,7 @@ export default function BookmarkModal({ closeModal }: any) {
   };
   return (
     <Backdrop onClick={closeModal}>
-      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
+      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] fixed bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
         <div className="flex flex-col items-center gap-y-4">
           <p className=" font-semibold text-[#101828]">Simpan restoran favorit kamu!</p>
           <svg width="183" height="152" viewBox="0 0 183 152" fill="none" xmlns="http://www.w3.org/2000/svg">
