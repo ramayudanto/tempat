@@ -24,7 +24,7 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
         <p>
           Cari restoran paling enak <br /> di sekitar
           <span
-            className="ml-2 text-sm font-semibold bg-red-50 text-red-500 px-2 p-1 rounded-full cursor-pointer"
+            className="ml-2 text-sm font-semibold bg-brandPrimary50 text-brandPrimary600 px-2 p-1 rounded-full cursor-pointer"
             onClick={() => {
               setIsModalOpen(true);
               captureEvent("change location button");

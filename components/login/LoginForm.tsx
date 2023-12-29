@@ -11,7 +11,7 @@ export default function LoginForm({ emailInputRef, passwordInputRef, onSubmit }:
         Password
       </label>
       <input required id="pass" type="password" className="border-[1px] w-full rounded outline-none p-2" placeholder="*********" ref={passwordInputRef} />
-      <button type="submit" className="w-full py-4 mt-7 font-semibold text-white bg-customRed-600 rounded-full">
+      <button type="submit" className="w-full py-4 mt-7 font-semibold text-white bg-brandPrimary600 rounded-full">
         Masuk
       </button>
     </form>

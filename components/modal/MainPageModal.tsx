@@ -35,7 +35,7 @@ export default function MainPageModal({ closeModal }: any) {
           <p>Mau ganti lokasi?</p>
         </div>
         <p className="text-[#333] text-opacity-60">Wah, maaf ya. Saat ini hanya tersedia di Jakarta aja.</p>
-        <button onClick={closeModal} className="bg-red-600 rounded-full w-full text-white px-5 py-3">
+        <button onClick={closeModal} className="bg-brandPrimary600 rounded-full w-full text-white px-5 py-3">
           Tutup
         </button>
       </motion.div>

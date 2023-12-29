@@ -310,7 +310,7 @@ export default function NotFound() {
         <p className="text-lightGray">Yuk balik ke halaman utama!</p>
       </div>
       <button
-        className="bg-red-600 text-white rounded-lg py-2 px-4 font-semibold"
+        className="bg-brandPrimary600 text-white rounded-lg py-2 px-4 font-semibold"
         onClick={() => {
           router.push("/");
         }}

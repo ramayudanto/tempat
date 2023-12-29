@@ -54,7 +54,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
       <div className="bg-white text-sm flex justify-between mt-5">
         <p>Udah punya akun?</p>
         <p
-          className="text-red-600 text-sm font-semibold cursor-pointer"
+          className="text-brandPrimary600 text-sm font-semibold cursor-pointer"
           onClick={() => {
             router.push("/login");
           }}

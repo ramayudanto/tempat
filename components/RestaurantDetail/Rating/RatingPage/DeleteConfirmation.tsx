@@ -47,10 +47,10 @@ export default function RatingCardModal({ closeModal, closeParentModal, review, 
     >
       <motion.div onClick={(e) => e.stopPropagation()} className="w-3/4 bg-white h-1/5 rounded-3xl space-y-3 p-3 flex flex-col" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
         <p className="font-medium">Apakah anda yakin untuk menghapus review?</p>
-        <button className="bg-red-600 rounded-lg py-2 text-white" onClick={handleDelete}>
+        <button className="bg-brandPrimary600 rounded-lg py-2 text-white" onClick={handleDelete}>
           Ya
         </button>
-        <button className="bg-red-50 rounded-lg py-2 text-red-600" onClick={closeModal}>
+        <button className="bg-red-50 rounded-lg py-2 text-brandPrimary600" onClick={closeModal}>
           Tidak
         </button>
       </motion.div>

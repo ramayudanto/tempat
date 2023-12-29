@@ -47,10 +47,10 @@ export default function ReviewModal({ closeModal }: any) {
 
           <div className="font-semibold w-full">
           <Link legacyBehavior href="/signup">
-            <a className="bg-red-600 text-white rounded-full w-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
+            <a className="bg-brandPrimary600 text-white rounded-full w-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
           </Link>
           <Link legacyBehavior href="/login">
-            <a className="bg-red-50 text-red-600 rounded-full px-4 py-2 mt-4 block text-center">Masuk</a>
+            <a className="bg-red-50 text-brandPrimary600 rounded-full px-4 py-2 mt-4 block text-center">Masuk</a>
           </Link>
         </div>
         </div>

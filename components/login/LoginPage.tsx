@@ -48,7 +48,7 @@ export default function LoginPage({ closeLogin }: any) {
         <div className="text-sm flex justify-between cursor-pointer">
           <p>Belum punya akun?</p>
           <p
-            className="text-red-600 text-sm font-semibold"
+            className="text-brandPrimary600 text-sm font-semibold"
             onClick={() => {
               router.push("/signup");
             }}

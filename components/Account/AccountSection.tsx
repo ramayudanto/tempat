@@ -29,7 +29,7 @@ export default function AccountSection({ user }: any) {
           backgroundSize: "cover",
         }}
       >
-        <div className="py-5 px-4 shadow-md absolute bg-white right-0 left-0 mx-auto -bottom-[60%] rounded-lg space-y-8 w-[90%]">
+        <div className="py-5 px-4 shadow-md absolute bg-white right-0 left-0 mx-auto -bottom-[60%] rounded-lg space-y-4 w-[90%]">
           <div className="flex gap-x-3 text-[#5D6B98]">
             <p className="w-10 h-10 f rounded-full font-semibold bg-[#EFF1F5] uppercase flex items-center justify-center">
               {getFirstLetters(user.name)}
@@ -37,7 +37,7 @@ export default function AccountSection({ user }: any) {
             <div>
               <p className="font-semibold text-[#404968]">{user.name}</p>
               {/* review user */}
-              <p>{user.email}</p>
+              <p className="text-slate-500">@{user.username}</p>
             </div>
           </div>
           <button
@@ -45,7 +45,7 @@ export default function AccountSection({ user }: any) {
               captureEvent("Edit account button");
               router.push("/account/edit", undefined, { shallow: true });
             }}
-            className="text-red-600 font-semibold bg-red-50 rounded-lg w-full py-2"
+            className="text-brand-600 font-semibold bg-brandPrimary50 rounded-lg w-full py-2"
           >
             Edit Akun
           </button>
@@ -79,7 +79,7 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm text-sate-700">Koleksi tempatmu</p>
+              <p className="text-sm font-medium text-sate-700">Koleksi tempatmu</p>
               <p className="text-[#667085] text-xs">
                 Cek lagi restoran yang pernah kamu simpan
               </p>
@@ -105,7 +105,7 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm text-sate-700">Kumpulan Review-mu</p>
+              <p className="text-sm font-medium text-sate-700">Kumpulan Review-mu</p>
               <p className="text-[#667085] text-xs">
                 Lihat tempat yang udah pernah kamu review
               </p>
@@ -194,7 +194,7 @@ export default function AccountSection({ user }: any) {
           posthog.capture("logout button");
           posthog.reset();
         }}
-        className="bg-red-600 mt-4 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"
+        className="bg-brandPrimary600 mt-4 text-white font-semibold w-fit mx-auto rounded-lg px-16 py-2"
       >
         Keluar
       </p>
