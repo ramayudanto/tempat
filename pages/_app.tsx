@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
-import Script from "next/script";
 
 export const CoordinateContext = createContext(null as any);
 
@@ -13,6 +12,7 @@ import { useRouter } from "next/router";
 
 // Check that PostHog is client-side (used to handle Next.js SSR)
 if (typeof window !== "undefined") {
+  const isProd = process.env.NODE_ENV === "production";
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
     api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com",
     // Enable debug mode in development
@@ -20,6 +20,7 @@ if (typeof window !== "undefined") {
       if (process.env.NODE_ENV === "development") posthog.debug();
     },
     capture_pageview: false, // Disable automatic pageview capture, as we capture manually
+    debug: !isProd,
   });
 }
 

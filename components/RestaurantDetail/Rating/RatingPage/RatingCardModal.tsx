@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Backdrop from "../../../modal/Backdrop";
 import DeleteConfirmation from "./DeleteConfirmation";
+import { useSession } from "next-auth/react";
 
-export default function RatingCardModal({ closeModal, isOwner, review, setReviews, reviews }: any) {
+export default function RatingCardModal({ closeModal, review, setReviews, reviews }: any) {
   const [isConfirmationModalOpened, setIsConfirmationModalOpened] = useState<boolean>(false);
+  const session = useSession();
   const dropIn = {
     hidden: {
       y: "100%",
@@ -45,7 +47,7 @@ export default function RatingCardModal({ closeModal, isOwner, review, setReview
               <path d="M18 6L6 18M6 6L18 18" stroke="#667085" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          {isOwner ? (
+          {session?.data?.user?.email === review.user?.email ? (
             <div
               className="flex cursor-pointer items-center gap-x-2"
               onClick={() => {

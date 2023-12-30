@@ -8,7 +8,6 @@ import { useState } from "react";
 export default function RatingPageCard({ review, setReviews, reviews }: any) {
   //   console.log(rate);
   const { rate, comment, user, postDate } = review;
-  const session = useSession();
   function formatTimestamp(timestampStr: string): string {
     const date = new Date(timestampStr);
     const options: Intl.DateTimeFormatOptions = { day: "2-digit", month: "long", year: "numeric" };
@@ -23,7 +22,6 @@ export default function RatingPageCard({ review, setReviews, reviews }: any) {
             closeModal={() => {
               setIsReviewModalOpened(false);
             }}
-            isOwner={session?.data?.user?.email === user?.email}
             review={review}
             setReviews={setReviews}
             reviews={reviews}
