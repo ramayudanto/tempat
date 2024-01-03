@@ -96,10 +96,9 @@ export function translateToK(number: number) {
 }
 
 export function translatePriceRange(number: number) {
-  if (!number) return "-";
-  const symbols = ["$", "$$", "$$$"];
+  if (number === null) return "-";
   if (number === 0) {
-    return ">25K/org";
+    return "<25K/org";
   } else if (number === 1) {
     return "25K - 75K/org";
   } else if (number === 2) {
