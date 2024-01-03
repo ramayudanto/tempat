@@ -22,20 +22,16 @@ export default function MainPageModal({ closeModal }: any) {
   };
   return (
     <Backdrop onClick={closeModal}>
-      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl py-6 px-4 bg-white w-full max-w-[420px] fixed bottom-0 space-y-6" variants={dropIn} initial="hidden" animate="visible" exit="exit">
-        <div className="font-semibold text-2xl text-[#333333] flex gap-x-2 items-center">
-          <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M0 9C0 4.02944 4.02944 0 9 0C13.9706 0 18 4.02944 18 9C18 12.6785 15.9393 14.6862 14.0176 16.298C13.8145 16.4684 13.6153 16.6333 13.4208 16.7943C11.7005 18.2182 10.3531 19.3335 9.98058 21.1961C9.8871 21.6635 9.47668 22 9 22C8.52332 22 8.1129 21.6635 8.01942 21.1961C7.6469 19.3335 6.29947 18.2182 4.57915 16.7943C4.38469 16.6333 4.18547 16.4684 3.98236 16.298C2.06069 14.6862 0 12.6785 0 9ZM12 9C12 10.6569 10.6569 12 9 12C7.34315 12 6 10.6569 6 9C6 7.34315 7.34315 6 9 6C10.6569 6 12 7.34315 12 9Z"
-              fill="black"
-            />
-          </svg>
+      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl py-6 px-4 bg-white w-full max-w-[420px] fixed bottom-0 space-y-4" variants={dropIn} initial="hidden" animate="visible" exit="exit">
+        <div className="font-semibold text-base text-slate-700 flex gap-x-2 items-center">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 8.33331C2.5 4.19118 5.85786 0.833313 10 0.833313C14.1421 0.833313 17.5 4.19118 17.5 8.33331C17.5 11.3987 15.7828 13.0718 14.1814 14.415C14.0121 14.557 13.8461 14.6944 13.684 14.8285C12.2504 16.0152 11.1276 16.9446 10.8172 18.4967C10.7392 18.8863 10.3972 19.1666 10 19.1666C9.60277 19.1666 9.26075 18.8863 9.18285 18.4967C8.87242 16.9446 7.74956 16.0152 6.31596 14.8285C6.15391 14.6944 5.98789 14.557 5.81863 14.415C4.21724 13.0718 2.5 11.3987 2.5 8.33331ZM12.5 8.33331C12.5 9.71403 11.3807 10.8333 10 10.8333C8.61929 10.8333 7.5 9.71403 7.5 8.33331C7.5 6.9526 8.61929 5.83331 10 5.83331C11.3807 5.83331 12.5 6.9526 12.5 8.33331Z" fill="#333333"/>
+</svg>
+
           <p>Mau ganti lokasi?</p>
         </div>
-        <p className="text-[#333] text-opacity-60">Wah, maaf ya. Saat ini hanya tersedia di Jakarta aja.</p>
-        <button onClick={closeModal} className="bg-red-600 rounded-full w-full text-white px-5 py-3">
+        <p className="text-slate-500">Wah, belum bisa. Maaf ya saat ini hanya tersedia di Jakarta aja.</p>
+        <button onClick={closeModal} className="bg-brandPrimary600 rounded-full w-full text-white px-5 py-3 font-semibold">
           Tutup
         </button>
       </motion.div>

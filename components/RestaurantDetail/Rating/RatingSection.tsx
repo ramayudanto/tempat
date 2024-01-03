@@ -33,7 +33,7 @@ export default function RatingSection() {
         <div className="flex justify-between items-center mb-6">
           <p className="font-semibold">Apa kata orang</p>
           <p
-            className="text-red-600 text-xs font-medium cursor-pointer"
+            className="text-brandPrimary600 text-xs font-medium cursor-pointer"
             onClick={() => {
               captureEvent("See Full Review button");
               const path = router.asPath;
@@ -60,7 +60,7 @@ export default function RatingSection() {
               setIsOpen(true);
             }
           }}
-          className={`text-gray-600 cursor-pointer text-xs text-center border-t-2 mt-10 pt-2`}
+          className={`text-gray-700 cursor-pointer text-center text-sm font-medium leading-[18px] border-t-2 mt-10 pt-2`}
         >
           Tulis review yuk!
         </p>

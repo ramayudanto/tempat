@@ -23,14 +23,14 @@ export default function User({ user, route }: any) {
               />
             </svg>
           )}
-          <p className={`${(route === "/account" || route === "/account/edit") && "text-darkRed font-medium"}`}>Akun</p>
+          <p className={`${(route === "/account" || route === "/account/edit") && "text-brandPrimary600 font-medium"}`}>Akun</p>
         </a>
       </Link>
     );
   }
   return (
     <Link href={"/login"}>
-      <a className={`flex flex-col items-center w-[20%]  ${route === "/login" && "text-darkRed font-medium"}`}>
+      <a className={`flex flex-col items-center w-[20%]  ${route === "/login" && "text-brandPrimary600 font-medium"}`}>
         {route === "/login" ? (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
             <path

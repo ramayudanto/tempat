@@ -115,7 +115,7 @@ export default function CreateRating({ cancel, restaurant }: any) {
           <RatingForm commentRef={commentRef} imageUpload={imageUpload} setImageUpload={setImageUpload} submitRating={submitRating} />
           {/* <RatingForm commentRef={commentRef} submitRating={submitRating} session={session} /> */}
         </div>
-        <Toast message={"Review posted!"} ref={toastRef} />
+        <Toast message={"Review berhasil!"} ref={toastRef} />
       </div>
     </Backdrop>
   );
