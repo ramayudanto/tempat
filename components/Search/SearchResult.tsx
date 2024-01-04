@@ -37,7 +37,7 @@ export default function SearchResult({ query }: any) {
   const [data, setData] = useState<any[]>([]);
   const [originalData, setOriginalData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [filter, setFilter] = useState<number | null>(null);
+  const [filter, setFilter] = useState<any[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [highestPrice, setHighestPrice] = useState<Number>(0);
   const router = useRouter();
@@ -58,8 +58,9 @@ export default function SearchResult({ query }: any) {
   // }, [filter]);
 
   useEffect(() => {
-    if (filter === null) return;
-    const filtered = originalData.filter((item: any) => Number(item.price_level) === filter);
+    // if (filter === null) return;
+    if (filter.length === 0) return;
+    const filtered = originalData.filter((item) => filter.includes(Number(item.price_level))).sort((a, b) => Number(a.price_level) - Number(b.price_level));
     setData(filtered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
@@ -83,7 +84,7 @@ export default function SearchResult({ query }: any) {
   // }, [data]);
 
   if (!isLoading) {
-    if (originalData.length === 0 || (filter !== null && data.length === 0)) {
+    if (filter.length !== 0 && data.length === 0) {
       return (
         <>
           <div className="flex items-center gap-x-2 overflow-x-scroll mb-4">
@@ -92,14 +93,26 @@ export default function SearchResult({ query }: any) {
                 <p
                   key={item.id}
                   onClick={() => {
-                    if (filter === item.id) {
-                      setFilter(null);
-                    } else {
-                      setFilter(item.id);
-                      captureEvent("set search filter", { origin: "search page", "filter query": item.name });
-                    }
+                    // if (filter === item.id) {
+                    //   setFilter(null);
+                    // } else {
+                    const priceLevel = Number(item.id);
+                    setFilter((prevFilter: any) => {
+                      // Check if the priceLevel is already in the filter array
+                      if (prevFilter.includes(priceLevel)) {
+                        // Remove the priceLevel from the filter
+                        return prevFilter.filter((level: any) => level !== priceLevel);
+                      } else {
+                        // Add the priceLevel to the filter
+                        captureEvent("set search filter", { origin: "search page", "filter query": item.name });
+                        return [...prevFilter, priceLevel];
+                      }
+                    });
+                    // }
                   }}
-                  className={`rounded-md border-[1px] py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm ${filter === item.id ? "text-[#B42318] border-[#FECDCA] bg-[#FEF3F2]" : "text-[#344054] border-[#EAECF0] bg-[#F9FAFB]"}}`}
+                  className={`rounded-md border-[1px] py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm ${
+                    filter.includes(item.id) ? "text-[#B42318] border-[#FECDCA] bg-[#FEF3F2]" : "text-[#344054] border-[#EAECF0] bg-[#F9FAFB]"
+                  }`}
                 >
                   {item.name}
                 </p>
@@ -124,14 +137,26 @@ export default function SearchResult({ query }: any) {
                 <p
                   key={item.id}
                   onClick={() => {
-                    if (filter === item.id) {
-                      setFilter(null);
-                    } else {
-                      setFilter(item.id);
-                      captureEvent("set search filter", { origin: "search page", "filter query": item.name });
-                    }
+                    // if (filter === item.id) {
+                    //   setFilter(null);
+                    // } else {
+                    const priceLevel = Number(item.id);
+                    setFilter((prevFilter: any) => {
+                      // Check if the priceLevel is already in the filter array
+                      if (prevFilter.includes(priceLevel)) {
+                        // Remove the priceLevel from the filter
+                        return prevFilter.filter((level: any) => level !== priceLevel);
+                      } else {
+                        // Add the priceLevel to the filter
+                        captureEvent("set search filter", { origin: "search page", "filter query": item.name });
+                        return [...prevFilter, priceLevel];
+                      }
+                    });
+                    // }
                   }}
-                  className={`rounded-md border-[1px] py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm ${filter === item.id ? "text-[#B42318] border-[#FECDCA] bg-[#FEF3F2]" : "text-[#344054] border-[#EAECF0] bg-[#F9FAFB]"}}`}
+                  className={`rounded-md border-[1px] py-1 px-2 font-medium w-max shrink-0 cursor-pointer text-sm ${
+                    filter.includes(item.id) ? "text-[#B42318] border-[#FECDCA] bg-[#FEF3F2]" : "text-[#344054] border-[#EAECF0] bg-[#F9FAFB]"
+                  }`}
                 >
                   {item.name}
                 </p>
@@ -139,7 +164,7 @@ export default function SearchResult({ query }: any) {
             })}
           </div>
           <div className="flex flex-col gap-y-4 pb-20">
-            {filter !== null
+            {filter.length !== 0
               ? data.map((restaurant: any, i: any, row: any) => {
                   if (i + 1 === row.length) {
                     return <CategoryCard routePath={routePath} i={i} key={i} restaurant={restaurant} isLast={true} />;
