@@ -15,7 +15,7 @@ export default function RecentSearch({ data, setSearchQuery, insert }: any) {
               insert(item);
               router.push(`/search?q=${item}`, undefined, { shallow: true });
             }}
-            className="rounded-full font-regular text-xs bg-darkGray bg-opacity-10 px-4 py-2 cursor-pointer"
+            className="rounded-full font-medium text-xs text-gray-700 border-gray-200 border-[1px]  px-4 py-2 cursor-pointer"
           >
             {item}
           </p>

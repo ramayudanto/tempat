@@ -10,11 +10,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
 
   const fourCategories = await prisma.category.findMany({
-    take: 4,
-    orderBy: {
-      restaurants: {
-        _count: "desc",
-      },
+    where: {
+      OR: [{ name: "Jepang" }, { name: "Burger" }, { name: "Kopi" }, { name: "Barat" }],
     },
   });
 

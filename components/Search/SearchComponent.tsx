@@ -66,13 +66,13 @@ export default function Search({ fourCategories }: any) {
         <>
           {recentSearch.length !== 0 && (
             <>
-              <p className="font-semibold text-sm mb-2">Pencarian terakhir</p>
+              <p className="font-semibold text-sm mb-2 text-slate-700">Pencarian terakhir</p>
               <RecentSearchQuery insert={insertRecentQuery} setSearchQuery={setSearchQuery} data={recentSearch} />
             </>
           )}
           {recentSearchRestaurant.length !== 0 && (
             <>
-              <p className="font-semibold text-sm mb-2">Terakhir kamu liat</p>
+              <p className="font-semibold text-sm mb-2 text-slate-700">Terakhir kamu liat</p>
               <div className={`flex overflow-x-scroll gap-2`}>
                 {recentSearchRestaurant.map((restaurant: any, i: number) => {
                   // return <RecentSearchCard key={i} restaurant={restaurant} />;
