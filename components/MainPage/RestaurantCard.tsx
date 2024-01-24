@@ -45,12 +45,13 @@ export default function RestaurantCard({ restaurant }: any) {
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M1.5 5C1.5 2.51472 3.51472 0.5 6 0.5C8.48528 0.5 10.5 2.51472 10.5 5C10.5 6.26309 9.92658 7.37012 9.14614 8.38351C8.49398 9.23032 7.65917 10.0579 6.82532 10.8845L6.82473 10.8851C6.66723 11.0412 6.50976 11.1973 6.35355 11.3536C6.15829 11.5488 5.84171 11.5488 5.64645 11.3536C5.49013 11.1972 5.3322 11.0407 5.17458 10.8844C4.34073 10.0578 3.50602 9.23032 2.85386 8.38351C2.07342 7.37012 1.5 6.26309 1.5 5ZM7.5 5C7.5 5.82843 6.82843 6.5 6 6.5C5.17157 6.5 4.5 5.82843 4.5 5C4.5 4.17157 5.17157 3.5 6 3.5C6.82843 3.5 7.5 4.17157 7.5 5Z"
-                className="fill-brandPrimary600"
+                className="fill-slate-500"
               />
             </svg>
-            <p className="text-xs text-lightGray">{truncate(locationBroad.short_name || locationBroad.long_name, 14)}</p>
+            <p className="text-xs text-lightGray">{truncate(locationBroad.short_name || locationBroad.long_name, 18)}</p>
           </div>
-          <div className="flex items-center gap-x-[2px]">
+          {/* ini section buat rating */}
+          {/* <div className="flex items-center gap-x-[2px]"> 
             <div className="flex items-center gap-x-[2px]">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -63,7 +64,8 @@ export default function RestaurantCard({ restaurant }: any) {
             </div>
             <p className="text-lightGray text-opacity-70 text-xs">|</p>
             <p className="text-xs text-lightGray">{restaurant.ratingCount === 0 ? translateToK(totalRate) : translateToK(restaurant.ratingCount)} Ulasan</p>
-          </div>
+          </div> */}
+          {/* ini section buat category */}
           <div className="flex gap-x-1 overflow-hidden">
             {category.length !== 0 ? (
               category.map((item: any, i: any, row: any) => {
@@ -87,11 +89,11 @@ export default function RestaurantCard({ restaurant }: any) {
           </div>
 
           <p className=" text-darkGray text-opacity-70 text-xs">{translatePriceRange(priceRange)}</p>
-          {!opening_hours ? (
+          {/* {!opening_hours ? (
             <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(OpeningHoursV2).toLowerCase() === "buka" ? "text-green" : "text-slate-500"}`}>{isRestaurantOpen(OpeningHoursV2)}</p>
           ) : (
             <p className={`self-stretch text-xs not-italic font-normal leading-[normal] ${isRestaurantOpen(opening_hours).toLowerCase() === "buka" ? "text-green" : "text-slate-500"}`}>{isRestaurantOpen(opening_hours)}</p>
-          )}
+          )} */}
           {/* <p className="text-darkGray text-opacity-70 text-xs">{priceLogic(priceRange)}</p> */}
         </div>
       </a>

@@ -57,9 +57,9 @@ export default function LoginPage({ closeLogin }: any) {
           </p>
         </div>
         <div className="flex items-center justify-evenly my-5">
-          <hr className="border-t-[2px] w-1/4" />
-          <p className="font-medium text-darkGray text-opacity-80"> atau gunakan akun</p>
-          <hr className="border-t-[2px] w-1/4" />
+          <hr className="border-t-[2px] w-1/3" />
+          <p className="font-medium text-slate-500 text-xs"> atau gunakan</p>
+          <hr className="border-t-[2px] w-1/3" />
         </div>
         <div className="flex items-center justify-around">
           <button

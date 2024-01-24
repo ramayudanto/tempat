@@ -45,9 +45,9 @@ export default function Search({ fourCategories }: any) {
   }, [debouncedText]);
 
   return (
-    <div className="w-screen transition-all pt-10 px-4 pb-24 overflow-x-hidden overflow-y-scroll h-screen mx-auto bg-white max-w-[420px]">
+    <div className="w-screen transition-all pt-10 px-4 pb-24 overflow-x-hidden overflow-y-scroll min-h-screen mx-auto bg-white max-w-[420px]">
       {!searchQuery && <p className="text-3xl font-semibold text-darkGray mb-6">Cari</p>}
-      <div className="flex gap-x-2  items-center mb-4 ">
+      <div className="flex gap-x-2  items-center mb-4">
         {searchQuery && (
           <button
             className="flex w-9 h-9 justify-center items-center gap-2 shadow-[0px_1px_2px_0px_rgba(16,24,40,0.06),0px_1px_3px_0px_rgba(16,24,40,0.10)] p-2 rounded-[1000px]"
@@ -72,7 +72,7 @@ export default function Search({ fourCategories }: any) {
           )}
           {recentSearchRestaurant.length !== 0 && (
             <>
-              <p className="font-semibold text-sm mb-2 text-slate-700">Terakhir kamu liat</p>
+              <p className="font-semibold text-sm mb-2 text-slate-700">Yang sempet kamu lihat</p>
               <div className={`flex overflow-x-scroll gap-2`}>
                 {recentSearchRestaurant.map((restaurant: any, i: number) => {
                   // return <RecentSearchCard key={i} restaurant={restaurant} />;
@@ -82,6 +82,7 @@ export default function Search({ fourCategories }: any) {
             </>
           )}
           <MostSearched fourCategories={fourCategories} />
+          {/* <div className="h-[80px]" ></div> */}
         </>
       ) : (
         <SearchResult query={router.query.q} />

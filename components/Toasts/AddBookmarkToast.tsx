@@ -24,9 +24,9 @@ const Toast = forwardRef(function Inside({ message }: any, ref: any) {
           />
         </svg>
       </div>
-      <div className="text-[#344054] text-xs space-y-1">
-        <p className="font-semibold">Tambah Bookmark Berhasil</p>
-        <p>Sip, restonya udah masuk ke koleksimu.</p>
+      <div className="text-xs space-y-1">
+        <p className="font-semibold text-slate-700">Tambah Bookmark Berhasil</p>
+        <p className="text-slate-500 font-regular">Sip, restonya udah masuk ke koleksimu.</p>
       </div>
     </div>
   ) : (

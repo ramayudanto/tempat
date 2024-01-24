@@ -3,30 +3,49 @@ import React from "react";
 
 export default function TopSection({ restaurant, rating, setRating }: any) {
   const locationBroad = restaurant.address_components.find((component: any) =>
-    component.types.includes("administrative_area_level_4" || "administrative_area_level_3" || "administrative_area_level_2" || "administrative_area_level_1" || "country")
+    component.types.includes(
+      "administrative_area_level_4" ||
+        "administrative_area_level_3" ||
+        "administrative_area_level_2" ||
+        "administrative_area_level_1" ||
+        "country"
+    )
   ) || { short_name: "Unknown", long_name: "Unknown" };
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <p className="font-semibold text-darkGray text-xl">{restaurant.gofood_name}</p>
-        <div className="bg-green flex items-center px-3 py-2 rounded gap-x-1">
-          <p className="text-white font-semibold text-sm">{rating.ratingCount === 0 ? restaurant.rating : (rating.ratingSum / rating.ratingCount).toFixed(1)}</p>
-          <svg viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 -mt-[2px]">
-            <path
-              d="M8.36824 3.44812L5.88874 3.08777L4.78035 0.840702C4.75007 0.779178 4.70027 0.729374 4.63874 0.6991C4.48445 0.622928 4.29695 0.686405 4.2198 0.840702L3.1114 3.08777L0.631908 3.44812C0.563549 3.45789 0.501049 3.49012 0.453197 3.53894C0.395347 3.5984 0.363469 3.6784 0.364568 3.76135C0.365667 3.8443 0.399652 3.92342 0.459057 3.98133L2.253 5.73035L1.82917 8.20008C1.81923 8.25753 1.82559 8.31661 1.84753 8.37064C1.86946 8.42466 1.90609 8.47145 1.95326 8.50572C2.00044 8.53998 2.05627 8.56034 2.11443 8.56449C2.17258 8.56863 2.23074 8.5564 2.2823 8.52918L4.50007 7.36316L6.71785 8.52918C6.77839 8.5614 6.84871 8.57215 6.91609 8.56043C7.08601 8.53113 7.20027 8.37 7.17097 8.20008L6.74714 5.73035L8.54109 3.98133C8.58992 3.93348 8.62214 3.87098 8.63191 3.80262C8.65828 3.63172 8.53914 3.47351 8.36824 3.44812Z"
-              fill="white"
-            />
+      <div className="flex items-start justify-between">
+        <p className="font-semibold text-darkGray text-xl">
+          {restaurant.gofood_name}
+        </p>
+        <div className="bg-slate-100 flex items-center px-2 py-2 rounded gap-x-1">
+          <p className="text-slate-500 font-semibold text-xs">
+            {rating.ratingCount === 0
+              ? restaurant.rating
+              : (rating.ratingSum / rating.ratingCount).toFixed(1)}
+          </p>
+          <svg
+            viewBox="0 0 9 9"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-3 h-3 -mt-[2px] fill-slate-500"
+          >
+            <path d="M8.36824 3.44812L5.88874 3.08777L4.78035 0.840702C4.75007 0.779178 4.70027 0.729374 4.63874 0.6991C4.48445 0.622928 4.29695 0.686405 4.2198 0.840702L3.1114 3.08777L0.631908 3.44812C0.563549 3.45789 0.501049 3.49012 0.453197 3.53894C0.395347 3.5984 0.363469 3.6784 0.364568 3.76135C0.365667 3.8443 0.399652 3.92342 0.459057 3.98133L2.253 5.73035L1.82917 8.20008C1.81923 8.25753 1.82559 8.31661 1.84753 8.37064C1.86946 8.42466 1.90609 8.47145 1.95326 8.50572C2.00044 8.53998 2.05627 8.56034 2.11443 8.56449C2.17258 8.56863 2.23074 8.5564 2.2823 8.52918L4.50007 7.36316L6.71785 8.52918C6.77839 8.5614 6.84871 8.57215 6.91609 8.56043C7.08601 8.53113 7.20027 8.37 7.17097 8.20008L6.74714 5.73035L8.54109 3.98133C8.58992 3.93348 8.62214 3.87098 8.63191 3.80262C8.65828 3.63172 8.53914 3.47351 8.36824 3.44812Z" />
           </svg>
         </div>
       </div>
-      <div className="flex gap-x-2">
-        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="">
-          <path
-            d="M6 0C2.68286 0 0 2.504 0 5.6C0 9.8 6 16 6 16C6 16 12 9.8 12 5.6C12 2.504 9.31714 0 6 0ZM6 7.6C4.81714 7.6 3.85714 6.704 3.85714 5.6C3.85714 4.496 4.81714 3.6 6 3.6C7.18286 3.6 8.14286 4.496 8.14286 5.6C8.14286 6.704 7.18286 7.6 6 7.6Z"
-            fill="#E63131"
-          />
+      <div className="flex gap-x-2 items-center fill-slate-500">
+        <svg
+          width="10"
+          height="12"
+          viewBox="0 0 12 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M6 0C2.68286 0 0 2.504 0 5.6C0 9.8 6 16 6 16C6 16 12 9.8 12 5.6C12 2.504 9.31714 0 6 0ZM6 7.6C4.81714 7.6 3.85714 6.704 3.85714 5.6C3.85714 4.496 4.81714 3.6 6 3.6C7.18286 3.6 8.14286 4.496 8.14286 5.6C8.14286 6.704 7.18286 7.6 6 7.6Z" />
         </svg>
-        <p className="font-medium text-sm text-lightGray">{locationBroad.short_name || locationBroad.long_name || "Tidak ditemukan"}</p>
+        <p className="font-medium text-sm text-slate-500">
+          {locationBroad.short_name ||
+            locationBroad.long_name ||
+            "Tidak ditemukan"}
+        </p>
       </div>
       <div className="flex gap-x-1 overflow-hidden">
         {/* {restaurant?.category.map((item: any, i: any, row: any) => {

@@ -64,10 +64,10 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
           </svg>
         </button>
         <input
-          placeholder="Bakmie? Ayam? Kopi? Ada Semua!"
+          placeholder="Lagi mood apa nihh?? Croissant? Latte? Ramen?"
           type="text"
           name=""
-          className="w-[90%] outline-none p-1 text-sm placeholder:text-xs placeholder:font-normal"
+          className="w-[90%] outline-none p-1 text-xs placeholder:text-xs placeholder:font-normal"
           spellCheck={false}
           value={search}
           onChange={(e: any) => {

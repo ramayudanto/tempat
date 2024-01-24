@@ -79,7 +79,7 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm font-medium text-sate-700">Koleksi tempatmu</p>
+              <p className="text-sm font-semibold text-sate-700">Koleksi tempatmu</p>
               <p className="text-[#667085] text-xs">
                 Cek lagi restoran yang pernah kamu simpan
               </p>
@@ -105,7 +105,7 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm font-medium text-sate-700">Kumpulan Review-mu</p>
+              <p className="text-sm font-semibold text-sate-700">Kumpulan Review-mu</p>
               <p className="text-[#667085] text-xs">
                 Lihat tempat yang udah pernah kamu review
               </p>

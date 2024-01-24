@@ -22,13 +22,12 @@ export default function LoginPrompt() {
             Udah punya akun belum?
           </h4>
           <p className="text-sm text-slate-500">
-            Buat akun atau masuk dulu yuk. Koleksi menu-menu lezat biar kamu selalu
-            inget!
+            Buat akun atau masuk dulu yuk biar bisa simpen koleksi restoran favoritmu!
           </p>
         </div>
       </div>
       <button
-        className="bg-red-50 p-3 font-bold text-red-700 text-sm rounded-lg"
+        className="bg-brandPrimary50 p-3 font-bold text-brandPrimary600 text-sm rounded-full"
         onClick={loginclick}
       >
         Gabung Sekarang
