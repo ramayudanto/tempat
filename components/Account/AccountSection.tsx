@@ -53,7 +53,7 @@ export default function AccountSection({ user }: any) {
       </div>
       <div className="mt-[128px] py-6 text-[#404968] px-4 space-y-6">
         <Divider />
-        <p className="font-semibold ml-1">Aktivitas</p>
+        <p className="font-semibold ml-1 text-slate-700">Aktivitas</p>
         <div className="rounded-xl border-[1px] border-[#EFF1F]">
           <div
             className="p-4 flex gap-x-4"
@@ -65,13 +65,13 @@ export default function AccountSection({ user }: any) {
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              fill="none"
+              fill="#D12D2D"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect width="24" height="24" rx="12" fill="#FDEAEA" />
               <path
                 d="M7.3335 9.2C7.3335 8.0799 7.3335 7.51984 7.55148 7.09202C7.74323 6.71569 8.04919 6.40973 8.42552 6.21799C8.85334 6 9.41339 6 10.5335 6H13.4668C14.5869 6 15.147 6 15.5748 6.21799C15.9511 6.40973 16.2571 6.71569 16.4488 7.09202C16.6668 7.51984 16.6668 8.0799 16.6668 9.2V18L12.0002 15.3333L7.3335 18V9.2Z"
-                stroke="#D12D2D"
+                stroke=""
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -79,8 +79,8 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm font-semibold text-sate-700">Koleksi tempatmu</p>
-              <p className="text-[#667085] text-xs">
+              <p className="text-sm font-medium text-slate-700">Koleksi tempatmu</p>
+              <p className="text-slate-500 text-xs">
                 Cek lagi restoran yang pernah kamu simpan
               </p>
             </div>
@@ -91,13 +91,13 @@ export default function AccountSection({ user }: any) {
               width="24"
               height="24"
               viewBox="0 0 24 24"
-              fill="none"
+              fill="#4FAB5E"
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect width="24" height="24" rx="12" fill="#EAFBF0" />
               <path
                 d="M11.5219 6.30217C11.6756 5.99088 11.7524 5.83523 11.8567 5.7855C11.9475 5.74224 12.0529 5.74224 12.1436 5.7855C12.2479 5.83523 12.3248 5.99088 12.4784 6.30217L13.9362 9.25548C13.9816 9.34738 14.0042 9.39333 14.0374 9.42901C14.0667 9.4606 14.1019 9.48619 14.141 9.50437C14.1852 9.52491 14.2359 9.53232 14.3373 9.54714L17.5982 10.0238C17.9415 10.074 18.1132 10.099 18.1927 10.1829C18.2618 10.2559 18.2943 10.3562 18.2812 10.4558C18.266 10.5703 18.1417 10.6914 17.8931 10.9335L15.5345 13.2309C15.4609 13.3025 15.4242 13.3383 15.4004 13.3809C15.3794 13.4187 15.366 13.4601 15.3608 13.503C15.3549 13.5514 15.3636 13.602 15.3809 13.7031L15.9375 16.948C15.9962 17.2903 16.0255 17.4614 15.9704 17.563C15.9224 17.6513 15.8371 17.7133 15.7382 17.7316C15.6246 17.7527 15.4709 17.6719 15.1636 17.5102L12.2484 15.9772C12.1576 15.9294 12.1122 15.9055 12.0643 15.8961C12.022 15.8878 11.9784 15.8878 11.936 15.8961C11.8882 15.9055 11.8428 15.9294 11.7519 15.9772L8.83678 17.5102C8.52944 17.6719 8.37577 17.7527 8.26214 17.7316C8.16328 17.7133 8.07798 17.6513 8.02999 17.563C7.97483 17.4614 8.00418 17.2903 8.06288 16.948L8.61942 13.7031C8.63677 13.602 8.64545 13.5514 8.63958 13.503C8.63438 13.4601 8.6209 13.4187 8.5999 13.3809C8.57618 13.3383 8.53941 13.3025 8.46589 13.2309L6.1072 10.9335C5.8586 10.6914 5.73431 10.5703 5.71918 10.4558C5.70602 10.3562 5.73853 10.2559 5.80766 10.1829C5.88712 10.099 6.05881 10.074 6.40219 10.0238L9.66304 9.54714C9.76445 9.53232 9.81515 9.52491 9.85931 9.50437C9.89841 9.48619 9.9336 9.4606 9.96295 9.42901C9.9961 9.39333 10.0188 9.34738 10.0641 9.25548L11.5219 6.30217Z"
-                stroke="#4FAB5E"
+                stroke=""
                 stroke-width="1.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -105,8 +105,8 @@ export default function AccountSection({ user }: any) {
             </svg>
 
             <div>
-              <p className="text-sm font-semibold text-sate-700">Kumpulan Review-mu</p>
-              <p className="text-[#667085] text-xs">
+              <p className="text-sm font-medium text-slate-700">Kumpulan Reviewmu</p>
+              <p className="text-slate-500 text-xs">
                 Lihat tempat yang udah pernah kamu review
               </p>
             </div>
