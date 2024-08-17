@@ -37,8 +37,8 @@ export default function LoginPage({ closeLogin }: any) {
   return (
     <>
       <Header title={"Login"} />
-      <Toast message="Login successfull" color="green" ref={toastRef} />
-      <Toast message="Wrong password" ref={errorToastRef} />
+      <Toast message="Berhasil masuk!" color="green" ref={toastRef} />
+      <Toast message="Salah Password" ref={errorToastRef} />
       <div className="px-4 py-6 bg-white flex flex-col gap-y-5 relative z-10 h-full">
         <div className="text-center">
           <p className="font-semibold text-xl text-darkGray">Masuk</p>
@@ -48,7 +48,7 @@ export default function LoginPage({ closeLogin }: any) {
         <div className="text-sm flex justify-between cursor-pointer">
           <p>Belum punya akun?</p>
           <p
-            className="text-red-600 text-sm font-semibold"
+            className="text-brandPrimary600 text-sm font-semibold"
             onClick={() => {
               router.push("/signup");
             }}
@@ -57,9 +57,9 @@ export default function LoginPage({ closeLogin }: any) {
           </p>
         </div>
         <div className="flex items-center justify-evenly my-5">
-          <hr className="border-t-[2px] w-1/4" />
-          <p className="font-medium text-darkGray text-opacity-80"> atau gunakan akun</p>
-          <hr className="border-t-[2px] w-1/4" />
+          <hr className="border-t-[2px] w-1/3" />
+          <p className="font-medium text-slate-500 text-xs"> atau gunakan</p>
+          <hr className="border-t-[2px] w-1/3" />
         </div>
         <div className="flex items-center justify-around">
           <button

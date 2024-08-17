@@ -22,6 +22,7 @@ import { captureEvent } from "../lib/posthog";
 import useDebounce from "../lib/useDebounce";
 import MostSearched from "../components/Search/MostSearched";
 import RestoOfTheDay from "../components/MainPage/RestoOfTheDay";
+import RibbonCard from "../components/design-system/RibbonCard";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -31,6 +32,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const skipResto = Math.floor(Math.random() * countResto);
   const skipCategory = Math.floor(Math.random() * 11) + 1;
   const restoran = await prisma.restaurantV2.findMany({
+    where: {
+      isPublic: true,
+    },
     select: {
       gofood_name: true,
       address_components: true,
@@ -39,8 +43,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       categories: true,
       price_level: true,
       thumbnail: true,
-      opening_hours: true,
+      OpeningHoursV2: true,
       place_id: true,
+      ratingCount: true,
+      ratingSum: true,
     },
     take: 10,
     skip: skipResto,
@@ -104,21 +110,18 @@ export default function Home({ restaurant, categories, user, restoran, fourCateg
   return (
     <>
       <Header title="Home" />
-      <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px]">
-        <Jumbotron search={search} setSearch={setSearch} />
-        {/* <CategoryList categories={categories} /> */}
-        {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+      <Jumbotron search={search} setSearch={setSearch} />
+      {/* <CategoryList categories={categories} /> */}
+      {search.length !== 0 && <MainPageSearch data={searchData} isLoading={isLoading} />}
+      <div className="pb-20 overflow-hidden mx-auto bg-white max-w-[420px] space-y-8">
         <div className="px-4 pt-3">
           <MostSearched fourCategories={fourCategories} />
         </div>
-        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu 🧡"} searchCategory={null} />
-        <div className="px-4 mt-5">
-          <RestoOfTheDay />
-        </div>
-        <RestaurantRow restaurants={restaurant} title={"Buat yang suka mie"} searchCategory={"Mie"} />
-        {/* RestoOfTheDayCard <div className="min-h-[150px] bg-gray-300 rounded-lg mx-4 mt-8"></div> */}
-        <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
+        <RestaurantRow restaurants={restaurant} title={"Rekomendasi untuk kamu"} searchCategory={null} />
+        <RestoOfTheDay />
         <RestaurantRow restaurants={restaurant} title={"Kita, Senja, dan Kopi"} searchCategory={"Kopi"} />
+        <RestaurantRow restaurants={restaurant} title={"Dessert penutup makan"} searchCategory={"Dessert"} />
+        <RestaurantRow restaurants={restaurant} title={"Dimsum & Bubur buat kamu"} searchCategory={"Chinese"} />
         <RestaurantRow restaurants={restaurant} title={"Irasshaimase. Cek kuliner jepang yuk!"} searchCategory={"Jepang"} />
         {/* <RestaurantRow search="Japanese" title={"Oriental taste"} />
         <RestaurantRow search="Noodles" title={"For noodle fan"} /> */}

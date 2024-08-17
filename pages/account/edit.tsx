@@ -133,7 +133,7 @@ export default function Edit({ user }: any) {
               <input className="border-2 bg-white w-full p-2 rounded-lg text text-darkGray cursor-not-allowed" disabled type="text" value={user.email} />
             </div>
             <EditPassword {...passwordProps} />
-            <button className="w-full py-3 rounded-full bg-red-600 text-white font-medium" type="submit">
+            <button className="w-full py-3 rounded-full bg-brandPrimary600 text-white font-medium" type="submit">
               Simpan
             </button>
           </form>

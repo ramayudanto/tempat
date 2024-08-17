@@ -96,10 +96,9 @@ export function translateToK(number: number) {
 }
 
 export function translatePriceRange(number: number) {
-  if (!number) return "-";
-  const symbols = ["$", "$$", "$$$"];
+  if (number === null) return "-";
   if (number === 0) {
-    return ">25K/org";
+    return "<25K/org";
   } else if (number === 1) {
     return "25K - 75K/org";
   } else if (number === 2) {
@@ -154,7 +153,7 @@ export function isRestaurantOpen(hours: OpeningHours): string {
 
   // return unavailable if there are no opening hours
   if (!hours[today]) {
-    return "Unavailable";
+    return "tdk tersedia";
   }
 
   // If the place is open 24/7, return "Open"
@@ -186,7 +185,7 @@ export function isRestaurantOpen(hours: OpeningHours): string {
     // If the current time doesn't fall within any of today's periods, the place is closed
     return "Tutup";
   } catch (e) {
-    return "Unavailable";
+    return "tdk tersedia";
   }
 }
 

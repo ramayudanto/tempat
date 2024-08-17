@@ -7,7 +7,7 @@ export default function RestoFacility({ restaurant }: any) {
   const { facilityRef, facilityDivRef } = useContext(ActiveSectionContext);
 
   return (
-    <div className="pb-24 space-y-4" ref={facilityDivRef}>
+    <div className="pb-2 space-y-4" ref={facilityDivRef}>
       <p className="text-[#333] text-sm font-semibold">Info Lainnya</p>
       <div className="grid grid-cols-2 gap-3">
         {serves_beer !== undefined && (
@@ -20,7 +20,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -38,7 +38,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -56,7 +56,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -74,7 +74,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -92,7 +92,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -110,7 +110,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -128,7 +128,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}
@@ -145,7 +145,7 @@ export default function RestoFacility({ restaurant }: any) {
                 />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 fill-red-600 -mr-1 text-brandPrimary600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             )}

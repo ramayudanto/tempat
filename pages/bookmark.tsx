@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         include: {
           categories: true,
           address_components: true,
-          opening_hours: true,
+          OpeningHoursV2: true,
         },
       },
     },

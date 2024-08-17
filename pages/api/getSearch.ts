@@ -42,10 +42,11 @@ export default async function handler(req: any, res: NextApiResponse) {
           contains: q,
           mode: "insensitive",
         },
+        isPublic: true,
       },
       include: {
         categories: true,
-        opening_hours: true,
+        OpeningHoursV2: true,
         address_components: true,
       },
     });
@@ -61,10 +62,11 @@ export default async function handler(req: any, res: NextApiResponse) {
             },
           },
         },
+        isPublic: true,
       },
       include: {
         categories: true,
-        opening_hours: true,
+        OpeningHoursV2: true,
         address_components: true,
       },
     });
@@ -94,10 +96,11 @@ export default async function handler(req: any, res: NextApiResponse) {
             },
           },
         ],
+        isPublic: true,
       },
       include: {
         categories: true,
-        opening_hours: true,
+        OpeningHoursV2: true,
         address_components: true,
       },
     });

@@ -9,31 +9,30 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
   const routePath = router.asPath.split("/")[1];
-  console.log(routePath);
   return (
     <div
-      className="relative h-[171px] bg-center flex items-center"
+      className="relative h-[171px] bg-center flex items-center mx-auto max-w-[420px]"
       style={{
         backgroundImage: `url("homepage-1.jpg")`,
         backgroundSize: "cover",
-        
       }}
     >
       <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
         {isModalOpen && <MainpageModal closeModal={() => setIsModalOpen(false)} />}
       </AnimatePresence>
-      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-[16px] flex flex-col items-start justify-center">
-        <p>Cari restoran paling enak <br /> di sekitar 
-        
-        <span 
-        className="ml-2 text-sm font-semibold bg-red-50 text-red-500 px-2 p-1 rounded-full"
-        onClick={() => {
-          setIsModalOpen(true);
-          captureEvent("change location button");
-        }}
-        >
-        Jakarta
-        </span></p>
+      <div className="text-white font-bold backdrop-brightness-50 w-full h-full px-[16px] flex flex-col items-start justify-center cursor-default">
+        <p>
+          Cari restoran paling enak <br /> di sekitar
+          <span
+            className="ml-2 text-sm font-semibold bg-brandPrimary50 text-brandPrimary600 px-2 p-1 rounded-full cursor-pointer"
+            onClick={() => {
+              setIsModalOpen(true);
+              captureEvent("change location button");
+            }}
+          >
+            Jakarta
+          </span>
+        </p>
         {/* <button
           className="flex items-center mt-1 gap-x-1 bg-red-50 text-red-500 px-2 p-1 rounded-full"
           onClick={() => {
@@ -65,10 +64,10 @@ export default function Jumbotron({ search, setSearch }: { search: string; setSe
           </svg>
         </button>
         <input
-          placeholder="Bakmie? Ayam? Kopi? Ada Semua!"
+          placeholder="Lagi mood apa nihh?? Croissant? Latte? Ramen?"
           type="text"
           name=""
-          className="w-[90%] outline-none p-1 text-sm placeholder:text-xs placeholder:font-normal"
+          className="w-[90%] outline-none p-1 text-xs placeholder:text-xs placeholder:font-normal"
           spellCheck={false}
           value={search}
           onChange={(e: any) => {

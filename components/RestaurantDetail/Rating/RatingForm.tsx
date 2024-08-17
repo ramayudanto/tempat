@@ -45,7 +45,7 @@ export default function RatingForm({ commentRef, submitRating, setImageUpload, i
             </div>
           )}
         </button>
-        <button className="bg-darkRed w-full py-3 rounded mt-5 text-white" type="submit">
+        <button className=" bg-customRed-600 text-white font-semibold rounded-lg min-h-[44px] w-full mt-4" type="submit">
           Kirim review
         </button>
       </form>

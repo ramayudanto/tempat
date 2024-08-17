@@ -9,7 +9,7 @@ import Header from "../Head/Header";
 export default function Menu({ restaurant }: any) {
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(-1);
   const [isSlideshowOpened, setIsSlideshowOpened] = useState<boolean>(false);
-  const { menu }: any = restaurant;
+  const { Menu: menu }: any = restaurant;
   const router = useRouter();
 
   return (
@@ -36,19 +36,8 @@ export default function Menu({ restaurant }: any) {
               router.back();
             }}
           >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 shrink-0"
-            >
-              <path
-                d="M19 12H5M5 12L12 19M5 12L12 5"
-                stroke="black"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 shrink-0">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
           <div className="flex flex-col">
@@ -70,7 +59,6 @@ export default function Menu({ restaurant }: any) {
                 {/* ini biar height image nya auto */}
                 <img src={item} alt={restaurant.name} />
                 <Image src={item} alt={restaurant.name} layout="fill" objectFit="cover" />
-                
               </div>
             );
           })}

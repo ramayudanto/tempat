@@ -10,7 +10,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
           Email
         </label>
         <div className="flex gap-x-2">
-          <input id="email" required spellCheck={false} type="email" className="border-[1px] w-full rounded outline-none p-2" placeholder="budi@gmail.com" ref={emailInputRef} />
+          <input id="email" required spellCheck={false} type="email" className="border-[1px] w-full rounded outline-none p-2 mt-1" placeholder="budi@gmail.com" ref={emailInputRef} />
           {/* <button onClick={test} className="w-[15%] bg-darkGray rounded text-xs text-white">
             Cek
           </button> */}
@@ -20,7 +20,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
       <label htmlFor="name" className="font-medium mb-2">
         Nama
       </label>
-      <input required id="name" type="text" className="border-[1px] mb-7 w-full rounded outline-none p-2" maxLength={20} placeholder="Budi" ref={nameInputRef} />
+      <input required id="name" type="text" className="border-[1px] mb-7 w-full rounded outline-none p-2 mt-1" maxLength={20} placeholder="Budi" ref={nameInputRef} />
       
       <div>
         <label htmlFor="pass" className="font-medium mb-2 darkGray">
@@ -30,7 +30,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
           required
           id="pass"
           type="password"
-          className="border-[1px] w-full rounded outline-none p-2"
+          className="border-[1px] w-full rounded outline-none p-2 mt-1"
           placeholder="**********"
           onChange={(e) => {
             isPasswordValid(e.currentTarget.value);
@@ -43,7 +43,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
           <li className={passwordState.number ? "text-green" : "text-darkGray"}>Menggunakan angka</li>
         </ul>
       </div>
-      <button type="submit" className="w-full py-4 mt-7 font-semibold text-white bg-customRed-600 rounded-full">
+      <button type="submit" className="w-full py-3 text-sm mt-7 font-semibold text-white bg-customRed-600 rounded-full">
         Buat Akun
       </button>
       <div className="flex items-center justify-evenly my-5">
@@ -54,7 +54,7 @@ export default function SignUpForm({ emailInputRef, isPasswordValid, passwordSta
       <div className="bg-white text-sm flex justify-between mt-5">
         <p>Udah punya akun?</p>
         <p
-          className="text-red-600 text-sm font-semibold cursor-pointer"
+          className="text-brandPrimary600 text-sm font-semibold cursor-pointer"
           onClick={() => {
             router.push("/login");
           }}

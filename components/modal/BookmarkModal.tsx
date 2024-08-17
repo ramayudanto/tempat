@@ -23,7 +23,7 @@ export default function BookmarkModal({ closeModal }: any) {
   };
   return (
     <Backdrop onClick={closeModal}>
-      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] absolute bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
+      <motion.div onClick={(e) => e.stopPropagation()} className="rounded-t-3xl p-6 bg-white w-full max-w-[420px] fixed bottom-0 space-y-6" initial="hidden" animate="visible" exit="exit" variants={dropIn}>
         <div className="flex flex-col items-center gap-y-4">
           <p className=" font-semibold text-[#101828]">Simpan restoran favorit kamu!</p>
           <svg width="183" height="152" viewBox="0 0 183 152" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,19 +87,19 @@ export default function BookmarkModal({ closeModal }: any) {
               d="M116.364 98.5185L99.3974 86.3992L82.4303 98.5185V59.7367C82.4303 58.451 82.941 57.2179 83.8502 56.3088C84.7593 55.3997 85.9923 54.8889 87.278 54.8889H111.517C112.802 54.8889 114.035 55.3997 114.945 56.3088C115.854 57.2179 116.364 58.451 116.364 59.7367V98.5185Z"
               fill="#FDFCEE"
               stroke="#472B29"
-              stroke-width="2.49312"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2.49312"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <p className="text-[#475467] text-sm text-center">Koleksi menu-menu lezat yang kamu nikmati dan jaga agar kenangan kulinermu tetap hidup!</p>
         </div>
         <div className="font-semibold">
           <Link legacyBehavior href="/signup">
-            <a className="bg-red-600 text-white rounded-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
+            <a className="bg-brandPrimary600 text-white rounded-full px-4 py-2 mt-4 block text-center">Daftar Akun</a>
           </Link>
           <Link legacyBehavior href="/login">
-            <a className="bg-red-50 text-red-600 rounded-full px-4 py-2 mt-4 block text-center">Masuk</a>
+            <a className="bg-brandPrimary50 text-brandPrimary600 rounded-full px-4 py-2 mt-4 block text-center">Masuk</a>
           </Link>
         </div>
       </motion.div>
